@@ -17,6 +17,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 | Record Audio            | Entry from Audio     | Entry Inspiration      | PopUp Echo Message   |
 | ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![PopUp Echo Message](./img/PopUp%20Echo%20Message.png) |
 
+
 ## Features
 
 ### Höchste Priorität (MVP)
@@ -37,7 +38,9 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 ### Niedrige Priorität
 siehe unten -> Ausblick
 
+
 ## Technischer Aufbau
+
 
 #### Projektaufbau
 
@@ -106,7 +109,6 @@ Beispiele:
  
 •	Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts()).
  
-
 ##### 3. ViewModels
 
 Aufgabe: UI-Logik und Datenbereitstellung für die Views.
@@ -137,6 +139,8 @@ Beispiele:
  
 •	Sprache auswählen (LanguagePickerView).
 
+
+
 #### Datenspeicherung
 
 ##### Welche Daten?
@@ -156,6 +160,8 @@ Beispiele:
 •	Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
 
 Core Data wird derzeit nicht genutzt, kann jedoch später für einen Offline-Modus integriert werden.
+
+
 
 #### API Calls
 
