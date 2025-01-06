@@ -35,11 +35,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 - [ ] Audio Records to Text
 - [ ] Vokabel-Highlighting
 ### Niedrige Priorität
-- [ ] Sumaaries und Reviews von Wochen, Monaten, Jahrenanhand der Einträge
-- [ ] Andere User adden und Community-Features (Gemeinsames Tagebuch, Einträge teilen, ...)
-- [ ] Echo Customizing / personalisierter KI-Assistent
-- [ ] Gamification
-- [ ] Emotionstracker
+siehe unten -> Ausblick
 
 ## Technischer Aufbau
 
@@ -162,15 +158,18 @@ Beispiele:
 Core Data wird derzeit nicht genutzt, kann jedoch später für einen Offline-Modus integriert werden.
 
 #### API Calls
-Welche APIs verwendest du?
 
-#### 3rd-Party Frameworks
-Verwendest du Frameworks, die nicht von dir stammen? Bspw. Swift Packages für Firebase, fertige SwiftUI-Views o.Ä.? Gib diese hier an.
+LibreTranslate API: Übersetzung von Texten in die Zielsprache. Übersetzen von Tagebucheinträgen und Bereitstellen von Synonymen/Definitionen.
+
+Warum: Open-Source-Lösung ohne Lizenzkosten. Unterstützt mehrere Sprachen.
+
+Zukünftige API-Erweiterungen wie Text-to-Speech oder Maps können später ergänzt werden.
 
 
 ## Ausblick
-Beschreibe hier, wo die Reise nach deinem Praxisprojekt hin geht. Was möchtest du in Zukunft noch ergänzen?
 
-- [ ] Geplantes Feature 1
-- [ ] Geplantes Feature 2
-- [ ] ...
+- [ ] Summaries und Reviews von Wochen, Monaten, Jahrenanhand der Einträge
+- [ ] Andere User adden und Community-Features (Gemeinsames Tagebuch, Einträge teilen, ...)
+- [ ] Echo Customizing / personalisierter KI-Assistent
+- [ ] Gamification
+- [ ] Emotionstracker
