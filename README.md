@@ -35,8 +35,8 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 - [ ] Audio Records to Text
 - [ ] Vokabel-Highlighting
 ### Niedrige Priorität
-- [ ] Freunde adden
-- [ ] Community-Features (Gemeinsames Tagebuch, Einträge teilen, ...)
+- [ ] Sumaaries und Reviews von Wochen, Monaten, Jahrenanhand der Einträge
+- [ ] Andere User adden und Community-Features (Gemeinsames Tagebuch, Einträge teilen, ...)
 - [ ] Echo Customizing / personalisierter KI-Assistent
 - [ ] Gamification
 - [ ] Emotionstracker
