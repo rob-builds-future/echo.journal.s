@@ -11,9 +11,18 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 Füge hier am Ende die Screenshots deiner App ein (achte hierbei auf die Guidelines).
 
 <p>
-  <img src="./img/screen1.png" width="200">
-  <img src="./img/screen2.png" width="200">
-  <img src="./img/screen3.png" width="200">
+  <img src="./img/App Landing.png" width="200">
+  <img src="./img/Sign In.png" width="200">
+  <img src="./img/echo onboarding.png" width="200">
+  <img src="./img/Home List.png" width="200">
+  <img src="./img/New Entry.png" width="200">
+  <img src="./img/Pop up Change Delete.png" width="200">
+  <img src="./img/Language Picker.png" width="200">
+  <img src="./img/Entry translated.png" width="200">
+  <img src="./img/Record Audio.png" width="200">
+  <img src="./img/Entry from Audio.png" width="200">
+  <img src="./img/Echo Entry Inspiration.png" width="200">
+  <img src="./img/Popup Echo Message.png" width="200">
 </p>
 
 
