@@ -13,7 +13,7 @@ Füge hier am Ende die Screenshots deiner App ein (achte hierbei auf die Guideli
 <p>
   <img src="./img/App Landing.png" width="200">
   <img src="./img/Sign In.png" width="200">
-  <img src="./img/echo onboarding.png" width="200">
+  <img src="./img/echo onboading.png" width="200">
   <img src="./img/Home List.png" width="200">
   <img src="./img/New Entry.png" width="200">
   <img src="./img/Pop up Change Delete.png" width="200">
