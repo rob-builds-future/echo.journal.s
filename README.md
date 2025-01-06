@@ -45,8 +45,11 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 #### Projektaufbau
 echo/
+
 ├── Models/
+
 │   ├── Entry.swift
+
 │   ├── User.swift
 │   ├── Translation.swift
 │   ├── Prompt.swift
