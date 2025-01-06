@@ -8,69 +8,16 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 
 ## Design
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
+## Design
+Füge hier am Ende die Screenshots deiner App ein (achte hierbei auf die Guidelines).
 
-  <div>
-    <img src="./img/App Landing.png" width="200" alt="App Landing">
-    <p>App Landing</p>
-  </div>
-
-  <div>
-    <img src="./img/Sign In.png" width="200" alt="Sign In">
-    <p>Sign In</p>
-  </div>
-
-  <div>
-    <img src="./img/echo onboading.png" width="200" alt="Onboarding">
-    <p>Onboarding</p>
-  </div>
-
-  <div>
-    <img src="./img/Home List.png" width="200" alt="Home List">
-    <p>Home List</p>
-  </div>
-
-  <div>
-    <img src="./img/New Entry.png" width="200" alt="New Entry">
-    <p>New Entry</p>
-  </div>
-
-  <div>
-    <img src="./img/Pop up Change Delete.png" width="200" alt="Pop Up Change/Delete">
-    <p>Pop Up Change/Delete</p>
-  </div>
-
-  <div>
-    <img src="./img/Language Picker.png" width="200" alt="Language Picker">
-    <p>Language Picker</p>
-  </div>
-
-  <div>
-    <img src="./img/Entry translated.png" width="200" alt="Entry Translated">
-    <p>Entry Translated</p>
-  </div>
-
-  <div>
-    <img src="./img/Record Audio.png" width="200" alt="Record Audio">
-    <p>Record Audio</p>
-  </div>
-
-  <div>
-    <img src="./img/Entry from Audio.png" width="200" alt="Entry from Audio">
-    <p>Entry from Audio</p>
-  </div>
-
-  <div>
-    <img src="./img/Echo Entry Inspiration.png" width="200" alt="Entry Inspiration">
-    <p>Entry Inspiration</p>
-  </div>
-
-  <div>
-    <img src="./img/Popup Echo Message.png" width="200" alt="Popup Echo Message">
-    <p>Popup Echo Message</p>
-  </div>
-
-</div>
+| App Landing             | Sign In               | Onboarding             | Home List            |
+|--------------------------|-----------------------|------------------------|----------------------|
+| ![App Landing](./img/App%20Landing.png) | ![Sign In](./img/Sign%20In.png) | ![Onboarding](./img/echo%20onboading.png) | ![Home List](./img/Home%20List.png) |
+| New Entry               | Pop Up Change/Delete | Language Picker        | Entry Translated     |
+| ![New Entry](./img/New%20Entry.png) | ![Pop Up Change/Delete](./img/Pop%20up%20Change%20Delete.png) | ![Language Picker](./img/Language%20Picker.png) | ![Entry Translated](./img/Entry%20translated.png) |
+| Record Audio            | Entry from Audio     | Entry Inspiration      | Popup Echo Message   |
+| ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![Popup Echo Message](./img/Popup%20Echo%20Message.png) |
 
 ## Features
 Hier kommen alle Features rein, welche deine App bietet.
