@@ -98,13 +98,13 @@ Aufgabe: Datenquellen abstrahieren und Datenoperationen bereitstellen.
 
 Beispiele:
 
-	•	Einträge laden und speichern (EntryRepository: fetchEntries(), saveEntry(), deleteEntry()).
+•	Einträge laden und speichern (EntryRepository: fetchEntries(), saveEntry(), deleteEntry()).
  
-	•	Benutzerprofil verwalten (UserRepository: getUser(), updateUser()).
+•	Benutzerprofil verwalten (UserRepository: getUser(), updateUser()).
  
-	•	Texte übersetzen (TranslationRepository: translateText()).
+•	Texte übersetzen (TranslationRepository: translateText()).
  
-	•	Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts()).
+•	Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts()).
  
 
 ##### 3. ViewModels
@@ -113,13 +113,13 @@ Aufgabe: UI-Logik und Datenbereitstellung für die Views.
 
 Beispiele:
 
-	•	Tagebucheinträge anzeigen und verwalten (EntryViewModel: loadEntries(), addEntry(), deleteEntry()).
+•	Tagebucheinträge anzeigen und verwalten (EntryViewModel: loadEntries(), addEntry(), deleteEntry()).
  
-	•	Benutzerinformationen verwalten (UserViewModel: loadUser(), updateLanguage()).
+•	Benutzerinformationen verwalten (UserViewModel: loadUser(), updateLanguage()).
  
-	•	Texte übersetzen (TranslationViewModel: translateText()).
+•	Texte übersetzen (TranslationViewModel: translateText()).
  
-	•	Schreibanregungen laden (PromptViewModel: loadDailyPrompt()).
+•	Schreibanregungen laden (PromptViewModel: loadDailyPrompt()).
 
 ##### 4. Views
 
@@ -127,33 +127,33 @@ Aufgabe: Darstellung der Daten und Verarbeitung von Benutzerinteraktionen.
 
 Beispiele:
 
-	•	Eintragsübersicht (EntryListView).
+•	Eintragsübersicht (EntryListView).
  
-	•	Detaileintrag (EntryDetailView).
+•	Detaileintrag (EntryDetailView).
  
-	•	Neuer Eintrag (NewEntryView).
+•	Neuer Eintrag (NewEntryView).
  
-	•	Einstellungen (SettingsView).
+•	Einstellungen (SettingsView).
  
-	•	Sprache auswählen (LanguagePickerView).
+•	Sprache auswählen (LanguagePickerView).
 
 #### Datenspeicherung
 
 ##### Welche Daten?
 
-	•	Tagebucheinträge: Titel, Inhalt, Datum, Tags, Sprache, Übersetzungen.
+•	Tagebucheinträge: Titel, Inhalt, Datum, Tags, Sprache, Übersetzungen.
  
-	•	Benutzerprofile: Name, Zielsprache, Einstellungen.
+•	Benutzerprofile: Name, Zielsprache, Einstellungen.
  	
-  	•	Übersetzungen: Quelltext, Zieltext, Sprache.
+  •	Übersetzungen: Quelltext, Zieltext, Sprache.
    
-	•	Schreibanregungen: Tägliche Inspirationen.
+•	Schreibanregungen: Tägliche Inspirationen.
 
 ##### Wo und wie?
 
-	•	Firebase: Hauptspeicherort für alle Daten.
+•	Firebase: Hauptspeicherort für alle Daten.
 
-	•	Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
+•	Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
 
 Core Data wird derzeit nicht genutzt, kann jedoch später für einen Offline-Modus integriert werden.
 
