@@ -47,26 +47,47 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 echo/
 
 ├── Models/
+
 │   ├── Entry.swift
+
 │   ├── User.swift
+
 │   ├── Translation.swift
+
 │   ├── Prompt.swift
+
 ├── ViewModels/
+
 │   ├── EntryViewModel.swift
+
 │   ├── UserViewModel.swift
+
 │   ├── TranslationViewModel.swift
+
 │   ├── PromptViewModel.swift
+
 ├── Views/
+
 │   ├── EntryListView.swift
+
 │   ├── EntryDetailView.swift
+
 │   ├── NewEntryView.swift
+
 │   ├── SettingsView.swift
+
 │   ├── LanguagePickerView.swift
+
 ├── Repositories/
+
 │   ├── EntryRepository.swift
+
 │   ├── UserRepository.swift
+
 │   ├── TranslationRepository.swift
+
 │   ├── PromptRepository.swift
+
 
 ##### 1. Models
 Aufgabe: Datenstrukturen definieren.
