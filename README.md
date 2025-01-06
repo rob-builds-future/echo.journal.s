@@ -44,49 +44,50 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 ## Technischer Aufbau
 
 #### Projektaufbau
+
 echo/
 
-├── Models/
+- Models/
 
-│   ├── Entry.swift
+	Entry.swift
 
-│   ├── User.swift
+	User.swift
 
-│   ├── Translation.swift
+	Translation.swift
 
-│   ├── Prompt.swift
+	Prompt.swift
 
-├── ViewModels/
+- ViewModels/
 
-│   ├── EntryViewModel.swift
+	EntryViewModel.swift
 
-│   ├── UserViewModel.swift
+	UserViewModel.swift
 
-│   ├── TranslationViewModel.swift
+	TranslationViewModel.swift
 
-│   ├── PromptViewModel.swift
+	PromptViewModel.swift
 
-├── Views/
+- Views/
 
-│   ├── EntryListView.swift
+	EntryListView.swift
 
-│   ├── EntryDetailView.swift
+	EntryDetailView.swift
 
-│   ├── NewEntryView.swift
+	NewEntryView.swift
 
-│   ├── SettingsView.swift
+	SettingsView.swift
 
-│   ├── LanguagePickerView.swift
+	LanguagePickerView.swift
 
-├── Repositories/
+- Repositories/
 
-│   ├── EntryRepository.swift
+	EntryRepository.swift
 
-│   ├── UserRepository.swift
+	UserRepository.swift
 
-│   ├── TranslationRepository.swift
+	TranslationRepository.swift
 
-│   ├── PromptRepository.swift
+	PromptRepository.swift
 
 
 ##### 1. Models
