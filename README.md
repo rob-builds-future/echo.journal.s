@@ -15,7 +15,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 | New Entry               | PopUp Change/Delete | Language Picker        | Entry Translated     |
 | ![New Entry](./img/New%20Entry.png) | ![PopUp Change/Delete](./img/PopUp%20Change%20Delete.png) | ![Language Picker](./img/Language%20Picker.png) | ![Entry Translated](./img/Entry%20translated.png) |
 | Record Audio            | Entry from Audio     | Entry Inspiration      | Popup Echo Message   |
-| ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![PopUp Echo Message](./img/PopUp%20Echo%20Message.png) |
+| ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![Pop Up Echo Message](./img/PopUp%20Echo%20Message.png) |
 
 ## Features
 Hier kommen alle Features rein, welche deine App bietet.
