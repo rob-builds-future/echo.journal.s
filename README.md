@@ -15,9 +15,9 @@ Füge hier am Ende die Screenshots deiner App ein (achte hierbei auf die Guideli
 |--------------------------|-----------------------|------------------------|----------------------|
 | ![App Landing](./img/App%20Landing.png) | ![Sign In](./img/Sign%20In.png) | ![Onboarding](./img/echo%20onboading.png) | ![Home List](./img/Home%20List.png) |
 | New Entry               | Pop Up Change/Delete | Language Picker        | Entry Translated     |
-| ![New Entry](./img/New%20Entry.png) | ![Pop Up Change/Delete](./img/Pop%20up%20Change%20Delete.png) | ![Language Picker](./img/Language%20Picker.png) | ![Entry Translated](./img/Entry%20translated.png) |
+| ![New Entry](./img/New%20Entry.png) | ![PopUp Change/Delete](./img/Pop%20up%20Change%20Delete.png) | ![Language Picker](./img/Language%20Picker.png) | ![Entry Translated](./img/Entry%20translated.png) |
 | Record Audio            | Entry from Audio     | Entry Inspiration      | Popup Echo Message   |
-| ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![Popup Echo Message](./img/Popup%20Echo%20Message.png) |
+| ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![PopUp Echo Message](./img/Popup%20Echo%20Message.png) |
 
 ## Features
 Hier kommen alle Features rein, welche deine App bietet.
