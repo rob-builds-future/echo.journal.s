@@ -8,8 +8,6 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 
 ## Design
-## Design
-Füge hier am Ende die Screenshots deiner App ein (achte hierbei auf die Guidelines).
 
 | App Landing             | Sign In               | Onboarding             | Home List            |
 |--------------------------|-----------------------|------------------------|----------------------|
