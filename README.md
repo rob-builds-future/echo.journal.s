@@ -44,10 +44,71 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 ## Technischer Aufbau
 
 #### Projektaufbau
-Eine kurze Beschreibung deiner Ordnerstruktur und Architektur (MVVM, Repositories) um Außenstehenden zu helfen, sich in deinem Projekt zurecht zu finden.
+echo/
+├── Models/
+│   ├── Entry.swift
+│   ├── User.swift
+│   ├── Translation.swift
+│   ├── Prompt.swift
+├── ViewModels/
+│   ├── EntryViewModel.swift
+│   ├── UserViewModel.swift
+│   ├── TranslationViewModel.swift
+│   ├── PromptViewModel.swift
+├── Views/
+│   ├── EntryListView.swift
+│   ├── EntryDetailView.swift
+│   ├── NewEntryView.swift
+│   ├── SettingsView.swift
+│   ├── LanguagePickerView.swift
+├── Repositories/
+│   ├── EntryRepository.swift
+│   ├── UserRepository.swift
+│   ├── TranslationRepository.swift
+│   ├── PromptRepository.swift
+
+##### 1. Models
+Aufgabe: Datenstrukturen definieren.
+Beispiel: Tagebucheintrag (Entry), Nutzerprofil (User), Übersetzung (Translation), Schreibanregung (Prompt).
+
+##### 2. Repositories
+Aufgabe: Datenquellen abstrahieren und Datenoperationen bereitstellen.
+Beispiele:
+	•	Einträge laden und speichern (EntryRepository: fetchEntries(), saveEntry(), deleteEntry()).
+	•	Benutzerprofil verwalten (UserRepository: getUser(), updateUser()).
+	•	Texte übersetzen (TranslationRepository: translateText()).
+	•	Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts()).
+
+##### 3. ViewModels
+Aufgabe: UI-Logik und Datenbereitstellung für die Views.
+Beispiele:
+	•	Tagebucheinträge anzeigen und verwalten (EntryViewModel: loadEntries(), addEntry(), deleteEntry()).
+	•	Benutzerinformationen verwalten (UserViewModel: loadUser(), updateLanguage()).
+	•	Texte übersetzen (TranslationViewModel: translateText()).
+	•	Schreibanregungen laden (PromptViewModel: loadDailyPrompt()).
+
+##### 4. Views
+Aufgabe: Darstellung der Daten und Verarbeitung von Benutzerinteraktionen.
+Beispiele:
+	•	Eintragsübersicht (EntryListView).
+	•	Detaileintrag (EntryDetailView).
+	•	Neuer Eintrag (NewEntryView).
+	•	Einstellungen (SettingsView).
+	•	Sprache auswählen (LanguagePickerView).
 
 #### Datenspeicherung
-Welche Daten speicherst du? Wo und wie (Firebase, Core Data)? Erkläre hier auch, warum du den jeweiligen Dienst nutzt (offline-first, Sync usw.).
+
+##### Welche Daten?
+	•	Tagebucheinträge: Titel, Inhalt, Datum, Tags, Sprache, Übersetzungen.
+	•	Benutzerprofile: Name, Zielsprache, Einstellungen.
+	•	Übersetzungen: Quelltext, Zieltext, Sprache.
+	•	Schreibanregungen: Tägliche Inspirationen.
+
+##### Wo und wie?
+	•	Firebase: Hauptspeicherort für alle Daten.
+	•	Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
+
+Core Data wird derzeit nicht genutzt, kann jedoch später für einen Offline-Modus integriert werden.
 
 #### API Calls
 Welche APIs verwendest du?
