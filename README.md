@@ -8,72 +8,69 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 
 ## Design
-Füge hier am Ende die Screenshots deiner App ein (achte hierbei auf die Guidelines).
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-  <div style="text-align: center;">
+  <div>
     <img src="./img/App Landing.png" width="200" alt="App Landing">
     <p>App Landing</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Sign In.png" width="200" alt="Sign In">
     <p>Sign In</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/echo onboading.png" width="200" alt="Onboarding">
     <p>Onboarding</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Home List.png" width="200" alt="Home List">
     <p>Home List</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/New Entry.png" width="200" alt="New Entry">
     <p>New Entry</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Pop up Change Delete.png" width="200" alt="Pop Up Change/Delete">
     <p>Pop Up Change/Delete</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Language Picker.png" width="200" alt="Language Picker">
     <p>Language Picker</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Entry translated.png" width="200" alt="Entry Translated">
     <p>Entry Translated</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Record Audio.png" width="200" alt="Record Audio">
     <p>Record Audio</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Entry from Audio.png" width="200" alt="Entry from Audio">
     <p>Entry from Audio</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Echo Entry Inspiration.png" width="200" alt="Entry Inspiration">
     <p>Entry Inspiration</p>
   </div>
 
-  <div style="text-align: center;">
+  <div>
     <img src="./img/Popup Echo Message.png" width="200" alt="Popup Echo Message">
     <p>Popup Echo Message</p>
   </div>
 
 </div>
-
 
 ## Features
 Hier kommen alle Features rein, welche deine App bietet.
