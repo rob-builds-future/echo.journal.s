@@ -22,6 +22,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 ### Höchste Priorität (MVP)
 - [ ] Tagebuch Einträge Übersicht
+- [ ] Tagebuch Einträge Favoritenliste
 - [ ] Tagebuch Schreiben und speichern
 - [ ] Sprachübersetzung und Wörterbuchfunktion in relevante Sprachen
 - [ ] echo's inspirierende Schreibanregungen
