@@ -18,14 +18,28 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 | ![Record Audio](./img/Record%20Audio.png) | ![Entry from Audio](./img/Entry%20from%20Audio.png) | ![Entry Inspiration](./img/Echo%20Entry%20Inspiration.png) | ![PopUp Echo Message](./img/PopUp%20Echo%20Message.png) |
 
 ## Features
-Hier kommen alle Features rein, welche deine App bietet.
 
-**Tipp: Du kannst diese Punkte auch am Anfang ausfüllen und mit der Zeit abhaken, sodass am Ende eine vollständige Liste entsteht.**
-
-- [x] Feature 1
-- [x] Feature 2
-- [ ] ...
-
+Höchste Priorität (MVP)
+- [ ] Tagebuch Einträge Übersicht
+- [ ] Tagebuch Schreiben und speichern
+- [ ] Sprachübersetzung und Wörterbuchfunktion in relevante Sprachen
+- [ ] echo's inspirierende Schreibanregungen
+- [ ] Zielsprache auswählen und wechseln
+- [ ] User Profil und generelle Settings
+Mittlere Priorität
+- [ ] Echtzeit-Übersetzung
+- [ ] Text-zu-Sprache für gelernte Sprache
+- [ ] Bilder aus Fotos einfügen
+- [ ] Orte aus Maps einfügen
+- [ ] Voice to Text
+- [ ] Audio Records to Text
+- [ ] Vokabel-Highlighting
+Niedrige Priorität
+- [ ] Freunde adden
+- [ ] Community-Features (Gemeinsames Tagebuch, Einträge teilen, ...)
+- [ ] Echo Customizing / personalisierter KI-Assistent
+- [ ] Gamification
+- [ ] Emotionstracker
 
 ## Technischer Aufbau
 
