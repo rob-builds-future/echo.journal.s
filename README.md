@@ -47,7 +47,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 echo/
 
-- Models/
+	- Models/
 
 	Entry.swift
 
@@ -57,7 +57,7 @@ echo/
 
 	Prompt.swift
 
-- ViewModels/
+	- ViewModels/
 
 	EntryViewModel.swift
 
@@ -67,7 +67,7 @@ echo/
 
 	PromptViewModel.swift
 
-- Views/
+	- Views/
 
 	EntryListView.swift
 
@@ -79,7 +79,7 @@ echo/
 
 	LanguagePickerView.swift
 
-- Repositories/
+	- Repositories/
 
 	EntryRepository.swift
 
