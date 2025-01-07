@@ -182,8 +182,12 @@ Zukünftige API-Erweiterungen wie Text-to-Speech oder Maps können später ergä
 
 ## Ausblick
 
-- [ ] Summaries und Reviews von Wochen, Monaten, Jahrenanhand der Einträge
-- [ ] Andere User adden und Community-Features (Gemeinsames Tagebuch, Einträge teilen, ...)
-- [ ] Echo Customizing / personalisierter KI-Assistent
-- [ ] Gamification
-- [ ] Emotionstracker
+1.	**Summaries & Reviews**
+Automatisierte Wochen- oder Monatsrückblicke anhand der geschriebenen Einträge – so lassen sich persönliche Fortschritte im Journalen und Sprachenlernen übersichtlich nachvollziehen.
+
+2.	**Community-Features**
+Einbindung anderer Nutzer: Gemeinsame Journals, das Austauschen von Einträgen oder Feedback und damit ein soziales Element, das zusätzlich motiviert.
+
+3.	**Echo-Assistent Customizing**
+Das virtuelle Zukunfts-Ich lässt sich individuell anpassen und personalisieren: Nutzer können die Persönlichkeit, den Schreibstil oder sogar den Avatar ihres KI-Assistenten definieren.
+
