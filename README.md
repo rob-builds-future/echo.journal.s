@@ -170,6 +170,8 @@ LibreTranslate API: Übersetzung von Texten in die Zielsprache. Übersetzen von 
 
 Warum: Open-Source-Lösung ohne Lizenzkosten. Unterstützt mehrere Sprachen.
 
+**!Extra Herausforderung:** Selbst-Hosten ist wegen der API notwendig, da die Nutzung über die LibreTranslate Server nicht kostenfrei ist! -- **Docker** 
+
 Zukünftige API-Erweiterungen wie Text-to-Speech oder Maps können später ergänzt werden.
 
 
