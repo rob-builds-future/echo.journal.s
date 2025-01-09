@@ -50,49 +50,22 @@ siehe unten -> Ausblick
 
 #### Projektaufbau
 
-	echo/
-
-		- Models/
-
-			Entry.swift
-
-			User.swift
-
-			Translation.swift
-
-			Prompt.swift
-
-		- ViewModels/
-
-			EntryViewModel.swift
-
-			UserViewModel.swift
-
-			TranslationViewModel.swift
-
-			PromptViewModel.swift
-
-		- Views/
-
-			EntryListView.swift
-		
-			EntryDetailView.swift
-
-			NewEntryView.swift
-
-			SettingsView.swift
-
-			LanguagePickerView.swift
-
-		- Repositories/
-
-			EntryRepository.swift
-
-			UserRepository.swift
-
-			TranslationRepository.swift
-
-			PromptRepository.swift
+	echo.journal/
+	├── Models/
+	│   ├── JournalEntry.swift
+	│   └── User.swift
+	├── ViewModels/
+	│   └── JournalViewModel.swift
+	├── Views/
+	│   ├── JournalListView.swift
+	│   ├── JournalEntryView.swift
+	│   └── LoginView.swift
+	├── Repositories/
+	│   ├── JournalRepository.swift
+	│   └── TranslationRepository.swift
+	└── Services/
+    		├── FirebaseService.swift
+    		└── TranslationService.swift
 
 
 ##### 1. Models
