@@ -63,10 +63,13 @@ siehe unten -> Ausblick
 	├── Repositories/
 	│   ├── JournalRepository.swift
 	│   └── TranslationRepository.swift
-	└── Services/
-    	├── FirebaseService.swift
-    	└── TranslationService.swift
-
+     	├── Services/ 
+	│   ├── FirebaseService.swift
+	│   └── TranslationService.swift
+	└── Ressources & Config/
+    	├── Assets
+     	├── Plist
+    	└── Localizable
 
 ##### 1. Models
 
