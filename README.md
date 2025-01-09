@@ -73,13 +73,13 @@ siehe unten -> Ausblick
 
 ##### 1. Models
 
-Aufgabe: Datenstrukturen definieren.
+Aufgabe: Definieren die Datenstrukturen/Objekte der App (z.B. JournalEntry, User)
 
 Erste Structs: Tagebucheintrag (JournalEntry), Nutzerprofil (User), ggf. weitere: (Übersetzung (Translation), Schreibanregung (Prompt), ...).
 
 ##### 2. Repositories
 
-Aufgabe: Datenquellen abstrahieren und Datenoperationen bereitstellen.
+Aufgabe: Implementieren die Business-Logik und koordinieren verschiedene Services
 
 Erste Repos: 
 
@@ -91,7 +91,7 @@ Erste Repos:
  
 ##### 3. ViewModels
 
-Aufgabe: UI-Logik und Datenbereitstellung für die Views.
+Aufgabe: Verwalten den UI-State und die UI-Logik, verbinden Views mit Repositories
 
 Erste ViewModels:
 
@@ -101,7 +101,7 @@ Erste ViewModels:
 
 ##### 4. Views
 
-Aufgabe: Darstellung der Daten und Verarbeitung von Benutzerinteraktionen.
+Aufgabe: Zeigen die UI an und nehmen User-Interaktionen entgegen
 
 Erste Views:
 
@@ -115,9 +115,13 @@ Erste Views:
 
 ##### 5. Services
 
-- Firebase-Management (FirebaseService),
+Aufgabe: Kümmern sich um die technische Kommunikation mit externen APIs/Systemen (Firebase, LibreTranslate)
+
+Services:
+
+- Firebase-Kommunikation (FirebaseService),
  
-- LibreTranslateAPI-Docker-Container-Management (TranslationService).
+- LibreTranslateAPI-Docker-Container-Kommunikation (TranslationService).
 
 
 #### Datenspeicherung
