@@ -51,22 +51,22 @@ siehe unten -> Ausblick
 #### Projektaufbau
 
 	echo.journal/
-	├── Models/
+	├── 1 Models/
 	│   ├── JournalEntry.swift
 	│   └── User.swift
-	├── ViewModels/
+	├── 2 ViewModels/
 	│   └── JournalViewModel.swift
-	├── Views/
+	├── 3 Views/
 	│   ├── JournalListView.swift
 	│   ├── JournalEntryView.swift
 	│   └── LoginView.swift
-	├── Repositories/
+	├── 4 Repositories/
 	│   ├── JournalRepository.swift
 	│   └── TranslationRepository.swift
-	├── Services/ 
+	├── 5 Services/ 
 	│   ├── FirebaseService.swift
 	│   └── TranslationService.swift
-	└── Ressources & Config/
+	└── 6 Ressources & Config/
     	├── Assets
      	├── Plist
     	└── Localizable
