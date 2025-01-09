@@ -72,52 +72,49 @@ siehe unten -> Ausblick
 
 Aufgabe: Datenstrukturen definieren.
 
-Beispiel: Tagebucheintrag (Entry), Nutzerprofil (User), Übersetzung (Translation), Schreibanregung (Prompt).
+Erste Structs: Tagebucheintrag (JournalEntry), Nutzerprofil (User), ggf. weitere: (Übersetzung (Translation), Schreibanregung (Prompt), ...).
 
 ##### 2. Repositories
 
 Aufgabe: Datenquellen abstrahieren und Datenoperationen bereitstellen.
 
-Beispiele:
+Erste Repos: 
 
-•	Einträge laden und speichern (EntryRepository: fetchEntries(), saveEntry(), deleteEntry()).
- 
-•	Benutzerprofil verwalten (UserRepository: getUser(), updateUser()).
- 
-•	Texte übersetzen (TranslationRepository: translateText()).
- 
-•	Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts()).
+- Einträge laden und speichern (JournalRepository: fetchEntries(), saveEntry(), deleteEntry()),
+  
+- Texte übersetzen (TranslationRepository: translateText()),
+  
+- ggf. weitere (Benutzerprofil verwalten (UserRepository: getUser(), updateUser()), Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts(), ...).
  
 ##### 3. ViewModels
 
 Aufgabe: UI-Logik und Datenbereitstellung für die Views.
 
-Beispiele:
+Erste ViewModels:
 
-•	Tagebucheinträge anzeigen und verwalten (EntryViewModel: loadEntries(), addEntry(), deleteEntry()).
+- Tagebucheinträge anzeigen und verwalten (JournalViewModel: loadEntries(), addEntry(), deleteEntry()).
  
-•	Benutzerinformationen verwalten (UserViewModel: loadUser(), updateLanguage()).
- 
-•	Texte übersetzen (TranslationViewModel: translateText()).
- 
-•	Schreibanregungen laden (PromptViewModel: loadDailyPrompt()).
+- ggf. weitere (Benutzerinformationen verwalten (UserViewModel: loadUser(), updateLanguage()), Texte übersetzen (TranslationViewModel: translateText()), Schreibanregungen laden (PromptViewModel: loadDailyPrompt()).
 
 ##### 4. Views
 
 Aufgabe: Darstellung der Daten und Verarbeitung von Benutzerinteraktionen.
 
-Beispiele:
+Erste Views:
 
-•	Eintragsübersicht (EntryListView).
+•	Eintragsübersicht (JournalListView),
  
-•	Detaileintrag (EntryDetailView).
+•	Detaileintrag neu/änderbar (JournalEntrylView),
  
-•	Neuer Eintrag (NewEntryView).
+•	Login (LoginView),
  
-•	Einstellungen (SettingsView).
- 
-•	Sprache auswählen (LanguagePickerView).
+•	ggf. weitere (Sprache auswählen (LanguagePickerView), Einstellungen (SettingsView), ...).
 
+##### 5. Services
+
+•	Firebase-Management (FirebaseService),
+ 
+•	LibreTranslateAPI-Docker-Container-Management (TranslationService).
 
 
 #### Datenspeicherung
@@ -128,7 +125,7 @@ Beispiele:
  
 •	Benutzerprofile: Name, Zielsprache, Einstellungen.
  	
-  •	Übersetzungen: Quelltext, Zieltext, Sprache.
+•	Übersetzungen: Quelltext, Zieltext, Sprache.
    
 •	Schreibanregungen: Tägliche Inspirationen.
 
@@ -138,7 +135,7 @@ Beispiele:
 
 •	Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
 
-Core Data wird derzeit nicht genutzt, kann jedoch später für einen Offline-Modus integriert werden.
+Swift Data wird derzeit nicht genutzt, kann ggf. später für einen Offline-Modus integriert werden.
 
 
 
@@ -146,11 +143,11 @@ Core Data wird derzeit nicht genutzt, kann jedoch später für einen Offline-Mod
 
 LibreTranslate API: Übersetzung von Texten in die Zielsprache. Übersetzen von Tagebucheinträgen und Bereitstellen von Synonymen/Definitionen.
 
-Warum: Open-Source-Lösung ohne Lizenzkosten. Unterstützt mehrere Sprachen.
+Warum: Open-Source-Lösung ohne Lizenzkosten, sofern Selbst-gehostet. Unterstützt mehrere Sprachen.
 
-**!Extra Herausforderung:** Selbst-Hosten ist wegen der API notwendig, da die Nutzung über die LibreTranslate Server nicht kostenfrei ist! -- **Docker** 
+**Extra Herausforderung:** Selbst-Hosten ist wegen der API notwendig, da die Nutzung über die LibreTranslate Server nicht kostenfrei ist! -- **Docker Container** 
 
-Zukünftige API-Erweiterungen wie Text-to-Speech oder Maps können später ergänzt werden.
+Zukünftige API-Erweiterungen für Text-to-Speech oder Maps können später ergänzt werden.
 
 
 ## Ausblick
