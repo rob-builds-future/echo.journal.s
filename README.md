@@ -64,8 +64,8 @@ siehe unten -> Ausblick
 	│   ├── JournalRepository.swift
 	│   └── TranslationRepository.swift
 	└── Services/
-    		├── FirebaseService.swift
-    		└── TranslationService.swift
+    	├── FirebaseService.swift
+    	└── TranslationService.swift
 
 
 ##### 1. Models
