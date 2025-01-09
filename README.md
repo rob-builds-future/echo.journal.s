@@ -102,38 +102,38 @@ Aufgabe: Darstellung der Daten und Verarbeitung von Benutzerinteraktionen.
 
 Erste Views:
 
-•	Eintragsübersicht (JournalListView),
+- Eintragsübersicht (JournalListView),
  
-•	Detaileintrag neu/änderbar (JournalEntrylView),
+- Detaileintrag neu/änderbar (JournalEntrylView),
  
-•	Login (LoginView),
+- Login (LoginView),
  
-•	ggf. weitere (Sprache auswählen (LanguagePickerView), Einstellungen (SettingsView), ...).
+- ggf. weitere (Sprache auswählen (LanguagePickerView), Einstellungen (SettingsView), ...).
 
 ##### 5. Services
 
-•	Firebase-Management (FirebaseService),
+- Firebase-Management (FirebaseService),
  
-•	LibreTranslateAPI-Docker-Container-Management (TranslationService).
+- LibreTranslateAPI-Docker-Container-Management (TranslationService).
 
 
 #### Datenspeicherung
 
 ##### Welche Daten?
 
-•	Tagebucheinträge: Titel, Inhalt, Datum, Tags, Sprache, Übersetzungen.
+- Tagebucheinträge: Titel, Inhalt, Datum, Tags, Sprache, Übersetzungen.
  
-•	Benutzerprofile: Name, Zielsprache, Einstellungen.
+- Benutzerprofile: Name, Zielsprache, Einstellungen.
  	
-•	Übersetzungen: Quelltext, Zieltext, Sprache.
+- Übersetzungen: Quelltext, Zieltext, Sprache.
    
-•	Schreibanregungen: Tägliche Inspirationen.
+- Schreibanregungen: Tägliche Inspirationen.
 
 ##### Wo und wie?
 
-•	Firebase: Hauptspeicherort für alle Daten.
+- Firebase: Hauptspeicherort für alle Daten.
 
-•	Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
+- Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
 
 Swift Data wird derzeit nicht genutzt, kann ggf. später für einen Offline-Modus integriert werden.
 
