@@ -63,7 +63,7 @@ siehe unten -> Ausblick
 	├── Repositories/
 	│   ├── JournalRepository.swift
 	│   └── TranslationRepository.swift
-     	├── Services/ 
+	├── Services/ 
 	│   ├── FirebaseService.swift
 	│   └── TranslationService.swift
 	└── Ressources & Config/
