@@ -76,20 +76,8 @@ siehe unten -> Ausblick
 Aufgabe: Definieren die Datenstrukturen/Objekte der App (z.B. JournalEntry, User)
 
 Erste Structs: Tagebucheintrag (JournalEntry), Nutzerprofil (User), ggf. weitere: (Übersetzung (Translation), Schreibanregung (Prompt), ...).
-
-##### 2. Repositories
-
-Aufgabe: Implementieren die Business-Logik und koordinieren verschiedene Services
-
-Erste Repos: 
-
-- Einträge laden und speichern (JournalRepository: fetchEntries(), saveEntry(), deleteEntry()),
-  
-- Texte übersetzen (TranslationRepository: translateText()),
-  
-- ggf. weitere (Benutzerprofil verwalten (UserRepository: getUser(), updateUser()), Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts(), ...).
  
-##### 3. ViewModels
+##### 2. ViewModels
 
 Aufgabe: Verwalten den UI-State und die UI-Logik, verbinden Views mit Repositories
 
@@ -99,7 +87,7 @@ Erste ViewModels:
  
 - ggf. weitere (Benutzerinformationen verwalten (UserViewModel: loadUser(), updateLanguage()), Texte übersetzen (TranslationViewModel: translateText()), Schreibanregungen laden (PromptViewModel: loadDailyPrompt()).
 
-##### 4. Views
+##### 3. Views
 
 Aufgabe: Zeigen die UI an und nehmen User-Interaktionen entgegen
 
@@ -112,6 +100,18 @@ Erste Views:
 - Login (LoginView),
  
 - ggf. weitere (Sprache auswählen (LanguagePickerView), Einstellungen (SettingsView), ...).
+
+##### 4. Repositories
+
+Aufgabe: Implementieren die Business-Logik und koordinieren verschiedene Services
+
+Erste Repos: 
+
+- Einträge laden und speichern (JournalRepository: fetchEntries(), saveEntry(), deleteEntry()),
+  
+- Texte übersetzen (TranslationRepository: translateText()),
+  
+- ggf. weitere (Benutzerprofil verwalten (UserRepository: getUser(), updateUser()), Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts(), ...).
 
 ##### 5. Services
 
