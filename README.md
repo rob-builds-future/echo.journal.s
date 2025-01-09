@@ -71,6 +71,8 @@ siehe unten -> Ausblick
      	├── Plist
     	└── Localizable
 
+	Der Datenfluss geht dabei typischerweise: View <-> ViewModel <-> Repository <-> Services <-> External APIs
+
 ##### 1. Models
 
 Aufgabe: Definieren die Datenstrukturen/Objekte der App (z.B. JournalEntry, User)
