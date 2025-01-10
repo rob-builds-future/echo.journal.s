@@ -156,7 +156,7 @@ Warum: Open-Source-Lösung ohne Lizenzkosten, sofern Selbst-gehostet. Unterstüt
 
 **Extra Herausforderung:** Selbst-Hosten ist wegen der API notwendig, da die Nutzung über die LibreTranslate Server nicht kostenfrei ist! -- **Docker Container** 
 
-Zukünftige API-Erweiterungen für Text-to-Speech oder Maps können später ergänzt werden.
+Zukünftige API-Erweiterungen für bspw echos' KI-Funktionen können später ergänzt werden.
 
 
 ## Ausblick
