@@ -5,8 +5,9 @@ extension Date {
     var formatted: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        formatter.locale = Locale(identifier: "de_DE")
+        formatter.timeStyle = .none
+        formatter.locale = Locale.current
+        
         return formatter.string(from: self)
     }
     

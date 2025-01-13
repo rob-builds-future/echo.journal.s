@@ -1,7 +1,33 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Email" : {
 
+    },
+    "Home" : {
+
+    },
+    "Login" : {
+
+    },
+    "Logout" : {
+
+    },
+    "Passwort" : {
+
+    },
+    "Registrieren" : {
+
+    },
+    "Willkommen, %@!" : {
+
+    },
+    "Zum Login" : {
+
+    },
+    "Zur Registrierung" : {
+
+    }
   },
   "version" : "1.0"
 }

@@ -1,19 +1,10 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject private var viewModel: UserViewModel
+    @ObservedObject var viewModel: UserViewModel
     @State private var email = ""
     @State private var password = ""
     @State private var isRegistering = false
-    
-    init() {
-        let authRepo = UserAuthRepository()
-        let storeRepo = UserStoreRepository()
-        _viewModel = StateObject(wrappedValue: UserViewModel(
-            authRepository: authRepo,
-            storeRepository: storeRepo
-        ))
-    }
     
     var body: some View {
         VStack(spacing: 20) {
@@ -32,10 +23,16 @@ struct LoginView: View {
                 ProgressView()
             } else {
                 Button(isRegistering ? "Registrieren" : "Login") {
-                    if isRegistering {
-                        viewModel.signUp(email: email, password: password)
-                    } else {
-                        viewModel.signIn(email: email, password: password)
+                    Task {
+                        if isRegistering {
+                            await viewModel.signUp(email: email, password: password)
+                        } else {
+                            await viewModel.signIn(email: email, password: password)
+                        }
+                        // Überprüfe, ob der Benutzer erfolgreich eingeloggt ist
+                        //if viewModel.currentUser != nil {
+                        //    isLoggedIn = true // Setze den Zustand für die Navigation
+                        //}
                     }
                 }
                 .buttonStyle(.borderedProminent)
@@ -56,5 +53,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(viewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()))
 }
+

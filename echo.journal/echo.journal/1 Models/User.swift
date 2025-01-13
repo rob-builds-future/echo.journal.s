@@ -1,7 +1,7 @@
 import Foundation
 
 struct User: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    var id: String
     var email: String
     var username: String
     var preferredLanguage: String = "de"
@@ -11,7 +11,8 @@ struct User: Identifiable, Codable {
         createdAt.formatted
     }
     
-    init(email: String, username: String) {
+    init(id: String, email: String, username: String) {
+        self.id = id
         self.email = email
         self.username = username
     }

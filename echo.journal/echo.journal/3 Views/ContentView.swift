@@ -1,16 +1,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel: UserViewModel
+    
+    init() {
+        let authRepo = UserAuthRepository()
+        let storeRepo = UserStoreRepository()
+        _viewModel = StateObject(wrappedValue: UserViewModel(
+            authRepository: authRepo,
+            storeRepository: storeRepo
+        ))
+    }
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world, i am a journal!")
+        NavigationStack {
+            if viewModel.isLoggedIn {
+                JournalEntryListView(viewModel: viewModel, user: viewModel.currentUser!)
+            } else {
+                LoginView(viewModel: viewModel)
+            }
         }
-        .padding()
     }
 }
+
 
 #Preview {
     ContentView()
