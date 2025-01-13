@@ -1,14 +1,14 @@
-//
-//  echo_journalApp.swift
-//  echo.journal
-//
-//  Created by Robin Bettinghausen on 09.01.25.
-//
-
 import SwiftUI
+import FirebaseCore
 
 @main
 struct echo_journalApp: App {
+    
+    init() {
+    FirebaseConfiguration.shared.setLoggerLevel(.min)
+    FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

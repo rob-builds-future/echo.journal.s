@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  echo.journal
-//
-//  Created by Robin Bettinghausen on 09.01.25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
