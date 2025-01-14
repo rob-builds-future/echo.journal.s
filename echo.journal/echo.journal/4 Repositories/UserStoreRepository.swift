@@ -11,7 +11,7 @@ class UserStoreRepository {
                 "id": user.id,
                 "email": user.email,
                 "username": user.username,
-                "preferredLanguage": user.preferredLanguage,
+                "preferredLanguage": user.preferredLanguage.rawValue, // Als String, damit Firebase es speichern kann (geht nich im enum typ)
                 "createdAt": user.createdAt
             ])
     }
@@ -23,19 +23,24 @@ class UserStoreRepository {
         
         guard let data = document.data() else { return nil }
         
+        // Beim Getten: Umwandeln von gespeichertem String in Firebase in Language Format
+            let languageString = data["preferredLanguage"] as? String ?? "en" // Default to "en"
+            let preferredLanguage = Language(rawValue: languageString) ?? .en // Fallback to .en
+        
         return User(
             id: id,
             email: data["email"] as? String ?? "",
-            username: data["username"] as? String ?? ""
+            username: data["username"] as? String ?? "",
+            preferredLanguage: preferredLanguage // Setze den Language-Enum
         )
     }
     
-    func updateUser(id: String, username: String, preferredLanguage: String) async throws {
+    func updateUser(id: String, username: String, preferredLanguage: Language) async throws {
         try await store.collection(DocumentPath.users.rawValue)
             .document(id)
             .updateData([
                 "username": username,
-                "preferredLanguage": preferredLanguage
+                "preferredLanguage": preferredLanguage.rawValue // Als String, damit Firebase es speichern kann (geht nich im enum typ)
             ])
     }
     

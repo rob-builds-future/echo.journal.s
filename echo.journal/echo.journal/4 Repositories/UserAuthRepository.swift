@@ -1,7 +1,7 @@
 import FirebaseAuth
 
 class UserAuthRepository {
-    private var auth = Auth.auth()
+    let auth = Auth.auth()
     
     
     func signUp(email: String, password: String) async throws -> User {
@@ -15,7 +15,8 @@ class UserAuthRepository {
             let user = User(
                 id: firebaseUser.uid,
                 email: email,
-                username: String(username)
+                username: String(username),
+                preferredLanguage: .en
             )
             
             return user
@@ -31,12 +32,13 @@ class UserAuthRepository {
             let authResult = try await auth.signIn(withEmail: email, password: password)
             let firebaseUser = authResult.user
             
-            // 2. Unser User Model erstellen
-            return User(
-                id: firebaseUser.uid,  // Wichtig: Firebase UID als ID der eigenen User Model Instanz verwenden
-                email: firebaseUser.email ?? "",
-                username: "" // Wird später aus Firestore geladen
-            )
+            // 2. Hole die Benutzerdaten aus Firestore
+            let userStoreRepository = UserStoreRepository()
+            if let user = try await userStoreRepository.getUser(id: firebaseUser.uid) {
+                return user // Gibt den Benutzer mit den vollständigen Daten zurück
+            } else {
+                throw NSError(domain: "UserAuthRepository", code: 404, userInfo: [NSLocalizedDescriptionKey: "User not found"])
+            }
         } catch {
             print("SignIn Error: \(error.localizedDescription)")
             throw error
@@ -53,9 +55,9 @@ class UserAuthRepository {
         }
     }
     
-    func getCurrentUser() -> User? {
+    func getCurrentUser() async throws -> User? {
         guard let firebaseUser = auth.currentUser else { return nil }
-        // Hier könnten wir auch Firestore-Daten laden, aber für's erste reicht die E-Mail
-        return User(id: firebaseUser.uid, email: firebaseUser.email ?? "", username: "")
+        let userStoreRepository = UserStoreRepository()
+        return try await userStoreRepository.getUser(id: firebaseUser.uid) // Hole die Benutzerdaten aus Firestore
     }
 }

@@ -1,25 +1,22 @@
 import Foundation
+import FirebaseAuth
 
 @MainActor
 class UserViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var isLoggedIn = false // Neues Merkmal für den Anmeldestatus
+    @Published var isLoggedIn = false
+    @Published var user: FirebaseAuth.User?
     
     let authRepository: UserAuthRepository
     let storeRepository: UserStoreRepository
     
+    // MARK: - Lifecycle/Initializer
     init(authRepository: UserAuthRepository, storeRepository: UserStoreRepository) {
         self.authRepository = authRepository
         self.storeRepository = storeRepository
         
-        // Prüfe ob User bereits eingeloggt ist
-        if let user = authRepository.getCurrentUser() {
-            Task {
-                self.currentUser = try await storeRepository.getUser(id: user.id)
-            }
-        }
     }
     
     // MARK: - Auth Methods
@@ -81,7 +78,7 @@ class UserViewModel: ObservableObject {
     
     // MARK: - User Data Methods
     
-    func updateProfile(username: String, preferredLanguage: String) async {
+    func updateProfile(username: String, preferredLanguage: Language) async {
         guard let userId = currentUser?.id else { return }
         isLoading = true
         
@@ -95,13 +92,12 @@ class UserViewModel: ObservableObject {
             // Lade aktualisierten User
             if let updatedUser = try await storeRepository.getUser(id: userId) {
                 self.currentUser = updatedUser
-                self.isLoading = false
             }
         } catch {
             self.errorMessage = "Update fehlgeschlagen: \(error.localizedDescription)"
-            self.isLoading = false
         }
         
+        isLoading = false
     }
     
     func deleteAccount() async {
@@ -113,11 +109,10 @@ class UserViewModel: ObservableObject {
             try authRepository.signOut()
             self.currentUser = nil
             self.isLoggedIn = false // Setze isLoggedIn auf false
-            self.isLoading = false
         } catch {
             self.errorMessage = "Löschen fehlgeschlagen: \(error.localizedDescription)"
-            self.isLoading = false
         }
         
+        isLoading = false
     }
 }

@@ -4,16 +4,17 @@ struct User: Identifiable, Codable {
     var id: String
     var email: String
     var username: String
-    var preferredLanguage: String = "de"
-    let createdAt: Date = Date()
+    var preferredLanguage: Language
     
+    let createdAt: Date = Date()
     var formattedCreatedAt: String {
         createdAt.formatted
     }
     
-    init(id: String, email: String, username: String) {
+    init(id: String, email: String, username: String, preferredLanguage: Language) {
         self.id = id
         self.email = email
         self.username = username
+        self.preferredLanguage = preferredLanguage
     }
 }
