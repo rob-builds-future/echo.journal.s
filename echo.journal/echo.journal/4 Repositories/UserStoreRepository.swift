@@ -2,7 +2,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class UserStoreRepository {
-    private var store = Firestore.firestore()
+    let store = Firestore.firestore()
     
     func createUser(_ user: User) async throws {
         try await store.collection(DocumentPath.users.rawValue)
@@ -11,7 +11,7 @@ class UserStoreRepository {
                 "id": user.id,
                 "email": user.email,
                 "username": user.username,
-                "preferredLanguage": user.preferredLanguage.rawValue, // Als String, damit Firebase es speichern kann (geht nich im enum typ)
+                "preferredLanguage": user.preferredLanguage.rawValue, // Als String, damit Firebase es speichern kann (geht nicht im enum Typ)
                 "createdAt": user.createdAt
             ])
     }
@@ -40,7 +40,7 @@ class UserStoreRepository {
             .document(id)
             .updateData([
                 "username": username,
-                "preferredLanguage": preferredLanguage.rawValue // Als String, damit Firebase es speichern kann (geht nich im enum typ)
+                "preferredLanguage": preferredLanguage.rawValue // Als String, damit Firebase es speichern kann (geht nicht im enum Typ)
             ])
     }
     
