@@ -4,10 +4,22 @@
     "%@'s Tagebuch" : {
 
     },
+    "AmberBlaze" : {
+
+    },
+    "AzulLuminoso" : {
+
+    },
+    "Benutzername" : {
+
+    },
     "Benutzername: %@" : {
 
     },
     "Deine Zielsprache ist %@!" : {
+
+    },
+    "Echo Guide" : {
 
     },
     "Einstellungen" : {
@@ -25,7 +37,16 @@
     "Email" : {
 
     },
-    "Hello, World!" : {
+    "EmeraldTeal" : {
+
+    },
+    "Farbschema" : {
+
+    },
+    "Fertig" : {
+
+    },
+    "Hier sind einige Informationen über die App und wie du sie nutzen kannst..." : {
 
     },
     "Inhalt" : {
@@ -59,6 +80,15 @@
 
     },
     "Registrieren" : {
+
+    },
+    "VintagePurple" : {
+
+    },
+    "Wähle dein Farbschema:" : {
+
+    },
+    "Willkommen zum Onboarding!" : {
 
     },
     "Willkommen, %@!" : {

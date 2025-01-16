@@ -11,10 +11,12 @@
 		03668C062D35288E004752E5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C052D35288E004752E5 /* FirebaseAuth */; };
 		03668C082D35288E004752E5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C072D35288E004752E5 /* FirebaseCore */; };
 		03668C0A2D35288E004752E5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C092D35288E004752E5 /* FirebaseFirestore */; };
+		0380A4FA2D39597300C8759D /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380A4F92D39596E00C8759D /* Untitled.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0359D3DA2D2FBF38002E2F29 /* echo.journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = echo.journal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0380A4F92D39596E00C8759D /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +45,7 @@
 		0359D3D12D2FBF38002E2F29 = {
 			isa = PBXGroup;
 			children = (
+				0380A4F92D39596E00C8759D /* Untitled.swift */,
 				0359D3DC2D2FBF38002E2F29 /* echo.journal */,
 				03668C0B2D352AB3004752E5 /* Frameworks */,
 				0359D3DB2D2FBF38002E2F29 /* Products */,
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0380A4FA2D39597300C8759D /* Untitled.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

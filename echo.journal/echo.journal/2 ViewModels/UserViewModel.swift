@@ -8,6 +8,7 @@ class UserViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoggedIn = false
     @Published var user: FirebaseAuth.User?
+    @Published var hasCompletedOnboarding = false
     
     let authRepository: UserAuthRepository
     let storeRepository: UserStoreRepository
@@ -16,7 +17,6 @@ class UserViewModel: ObservableObject {
     init(authRepository: UserAuthRepository, storeRepository: UserStoreRepository) {
         self.authRepository = authRepository
         self.storeRepository = storeRepository
-        
     }
     
     // MARK: - Auth Methods
@@ -35,6 +35,12 @@ class UserViewModel: ObservableObject {
             // 3. UI aktualisieren
             self.currentUser = user
             self.isLoggedIn = true // Setze isLoggedIn auf true
+            
+            // 4. Onboarding-Status in UserDefaults initialisieren
+            let onboardingKey = "hasCompletedOnboarding_\(user.id)"
+            UserDefaults.standard.set(false, forKey: onboardingKey)
+            self.hasCompletedOnboarding = false // UI sofort aktualisieren
+            
         } catch {
             self.errorMessage = "Registrierung fehlgeschlagen: \(error.localizedDescription)"
         }
@@ -115,4 +121,24 @@ class UserViewModel: ObservableObject {
         
         isLoading = false
     }
+    
+    // MARK: - Onboarding Methods
+    
+    func updateOnboardingStatus() {
+        guard let userId = currentUser?.id else { return } // Stelle sicher, dass ein Benutzer angemeldet ist
+        
+        hasCompletedOnboarding = true // UI sofort aktualisieren
+        
+        // Speichere den Status benutzerspezifisch
+        UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding_\(userId)")
+    }
+    
+    //func updateOnboardingStatus() {
+    //    hasCompletedOnboarding = true // Setze den Onboarding-Status auf abgeschlossen
+    //    UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
+    //}
+    
+    //private func loadOnboardingStatus() {
+    //    hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding") // Lade den Status
+    //}
 }
