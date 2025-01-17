@@ -19,18 +19,16 @@ struct VideoBackgroundView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            VideoPlayer(player: player)
-                .aspectRatio(contentMode: .fill) // Skaliere das Video, um den gesamten Bildschirm auszufüllen
-                .frame(width: geometry.size.width, height: geometry.size.height) // Passe die Größe an den gesamten Bildschirm an
-                .clipped() // Schneide den Überhang ab, wenn das Seitenverhältnis nicht übereinstimmt
-                .onAppear {
-                    player.play() // Video automatisch starten
-                }
-                .onDisappear {
-                    player.pause() // Video anhalten, wenn die View verschwindet
-                }
-        }
-        .edgesIgnoringSafeArea(.all) // Vollbild inklusive Safe Areas
+        VideoPlayer(player: player)
+            .aspectRatio(contentMode: .fill) // Skaliere das Video, um den gesamten Bildschirm auszufüllen
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) // Vollbild basierend auf der Bildschirmgröße
+            .clipped() // Schneidet den Überhang ab
+            .onAppear {
+                player.play() // Video automatisch starten
+            }
+            .onDisappear {
+                player.pause() // Video anhalten, wenn die View verschwindet
+            }
+            .edgesIgnoringSafeArea(.all) // Vollbild inklusive Safe Areas
     }
 }

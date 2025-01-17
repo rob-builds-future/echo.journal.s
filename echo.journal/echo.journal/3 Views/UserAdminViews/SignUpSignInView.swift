@@ -10,14 +10,14 @@ struct SignUpSignInView: View {
     
     
     var body: some View {
-        
         ZStack{
-            // Add video background mit overlay
-            VideoBackgroundView(videoName: "loginBackground2")
+            // video background mit overlay
+            VideoBackgroundViewRep(videoName: "loginBackground2")
                 .overlay {
                     Color.black.opacity(0.5)
                         .ignoresSafeArea()
                 }
+            
             VStack(spacing: 20) {
                 
                 Spacer().frame(height: 60)
@@ -49,25 +49,10 @@ struct SignUpSignInView: View {
                 
                 TextField("Mail-Adresse", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .textInputAutocapitalization(.never)
-                    .disableAutocorrection(true)
-//                    .keyboardType(.emailAddress)
-//                    .toolbar {
-//                        // 2) Mit .keyboard platzierst du die Toolbar direkt über der Tastatur
-//                        ToolbarItemGroup(placement: .keyboard) {
-//                            Spacer()
-//                            Button {
-//                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-//                                                                to: nil,
-//                                                                from: nil,
-//                                                                for: nil)
-//                            } label: {
-//                                // 3) Tastatursymbol (SF Symbol)
-//                                Image(systemName: "keyboard.chevron.compact.down")
-//                            }
-//                            .padding(.trailing, 8)
-//                        }
-//                    }
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .keyboardType(.emailAddress)
+                
                 
                 SecureField("Passwort", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -75,7 +60,7 @@ struct SignUpSignInView: View {
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    // 2. Primärer Button mit dynamischer Hintergrund- und Schriftfarbe
+                    // Primärer Button mit dynamischer Hintergrund- und Schriftfarbe
                     Button {
                         Task {
                             if isRegistering {
@@ -121,7 +106,6 @@ struct SignUpSignInView: View {
                     }
                     .font(.system(size: 15, weight: .regular, design: .rounded))
                     .foregroundColor(.white)
-                    
                 }
                 
                 // Fehlermeldung, falls vorhanden
@@ -132,7 +116,13 @@ struct SignUpSignInView: View {
                 }
             }
             .padding()
+            .padding(.bottom)
         }
+        .contentShape(Rectangle()) // Macht den gesamten Bereich des main VStack tappable
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        .ignoresSafeArea()
     }
 }
 
