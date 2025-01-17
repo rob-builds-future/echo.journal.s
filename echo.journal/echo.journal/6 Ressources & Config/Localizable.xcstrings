@@ -7,6 +7,9 @@
     "AmberBlaze" : {
 
     },
+    "Anmelden" : {
+
+    },
     "AzulLuminoso" : {
 
     },
@@ -22,6 +25,9 @@
     "Echo Guide" : {
 
     },
+    "echo." : {
+
+    },
     "Einstellungen" : {
 
     },
@@ -32,9 +38,6 @@
 
     },
     "Eintrag erstellen" : {
-
-    },
-    "Email" : {
 
     },
     "EmeraldTeal" : {
@@ -55,10 +58,13 @@
     "Konto löschen" : {
 
     },
-    "Login" : {
+    "Logout" : {
 
     },
-    "Logout" : {
+    "Mail-Adresse" : {
+
+    },
+    "Melde Dich mit Mail-Adresse und Passwort an." : {
 
     },
     "Mitglied seit: %@" : {
@@ -73,10 +79,16 @@
     "Neuer Eintrag" : {
 
     },
+    "ODER" : {
+
+    },
     "Passwort" : {
 
     },
     "Profil aktualisieren" : {
+
+    },
+    "Registriere Dich mit Mail-Adresse und Passwort." : {
 
     },
     "Registrieren" : {
