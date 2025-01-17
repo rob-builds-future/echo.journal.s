@@ -17,6 +17,7 @@ struct SignUpSignInView: View {
                     Color.black.opacity(0.5)
                         .ignoresSafeArea()
                 }
+                .ignoresSafeArea()
             
             VStack(spacing: 20) {
                 
@@ -115,14 +116,13 @@ struct SignUpSignInView: View {
                         .font(.caption)
                 }
             }
-            .padding()
-            .padding(.bottom)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 20)
         }
         .contentShape(Rectangle()) // Macht den gesamten Bereich des main VStack tappable
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        .ignoresSafeArea()
     }
 }
 
