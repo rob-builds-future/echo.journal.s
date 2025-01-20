@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct EchoSymbolBounceView: View {
-    @EnvironmentObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    @ObservedObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    
     @Environment(\.colorScheme) var colorScheme // Zugriff auf das aktuelle Farbschema (Light/Dark Mode)
     
     var body: some View {
@@ -12,17 +13,18 @@ struct EchoSymbolBounceView: View {
             
             // Animierte Kreise
             ZStack {
-                AnimatedCircleView(size: 215, delay: 0.6) // Äußerer Kreis
-                AnimatedCircleView(size: 175, delay: 0.4) // Zweitgrößter Kreis
-                AnimatedCircleView(size: 135, delay: 0.2) // Drittgrößter Kreis
-                AnimatedCircleView(size: 95, delay: 0.0)  // Innerster Kreis
+                AnimatedCircleView(colorManager: colorManager, size: 215, delay: 0.6) // Äußerer Kreis
+                AnimatedCircleView(colorManager: colorManager, size: 175, delay: 0.4) // Zweitgrößter Kreis
+                AnimatedCircleView(colorManager: colorManager, size: 135, delay: 0.2) // Drittgrößter Kreis
+                AnimatedCircleView(colorManager: colorManager, size: 95, delay: 0.0)  // Innerster Kreis
             }
         }
     }
 }
 
 struct AnimatedCircleView: View {
-    @EnvironmentObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    @ObservedObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    
     let size: CGFloat
     let delay: Double
     
@@ -46,6 +48,5 @@ struct AnimatedCircleView: View {
 }
 
 #Preview {
-    EchoSymbolBounceView()
-        .environmentObject(ColorManager()) // ColorManager explizit bereitstellen
+    EchoSymbolBounceView(colorManager: ColorManager())
 }

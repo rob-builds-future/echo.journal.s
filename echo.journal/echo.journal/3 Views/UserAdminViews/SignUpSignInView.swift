@@ -2,6 +2,8 @@ import SwiftUI
 
 struct SignUpSignInView: View {
     @ObservedObject var viewModel: UserViewModel
+    @ObservedObject var colorManager: ColorManager
+    
     @State private var email = ""
     @State private var password = ""
     @State private var isRegistering = false
@@ -23,7 +25,7 @@ struct SignUpSignInView: View {
                 
                 Spacer().frame(height: 60)
                 
-                EchoSymbolView()
+                EchoSymbolView(colorManager: colorManager)
                     .frame(width: 130, height: 130)
                     .scaleEffect(0.7)
                 
@@ -37,7 +39,7 @@ struct SignUpSignInView: View {
                     // Hauptüberschrift
                     Text(isRegistering ? "Registrieren" : "Anmelden")
                         .font(.system(size: 25, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                     
                     // Untertitel
                     Text(isRegistering
@@ -53,7 +55,6 @@ struct SignUpSignInView: View {
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
-                
                 
                 SecureField("Passwort", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -73,12 +74,10 @@ struct SignUpSignInView: View {
                     } label: {
                         Text(isRegistering ? "Registrieren" : "Anmelden")
                             .font(.system(size: 16, weight: .bold, design: .rounded))
-                        // Schriftfarbe abhängig vom Mode (weiß/schwarz)
-                            .foregroundColor(colorScheme == .light ? .black : .white)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                             .padding(.vertical, 12)
                             .frame(maxWidth: .infinity)
-                        // Hintergrund abhängig vom Mode (weiß/schwarz)
-                            .background(colorScheme == .light ? Color.white : Color.black)
+                            .background(colorScheme == .dark ? .black : .white)
                             .cornerRadius(8)
                     }
                     
@@ -106,7 +105,7 @@ struct SignUpSignInView: View {
                         isRegistering.toggle()
                     }
                     .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 }
                 
                 // Fehlermeldung, falls vorhanden
@@ -127,6 +126,6 @@ struct SignUpSignInView: View {
 }
 
 #Preview {
-    SignUpSignInView(viewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()))
+    SignUpSignInView(viewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()), colorManager: ColorManager())
 }
 

@@ -4,19 +4,19 @@
     "%@'s Tagebuch" : {
 
     },
-    "AmberBlaze" : {
+    "Amber Blaze" : {
 
     },
     "Anmelden" : {
 
     },
-    "AzulLuminoso" : {
-
-    },
-    "Benutzername" : {
+    "Azul Luminoso" : {
 
     },
     "Benutzername: %@" : {
+
+    },
+    "Dein Nutzername" : {
 
     },
     "Deine Zielsprache ist %@!" : {
@@ -40,10 +40,10 @@
     "Eintrag erstellen" : {
 
     },
-    "EmeraldTeal" : {
+    "Emerald Teal" : {
 
     },
-    "Farbschema" : {
+    "Farbe Deines echo." : {
 
     },
     "Fertig" : {
@@ -79,6 +79,9 @@
     "Neuer Eintrag" : {
 
     },
+    "Nutzername" : {
+
+    },
     "ODER" : {
 
     },
@@ -94,13 +97,19 @@
     "Registrieren" : {
 
     },
-    "VintagePurple" : {
+    "Sprache Deines echo." : {
 
     },
-    "Wähle dein Farbschema:" : {
+    "Vintage Purple" : {
 
     },
-    "Willkommen zum Onboarding!" : {
+    "Wähle eine Farbe" : {
+
+    },
+    "Wähle eine Sprache" : {
+
+    },
+    "Weiter" : {
 
     },
     "Willkommen, %@!" : {

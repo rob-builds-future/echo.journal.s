@@ -6,20 +6,21 @@ struct ContentView: View {
         storeRepository: .init()
     )
     @StateObject private var colorManager = ColorManager()
+    
     @State private var isLoading: Bool = true // Ladezustand
     
     var body: some View {
         NavigationStack {
             if isLoading {
-                SplashView() // Ladebildschirm anzeigen, solange isLoading true ist
+                SplashView(colorManager: colorManager) // Ladebildschirm anzeigen, solange isLoading true ist
             } else if viewModel.isLoggedIn {
                 if !viewModel.hasCompletedOnboarding {
-                    OnboardingUserDataView(viewModel: viewModel, colorManager: colorManager) // Zeige Onboarding, wenn nicht abgeschlossen
+                    OnboardingInfoView(viewModel: viewModel, colorManager: colorManager) // Zeige Onboarding, wenn nicht abgeschlossen
                 } else {
                     EntryListView(viewModel: viewModel) // Hauptansicht nach Onboarding
                 }
             } else {
-                SignUpSignInView(viewModel: viewModel)
+                SignUpSignInView(viewModel: viewModel, colorManager: colorManager)
             }
             
         }

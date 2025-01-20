@@ -2,64 +2,89 @@ import SwiftUI
 
 struct OnboardingUserDataView: View {
     @ObservedObject var viewModel: UserViewModel
-    @ObservedObject var colorManager: ColorManager // Zugriff auf den ColorManager
+    @ObservedObject var colorManager: ColorManager
+    
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var username: String = ""
     @State private var selectedLanguage: Language = .en // Standardwert
     @State private var selectedColorScheme: String = "AzulLuminoso" // Standardfarbe
     
     var body: some View {
-        VStack {
-            Text("Willkommen zum Onboarding!")
-                .font(.largeTitle)
-                .padding()
+        VStack(spacing: 16) {
+            // Sprechblase oben
+            SpeechBubbleView(
+                text: "Hallo!\nBevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle als erstes Deinen Nutzernamen, die Sprache, in die echo. deine Tagebucheinträge übersetzt, und die Farbe Deines echo.!",
+                backgroundColor: colorManager.currentColor
+            )
+            .padding(.horizontal)
             
-            TextField("Benutzername", text: $username)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-            
-            Picker("Zielsprache", selection: $selectedLanguage) {
-                ForEach(Language.allCases) { language in
-                    Text(language.rawValue).tag(language)
+            // Fixe Liste
+            List {
+                // Nutzernamen-Eingabe
+                Section(
+                    header: Text("Dein Nutzername")
+                        .font(.system(size: 16, weight: .regular, design: .rounded))
+                ) {
+                    TextField("Nutzername", text: $username)
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .padding()
+                        .background(Color.clear)
+                }
+                // Sprache auswählen
+                Section(
+                    header: Text("Sprache Deines echo.")
+                        .font(.system(size: 16, weight: .regular, design: .rounded))
+                ) {
+                    Picker("Wähle eine Sprache", selection: $selectedLanguage) {
+                        ForEach(Language.allCases) { language in
+                            Text(language.rawValue).tag(language)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .padding(4)
+                }
+                // Farbschema auswählen
+                Section(
+                    header: Text("Farbe Deines echo.")
+                        .font(.system(size: 16, weight: .regular, design: .rounded))
+                ) {
+                    Picker("Wähle eine Farbe", selection: $selectedColorScheme) {
+                        Text("Azul Luminoso").tag("AzulLuminoso")
+                        Text("Amber Blaze").tag("AmberBlaze")
+                        Text("Emerald Teal").tag("EmeraldTeal")
+                        Text("Vintage Purple").tag("VintagePurple")
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .padding(4)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
-            .padding()
+            .listStyle(.inset)
+            .frame(maxHeight: .infinity)
             
-            // Auswahl für das Farbschema
-            Text("Wähle dein Farbschema:")
-            Picker("Farbschema", selection: $selectedColorScheme) {
-                Text("AzulLuminoso").tag("AzulLuminoso")
-                Text("AmberBlaze").tag("AmberBlaze")
-                Text("EmeraldTeal").tag("EmeraldTeal")
-                Text("VintagePurple").tag("VintagePurple")
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
-            
-            // NavigationLink mit value und Ziel
-            NavigationLink(value: "OnboardingInfo") {
-                Text("Fertig")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .onTapGesture {
+            // Fertig-Button bleibt fix unten
+            Button("Fertig") {
                 Task {
                     await viewModel.updateProfile(username: username, preferredLanguage: selectedLanguage)
                     colorManager.updateColor(to: selectedColorScheme)
+                    viewModel.updateOnboardingStatus() // Onboarding als abgeschlossen markieren
+                    DispatchQueue.main.async {
+                        dismiss() // Schließe die View sicher
+                    }
                 }
             }
-            .buttonStyle(.borderedProminent)
-            .padding()
+            .font(.system(size: 16, weight: .bold, design: .rounded))
+            .foregroundColor(colorScheme == .dark ? .black : .white)
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity)
+            .background(colorScheme == .dark ? .white : .black)
+            .cornerRadius(8)
+            .padding(.horizontal)
         }
-        .padding()
-        // navigationDestination für das Ziel definieren
-        .navigationDestination(for: String.self) { value in
-            if value == "OnboardingInfo" {
-                OnboardingInfoView(viewModel: viewModel, colorManager: colorManager)
-            }
+        .ignoresSafeArea(.keyboard, edges: .bottom) // Keyboard ignorieren
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
 }

@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct SplashView: View {
+    @ObservedObject var colorManager: ColorManager
+    
     var body: some View {
-        EchoSymbolBounceView()
+        EchoSymbolBounceView(colorManager: colorManager)
     }
 }
 
 #Preview {
-    SplashView()
+    SplashView(colorManager: ColorManager())
 }

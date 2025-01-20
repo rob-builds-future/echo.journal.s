@@ -2,8 +2,9 @@ import SwiftUI
 
 struct OnboardingInfoView: View {
     @ObservedObject var viewModel: UserViewModel
-    @ObservedObject var colorManager: ColorManager // Zugriff auf den ColorManager
-    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var colorManager: ColorManager
+    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -14,19 +15,23 @@ struct OnboardingInfoView: View {
             Text("Hier sind einige Informationen über die App und wie du sie nutzen kannst...")
                 .padding()
             
-            // Füge hier weitere Informationen hinzu
-            
-            Button("Fertig") {
-                // Onboarding als abgeschlossen markieren
-                Task {
-                    viewModel.updateOnboardingStatus() // Onboarding als abgeschlossen markieren
-                    dismiss() // Schließt die aktuelle Ansicht (falls modal dargestellt)
-                }
+            NavigationLink(value: "OnboardingUserData") {
+                Text("Weiter")
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundColor(colorScheme == .dark ? .black : .white)
+                    .padding(.vertical, 12)
+                    .frame(maxWidth: .infinity)
+                    .background(colorScheme == .dark ? .white : .black)
+                    .cornerRadius(8)
             }
-            .buttonStyle(.borderedProminent)
-            .padding()
+
         }
         .padding()
+        .navigationDestination(for: String.self) { value in
+            if value == "OnboardingUserData" {
+                OnboardingUserDataView(viewModel: viewModel, colorManager: colorManager)
+            }
+        }
     }
 }
 

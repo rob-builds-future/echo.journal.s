@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct EchoSymbolView: View {
-    @EnvironmentObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    @ObservedObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    
     @Environment(\.colorScheme) var colorScheme // Zugriff auf das aktuelle Farbschema (Light/Dark Mode)
     
     var body: some View {
@@ -33,6 +34,5 @@ struct CircleView: View {
 }
 
 #Preview {
-    EchoSymbolView()
-        .environmentObject(ColorManager()) // ColorManager explizit bereitstellen
+    EchoSymbolView(colorManager: ColorManager())
 }
