@@ -4,6 +4,9 @@
     "%@'s Tagebuch" : {
 
     },
+    "Abbrechen" : {
+
+    },
     "Amber Blaze" : {
 
     },
@@ -19,9 +22,6 @@
     "Dein Nutzername" : {
 
     },
-    "Deine Zielsprache ist %@!" : {
-
-    },
     "Echo Guide" : {
 
     },
@@ -31,16 +31,10 @@
     "Einstellungen" : {
 
     },
-    "Eintrag aktualisieren" : {
-
-    },
-    "Eintrag bearbeiten" : {
-
-    },
-    "Eintrag erstellen" : {
-
-    },
     "Emerald Teal" : {
+
+    },
+    "Entry Details" : {
 
     },
     "Farbe Deines echo." : {
@@ -62,6 +56,9 @@
 
     },
     "Mail-Adresse" : {
+
+    },
+    "Mark as Favorite" : {
 
     },
     "Melde Dich mit Mail-Adresse und Passwort an." : {
@@ -97,6 +94,9 @@
     "Registrieren" : {
 
     },
+    "Speichern" : {
+
+    },
     "Sprache Deines echo." : {
 
     },
@@ -110,12 +110,6 @@
 
     },
     "Weiter" : {
-
-    },
-    "Willkommen, %@!" : {
-
-    },
-    "Willkommen!" : {
 
     },
     "Zielsprache" : {

@@ -39,7 +39,7 @@ struct SignUpSignInView: View {
                     // Hauptüberschrift
                     Text(isRegistering ? "Registrieren" : "Anmelden")
                         .font(.system(size: 25, weight: .bold, design: .rounded))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.white)
                     
                     // Untertitel
                     Text(isRegistering
@@ -105,7 +105,7 @@ struct SignUpSignInView: View {
                         isRegistering.toggle()
                     }
                     .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
                 }
                 
                 // Fehlermeldung, falls vorhanden

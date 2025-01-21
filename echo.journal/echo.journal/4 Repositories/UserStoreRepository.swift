@@ -44,8 +44,6 @@ class UserStoreRepository {
             ])
     }
     
-    
-    
     func deleteUser(id: String) async throws {
         // 1. User aus Firestore löschen
         try await store.collection(DocumentPath.users.rawValue)
