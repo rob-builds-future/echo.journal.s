@@ -1,8 +1,11 @@
 import SwiftUI
 
 struct EntryListView: View {
-    @ObservedObject var userViewModel: UserViewModel // UserViewModel für den aktuellen Benutzer
-    @StateObject private var entryViewModel: EntryViewModel // EntryViewModel für die Einträge
+    @ObservedObject var userViewModel: UserViewModel
+    @StateObject private var entryViewModel: EntryViewModel
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var showingAddEntry = false // Zustand für das Anzeigen des Hinzufügen-Dialogs
     
     init(userViewModel: UserViewModel) {
@@ -13,44 +16,64 @@ struct EntryListView: View {
     
     var body: some View {
         VStack {
-            // Liste der Tagebucheinträge
             List {
                 ForEach(entryViewModel.entries) { entry in
-                    NavigationLink(destination: EntryDetailView(entry: entry, viewModel: entryViewModel)) {
-                        HStack {
-                            Text(entry.content)
-                            Spacer()
-                            if entry.isFavorite {
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                            }
+                    EntryRow(
+                        entry: entry,
+                        colorScheme: colorScheme,
+                        onEdit: { /* Bearbeiten-Aktion */ },
+                        onToggleFavorite: {
+                            Task { await entryViewModel.toggleFavorite(entryId: entry.id) }
+                        },
+                        onDelete: {
+                            Task { await entryViewModel.deleteEntry(entryId: entry.id) }
                         }
-                    }
+                    )
                 }
-                .onDelete(perform: deleteEntry) // Ermöglicht das Löschen von Einträgen
+                .onDelete(perform: deleteEntry)
+                .listRowSeparator(.hidden)
             }
-            .navigationTitle("\(userViewModel.currentUser?.username ?? "")'s Tagebuch") // Setze den Titel der Navigation
+            .listStyle(PlainListStyle())
         }
         .sheet(isPresented: $showingAddEntry) {
             AddEntryView(viewModel: entryViewModel)
         }
         .toolbar {
+            ToolbarItem(placement: .principal) { // Benutzerdefinierter Titel
+                Text("\(userViewModel.currentUser?.username ?? "")'s Tagebuch")
+                    .font(.system(size: 20, weight: .bold, design: .rounded)) // SF Pro Rounded
+            }
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 // Navigiere zur SettingsView
                 NavigationLink(destination: SettingsView(viewModel: userViewModel)) {
-                    Image(systemName: "gear")
-                        .imageScale(.large) // Größeres Zahnrad-Icon
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 14, weight: .bold, design: .rounded)) // SF Pro Rounded
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black) // Adaptive Farbe
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(
+                            Capsule()
+                                .fill(colorScheme == .dark ? Color.gray.opacity(0.5) : Color.gray.opacity(0.3)) // Dezenter Hintergrund
+                        )
                 }
             }
+            
             ToolbarItem(placement: .bottomBar) {
                 // Zeige das Hinzufügen-Sheet an
                 Button(action: {
                     showingAddEntry.toggle()
                 }) {
                     Image(systemName: "plus")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
+                        .padding(.vertical, 15)
+                        .padding(.horizontal, 35)
+                        .background(Capsule().fill(colorScheme == .dark ? .white : .black))
                 }
             }
         }
+        .toolbarBackground(Color.clear, for: .bottomBar)
         .onAppear {
             Task {
                 await entryViewModel.loadEntries() // Lade die Einträge, wenn die Ansicht erscheint

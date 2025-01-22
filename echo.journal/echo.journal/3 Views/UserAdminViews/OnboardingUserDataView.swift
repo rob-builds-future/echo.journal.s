@@ -82,9 +82,9 @@ struct OnboardingUserDataView: View {
             .cornerRadius(8)
             .padding(.horizontal)
         }
-        .ignoresSafeArea(.keyboard, edges: .bottom) // Keyboard ignorieren
+        .ignoresSafeArea(.keyboard, edges: .bottom) // View ignoriert Keyboard, keine Verschiebung
         .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) // Klick ausßerhalb von keyboard dismissed keyboard
         }
     }
 }
