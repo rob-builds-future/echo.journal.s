@@ -10,10 +10,11 @@ struct EntryRow: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.white)
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                .fill(colorScheme == .dark ? Color.gray.opacity(0.15) : Color.white)
+                .shadow(color: colorScheme == .dark ? .black.opacity(0.2) : .gray.opacity(0.2), radius: 4, x: 0, y: 2)
             
-            HStack {
+            HStack(spacing: 12) {
+                // Eintragsinhalt
                 VStack(alignment: .leading, spacing: 6) {
                     Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
                         .font(.caption)
@@ -28,23 +29,23 @@ struct EntryRow: View {
                 
                 Spacer()
                 
-                VStack {
-                    Spacer()
-                    Menu {
-                        Button("Bearbeiten", action: onEdit)
-                        Button("Favorit", action: onToggleFavorite)
-                        Button("Löschen", role: .destructive, action: onDelete)
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(colorScheme == .dark ? .black : .white)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 10)
-                            .background(Capsule().fill(colorScheme == .dark ? .white : .black))
-                    }
+                // Menü mit Optionen
+                Menu {
+                    Button("Bearbeiten", action: onEdit)
+                    Button("Favorit", action: onToggleFavorite)
+                    Button("Löschen", role: .destructive, action: onDelete)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 10)
+                        .background(Capsule().fill(colorScheme == .dark ? .gray.opacity(0.2) : .gray.opacity(0.3)))
                 }
             }
-            .padding(12)
+            .padding(16) // Innenabstand der Kachel
         }
+        .padding(.horizontal, 16) // Außenabstand
+        .padding(.vertical, 8)
     }
 }

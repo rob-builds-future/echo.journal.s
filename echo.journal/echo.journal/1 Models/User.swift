@@ -5,7 +5,7 @@ struct User: Identifiable, Codable {
     var email: String
     var username: String
     var preferredLanguage: Language
-    let createdAt: Date = Date()
+    var createdAt: Date = Date()
 
     
     init(id: String, email: String, username: String, preferredLanguage: Language) {

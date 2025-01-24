@@ -7,16 +7,13 @@
     "Abbrechen" : {
 
     },
+    "Abmelden" : {
+
+    },
     "Aktualisiert am: %@" : {
 
     },
-    "Amber Blaze" : {
-
-    },
     "Anmelden" : {
-
-    },
-    "Azul Luminoso" : {
 
     },
     "Bearbeiten" : {
@@ -25,7 +22,16 @@
     "Benutzername: %@" : {
 
     },
+    "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
+
+    },
     "Dein Nutzername" : {
+
+    },
+    "Details" : {
+
+    },
+    "Echo Farbe: %@" : {
 
     },
     "Echo Guide" : {
@@ -34,19 +40,10 @@
     "echo." : {
 
     },
-    "Einstellungen" : {
-
-    },
-    "Eintrag Details" : {
-
-    },
-    "Eintrag nicht gefunden." : {
-
-    },
-    "Emerald Teal" : {
-
-    },
     "Erstellt am: %@" : {
+
+    },
+    "Farbe" : {
 
     },
     "Farbe Deines echo." : {
@@ -61,13 +58,7 @@
     "Hier sind einige Informationen über die App und wie du sie nutzen kannst..." : {
 
     },
-    "Inhalt" : {
-
-    },
     "Konto löschen" : {
-
-    },
-    "Logout" : {
 
     },
     "Löschen" : {
@@ -76,19 +67,16 @@
     "Mail-Adresse" : {
 
     },
+    "Mehr Optionen" : {
+
+    },
     "Melde Dich mit Mail-Adresse und Passwort an." : {
 
     },
     "Mitglied seit: %@" : {
 
     },
-    "Neuen Eintrag erstellen" : {
-
-    },
     "Neuer Benutzername" : {
-
-    },
-    "Neuer Eintrag" : {
 
     },
     "Nutzername" : {
@@ -100,7 +88,7 @@
     "Passwort" : {
 
     },
-    "Profil aktualisieren" : {
+    "Profil" : {
 
     },
     "Registriere Dich mit Mail-Adresse und Passwort." : {
@@ -115,7 +103,7 @@
     "Sprache Deines echo." : {
 
     },
-    "Vintage Purple" : {
+    "Übersetzung erscheint hier..." : {
 
     },
     "Wähle eine Farbe" : {

@@ -1,23 +1,25 @@
 import SwiftUI
 
+/// Manager zur Verwaltung des ausgewählten Farbschemas
 class ColorManager: ObservableObject {
-    @Published var currentColor: Color
+    @Published var currentColor: EchoColor
     
-    private let defaultColorName = "AzulLuminoso" // Standardfarbe
+    private let defaultColor: EchoColor = .azulLuminoso // Standardfarbe
     private let userDefaultsKey = "SelectedThemeColor" // Schlüssel für Persistenz
 
     init() {
         // Lade die gespeicherte Farbe oder verwende die Standardfarbe
-        if let savedColorName = UserDefaults.standard.string(forKey: userDefaultsKey) {
-            self.currentColor = Color(savedColorName)
+        if let savedColorName = UserDefaults.standard.string(forKey: userDefaultsKey),
+           let savedColor = EchoColor(rawValue: savedColorName) {
+            self.currentColor = savedColor
         } else {
-            self.currentColor = Color(defaultColorName)
+            self.currentColor = defaultColor
         }
     }
     
-    func updateColor(to newColorName: String) {
-        // Aktualisiere die Farbe und speichere sie
-        self.currentColor = Color(newColorName)
-        UserDefaults.standard.set(newColorName, forKey: userDefaultsKey)
+    /// Aktualisiert das Farbschema und speichert es
+    func updateColor(to newColor: EchoColor) {
+        self.currentColor = newColor
+        UserDefaults.standard.set(newColor.rawValue, forKey: userDefaultsKey)
     }
 }

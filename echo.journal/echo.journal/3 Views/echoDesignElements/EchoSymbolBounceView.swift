@@ -32,7 +32,7 @@ struct AnimatedCircleView: View {
 
     var body: some View {
         Circle()
-            .stroke(colorManager.currentColor, lineWidth: 8) // Stroke mit Theme-Farbe und fester Breite
+            .stroke(colorManager.currentColor.color, lineWidth: 8) // Verwende die Farbe des aktuellen Themes
             .frame(width: size, height: size) // Größe des Kreises
             .scaleEffect(scale) // Skalierung des Kreises animieren
             .onAppear {

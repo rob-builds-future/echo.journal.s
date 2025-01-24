@@ -3,14 +3,8 @@ import SwiftUI
 struct EchoSymbolView: View {
     @ObservedObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
     
-    @Environment(\.colorScheme) var colorScheme // Zugriff auf das aktuelle Farbschema (Light/Dark Mode)
-    
     var body: some View {
         ZStack {
-            // Dynamischer Hintergrund basierend auf dem Farbschema
-            //(colorScheme == .dark ? Color.black : Color.white)
-                //.ignoresSafeArea()
-            
             // Vier überlagerte Kreise mit Stroke
             ZStack {
                 CircleView(size: 215) // Äußerer Kreis
@@ -28,11 +22,12 @@ struct CircleView: View {
     
     var body: some View {
         Circle()
-            .stroke(colorManager.currentColor, lineWidth: 8) // Stroke mit Theme-Farbe und fester Breite
+            .stroke(colorManager.currentColor.color, lineWidth: 8) // Verwende die Farbe des aktuellen Themes
             .frame(width: size, height: size) // Größe des Kreises
     }
 }
 
 #Preview {
     EchoSymbolView(colorManager: ColorManager())
+        .environmentObject(ColorManager()) // EnvironmentObject für die Vorschau bereitstellen
 }

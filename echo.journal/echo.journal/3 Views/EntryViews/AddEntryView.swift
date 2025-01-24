@@ -9,14 +9,31 @@ struct AddEntryView: View {
     @State private var isSaving = false // Zustand zum Verhindern von Mehrfachklicks
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Neuen Eintrag erstellen")) {
-                    TextField("Inhalt", text: $content)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Bereich 1: Textfeld
+                VStack(alignment: .leading) {
+                    TextEditor(text: $content)
+                        .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading) // Mindesthöhe 100 für Multi-Line
+                        .padding(8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.gray.opacity(0.5), lineWidth: 1) // Rahmen für das TextEditor
+                        )
+                        .autocorrectionDisabled(true) // Autokorrektur deaktivieren
                 }
+                .padding()
+                
+                // Bereich 2: Übersetzung
+                VStack(alignment: .leading) {
+                    Text("Übersetzung erscheint hier...")
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading) // Text linksbündig
+                        .padding()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading) // Übersetzung oben links ausrichten
             }
-            .navigationTitle("Neuer Eintrag")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Abbrechen") {
@@ -30,9 +47,14 @@ struct AddEntryView: View {
                     .disabled(isSaving || content.isEmpty) // Deaktiviere Button während des Speicherns
                 }
             }
+            .navigationBarTitleDisplayMode(.inline) // Keine Platzverschwendung für NavigationTitle
+            .contentShape(Rectangle()) // Macht den gesamten Bereich des main VStack tappable
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
         }
     }
-
+    
     private func saveEntry() {
         guard !isSaving else { return }
         isSaving = true

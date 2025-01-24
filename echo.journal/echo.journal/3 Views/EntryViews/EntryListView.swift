@@ -2,13 +2,15 @@ import SwiftUI
 
 struct EntryListView: View {
     @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var colorManager: ColorManager
     @StateObject private var entryViewModel: EntryViewModel
     
     @Environment(\.colorScheme) var colorScheme
     @State private var showingAddEntry = false
     
-    init(userViewModel: UserViewModel) {
+    init(userViewModel: UserViewModel, colorManager: ColorManager) {
         self.userViewModel = userViewModel
+        self.colorManager = colorManager
         _entryViewModel = StateObject(wrappedValue: EntryViewModel(entryStoreRepository: EntryStoreRepository(), userId: userViewModel.currentUser?.id ?? ""))
     }
     
@@ -30,7 +32,7 @@ struct EntryListView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) { // User Settings Toolbar Element
-                NavigationLink(destination: SettingsView(viewModel: userViewModel)) {
+                NavigationLink(destination: SettingsView(viewModel: userViewModel, colorManager: colorManager)) {
                     Image(systemName: "person.fill")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -67,5 +69,5 @@ struct EntryListView: View {
 }
 
 #Preview {
-    EntryListView(userViewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()))
+    EntryListView(userViewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()), colorManager: ColorManager())
 }

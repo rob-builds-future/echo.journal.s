@@ -5,6 +5,7 @@ class EntryViewModel: ObservableObject {
     @Published var entries: [JournalEntry] = []
     @Published var errorMessage: String?
     @Published var isLoading = false
+    @Published var selectedEntry: JournalEntry?
     
     private let entryStoreRepository: EntryStoreRepository
     private let userId: String // Benutzer-ID, um Einträge zuzuordnen

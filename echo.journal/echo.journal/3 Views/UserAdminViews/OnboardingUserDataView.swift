@@ -9,14 +9,14 @@ struct OnboardingUserDataView: View {
     
     @State private var username: String = ""
     @State private var selectedLanguage: Language = .en // Standardwert
-    @State private var selectedColorScheme: String = "AzulLuminoso" // Standardfarbe
+    @State private var selectedColorScheme: EchoColor = .azulLuminoso // Standardfarbe
     
     var body: some View {
         VStack(spacing: 16) {
             // Sprechblase oben
             SpeechBubbleView(
                 text: "Hallo!\nBevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle als erstes Deinen Nutzernamen, die Sprache, in die echo. deine Tagebucheinträge übersetzt, und die Farbe Deines echo.!",
-                backgroundColor: colorManager.currentColor
+                backgroundColor: colorManager.currentColor.color
             )
             .padding(.horizontal)
             
@@ -51,10 +51,9 @@ struct OnboardingUserDataView: View {
                         .font(.system(size: 16, weight: .regular, design: .rounded))
                 ) {
                     Picker("Wähle eine Farbe", selection: $selectedColorScheme) {
-                        Text("Azul Luminoso").tag("AzulLuminoso")
-                        Text("Amber Blaze").tag("AmberBlaze")
-                        Text("Emerald Teal").tag("EmeraldTeal")
-                        Text("Vintage Purple").tag("VintagePurple")
+                        ForEach(EchoColor.allCases) { color in
+                            Text(color.displayName).tag(color) // Jeder Tag ist ein EchoColor
+                        }
                     }
                     .pickerStyle(MenuPickerStyle())
                     .padding(4)
@@ -66,8 +65,9 @@ struct OnboardingUserDataView: View {
             // Fertig-Button bleibt fix unten
             Button("Fertig") {
                 Task {
+                    // Aktualisiere das Profil und die Farbe
                     await viewModel.updateProfile(username: username, preferredLanguage: selectedLanguage)
-                    colorManager.updateColor(to: selectedColorScheme)
+                    colorManager.updateColor(to: selectedColorScheme) // EchoColor wird direkt übergeben
                     viewModel.updateOnboardingStatus() // Onboarding als abgeschlossen markieren
                     DispatchQueue.main.async {
                         dismiss() // Schließe die View sicher
@@ -84,7 +84,7 @@ struct OnboardingUserDataView: View {
         }
         .ignoresSafeArea(.keyboard, edges: .bottom) // View ignoriert Keyboard, keine Verschiebung
         .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) // Klick ausßerhalb von keyboard dismissed keyboard
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) // Klick außerhalb des Keyboards schließt es
         }
     }
 }

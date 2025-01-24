@@ -17,7 +17,7 @@ struct ContentView: View {
                 if !viewModel.hasCompletedOnboarding {
                     OnboardingInfoView(viewModel: viewModel, colorManager: colorManager) // Zeige Onboarding, wenn nicht abgeschlossen
                 } else {
-                    EntryListView(userViewModel: viewModel) // Hauptansicht nach Onboarding
+                    EntryListView(userViewModel: viewModel, colorManager: colorManager) // Hauptansicht nach Onboarding
                 }
             } else {
                 SignUpSignInView(viewModel: viewModel, colorManager: colorManager)
