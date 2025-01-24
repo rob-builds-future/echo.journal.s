@@ -1,27 +1,53 @@
 import SwiftUI
 
 struct EntryDetailView: View {
-    var entry: JournalEntry
     @ObservedObject var viewModel: EntryViewModel
+    let entryId: String
 
     var body: some View {
-        VStack {
-            Text(entry.content)
-                .font(.title)
-                .padding()
+        if let entry = viewModel.entries.first(where: { $0.id == entryId }) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    // Inhalt
+                    Text(entry.content)
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .padding(.bottom, 8)
 
-            // Hier kannst du weitere Details und Bearbeitungsoptionen hinzufügen
-            Button("Mark as Favorite") {
-                Task {
-                    await viewModel.toggleFavorite(entryId: entry.id)
+                    // Erstellungsdatum
+                    HStack {
+                        Image(systemName: "calendar")
+                        Text("Erstellt am: \(entry.createdAt.formatted(date: .abbreviated, time: .omitted))")
+                    }
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+
+                    // Aktualisierungsdatum
+                    HStack {
+                        Image(systemName: "clock")
+                        Text("Aktualisiert am: \(entry.updatedAt.formatted(date: .abbreviated, time: .shortened))")
+                    }
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+
+                    Spacer()
+                }
+                .padding()
+            }
+            .navigationTitle("Eintrag Details")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Bearbeiten") {
+                        // Logik für Bearbeiten (z. B. Umschalten in den Bearbeitungsmodus)
+                    }
                 }
             }
-            .padding()
+        } else {
+            // Fallback, wenn der Eintrag nicht gefunden wird
+            Text("Eintrag nicht gefunden.")
+                .font(.headline)
+                .foregroundColor(.red)
         }
-        .navigationTitle("Entry Details")
     }
-}
-
-#Preview {
-    EntryDetailView(entry: JournalEntry(userId: "testUser", content: "Test Entry"), viewModel: EntryViewModel(entryStoreRepository: EntryStoreRepository(), userId: "testUser"))
 }

@@ -10,14 +10,6 @@ struct JournalEntry: Identifiable, Codable {
     let createdAt: Date = Date()
     var updatedAt: Date = Date()
     
-    var formattedCreatedAt: String {
-        createdAt.formatted
-    }
-    
-    var formattedUpdatedAt: String {
-        updatedAt.formatted
-    }
-    
     init(userId: String, content: String) {
         self.userId = userId
         self.content = content

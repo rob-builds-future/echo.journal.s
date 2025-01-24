@@ -7,6 +7,9 @@
     "Abbrechen" : {
 
     },
+    "Aktualisiert am: %@" : {
+
+    },
     "Amber Blaze" : {
 
     },
@@ -34,10 +37,16 @@
     "Einstellungen" : {
 
     },
+    "Eintrag Details" : {
+
+    },
+    "Eintrag nicht gefunden." : {
+
+    },
     "Emerald Teal" : {
 
     },
-    "Entry Details" : {
+    "Erstellt am: %@" : {
 
     },
     "Farbe Deines echo." : {
@@ -65,9 +74,6 @@
 
     },
     "Mail-Adresse" : {
-
-    },
-    "Mark as Favorite" : {
 
     },
     "Melde Dich mit Mail-Adresse und Passwort an." : {

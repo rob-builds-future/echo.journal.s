@@ -17,7 +17,7 @@ class EntryStoreRepository {
         return entry
     }
     
-    // Hole einen spezifischen Tagebucheintrag
+    // Hole alle Tagebucheinträge
     func getEntries(userId: String) async throws -> [JournalEntry] {
         let snapshot = try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
@@ -29,7 +29,7 @@ class EntryStoreRepository {
         }
     }
     
-    // Hole einen spezifischen Tagebucheintrag
+    /* Hole einen spezifischen Tagebucheintrag
     func getEntry(userId: String, entryId: String) async throws -> JournalEntry? {
         let document = try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
@@ -38,7 +38,7 @@ class EntryStoreRepository {
             .getDocument()
         
         return try document.data(as: JournalEntry.self)
-    }
+    }*/
     
     // Aktualisiere einen Tagebucheintrag
     func updateEntry(userId: String, entryId: String, content: String) async throws {

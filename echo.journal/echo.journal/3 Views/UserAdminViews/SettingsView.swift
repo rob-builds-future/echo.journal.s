@@ -9,22 +9,22 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var viewModel: UserViewModel
+    
     @Environment(\.presentationMode) var presentationMode
     
-    // State-Variablen für die Eingabefelder
     @State private var newUsername: String = ""
     @State private var selectedLanguage: Language = .en // Standardwert
     @State private var isEditing: Bool = false // Zustand für das Bearbeiten
     
     var body: some View {
         VStack {
-            // Aktuelle Profildaten anzeigen
+            // Zeige aktuelle Profildaten an
             if let currentUser = viewModel.currentUser {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Benutzername: \(currentUser.username)")
                         Text("Zielsprache: \(currentUser.preferredLanguage.rawValue)")
-                        Text("Mitglied seit: \(currentUser.formattedCreatedAt)")
+                        Text("Mitglied seit: \(currentUser.createdAt.formatted(date: .abbreviated, time: .omitted))")
                     }
                     Spacer()
                     Button(action: {

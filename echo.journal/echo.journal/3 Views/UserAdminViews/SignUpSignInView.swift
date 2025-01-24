@@ -4,12 +4,11 @@ struct SignUpSignInView: View {
     @ObservedObject var viewModel: UserViewModel
     @ObservedObject var colorManager: ColorManager
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var email = ""
     @State private var password = ""
     @State private var isRegistering = false
-    
-    @Environment(\.colorScheme) var colorScheme
-    
     
     var body: some View {
         ZStack{
@@ -52,9 +51,9 @@ struct SignUpSignInView: View {
                 
                 TextField("Mail-Adresse", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                .textInputAutocapitalization(.never)
-                .disableAutocorrection(true)
-                .keyboardType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                    .disableAutocorrection(true)
+                    .keyboardType(.emailAddress)
                 
                 SecureField("Passwort", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -62,7 +61,7 @@ struct SignUpSignInView: View {
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    // Primärer Button mit dynamischer Hintergrund- und Schriftfarbe
+                    // Primärer Anmelden und Registrieren Button
                     Button {
                         Task {
                             if isRegistering {
@@ -81,7 +80,7 @@ struct SignUpSignInView: View {
                             .cornerRadius(8)
                     }
                     
-                    // 3. Divider mit "ODER" in der Mitte
+                    // Divider mit "ODER" in der Mitte
                     HStack{
                         Rectangle()
                             .fill(Color.gray)

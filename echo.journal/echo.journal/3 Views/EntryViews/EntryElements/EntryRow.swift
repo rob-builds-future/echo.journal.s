@@ -9,20 +9,16 @@ struct EntryRow: View {
     
     var body: some View {
         ZStack {
-            // Hintergrund
             RoundedRectangle(cornerRadius: 12)
                 .fill(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.white)
                 .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
             
-            // Inhalt
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    // Datum
-                    Text(entry.formattedCreatedAt)
+                    Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
                         .font(.caption)
                         .foregroundColor(.gray)
                     
-                    // Content Preview
                     Text(entry.content)
                         .font(.body)
                         .lineLimit(2)
@@ -32,9 +28,8 @@ struct EntryRow: View {
                 
                 Spacer()
                 
-                // Ellipsis-Button unten rechts
                 VStack {
-                    Spacer() // Drückt den Button nach unten
+                    Spacer()
                     Menu {
                         Button("Bearbeiten", action: onEdit)
                         Button("Favorit", action: onToggleFavorite)
