@@ -22,6 +22,9 @@
     "Benutzername: %@" : {
 
     },
+    "Bevorzugte Sprache: %@" : {
+
+    },
     "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
 
     },
@@ -50,6 +53,9 @@
 
     },
     "Favorit" : {
+
+    },
+    "Fehler: %@" : {
 
     },
     "Fertig" : {
@@ -103,7 +109,7 @@
     "Sprache Deines echo." : {
 
     },
-    "Übersetzung erscheint hier..." : {
+    "Übersetzen" : {
 
     },
     "Wähle eine Farbe" : {

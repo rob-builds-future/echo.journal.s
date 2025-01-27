@@ -23,7 +23,7 @@ struct EntryListView: View {
                 .padding(.top, 12) // etwas Abstand von der Toolbar
         }
         .sheet(isPresented: $showingAddEntry) { // AddEntry Sheet
-            AddEntryView(viewModel: entryViewModel)
+            AddEntryView(viewModel: entryViewModel, colorManager: colorManager)
         }
         .toolbar {
             ToolbarItem(placement: .principal) { // Titel Toolbar Element

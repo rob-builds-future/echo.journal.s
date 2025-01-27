@@ -35,6 +35,24 @@ class UserStoreRepository {
         )
     }
     
+    func getPreferredLanguage(userId: String) async throws -> Language {
+        print("Lade bevorzugte Sprache für User ID: \(userId)")
+        let document = try await store.collection("users").document(userId).getDocument()
+        
+        print("Dokumentdaten: \(document.data() ?? [:])")
+        
+        guard let data = document.data(),
+              let languageString = data["preferredLanguage"] as? String,
+              let preferredLanguage = Language(rawValue: languageString) else {
+            throw NSError(domain: "UserStoreRepository", code: 404, userInfo: [NSLocalizedDescriptionKey: "Benutzer oder bevorzugte Sprache nicht gefunden"])
+        }
+        
+        print("Bevorzugte Sprache: \(preferredLanguage.rawValue)")
+        return preferredLanguage
+    }
+
+    
+    
     func updateUser(id: String, username: String, preferredLanguage: Language) async throws {
         try await store.collection(DocumentPath.users.rawValue)
             .document(id)

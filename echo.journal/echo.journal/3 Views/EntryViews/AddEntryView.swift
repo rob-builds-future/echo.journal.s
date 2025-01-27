@@ -2,12 +2,18 @@ import SwiftUI
 
 struct AddEntryView: View {
     @ObservedObject var viewModel: EntryViewModel // ViewModel für die Einträge
-
+    @ObservedObject var colorManager: ColorManager
+    @StateObject private var translationViewModel = TranslationViewModel(
+        translationRepository: TranslationAPIRepository(),
+        userAuthRepository: UserAuthRepository() // Use the centralized auth repository
+    )
+    
     @Environment(\.dismiss) private var dismiss // Um das Sheet zu schließen
     
     @State private var content: String = "" // Inhalt des neuen Eintrags
     @State private var isSaving = false // Zustand zum Verhindern von Mehrfachklicks
-
+    @State private var showPreferredLanguageTestView = false // Zustand für das Sheet
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -26,12 +32,23 @@ struct AddEntryView: View {
                 
                 // Bereich 2: Übersetzung
                 VStack(alignment: .leading) {
-                    Text("Übersetzung erscheint hier...")
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: .infinity, alignment: .leading) // Text linksbündig
+                    Text(translationViewModel.translatedText.isEmpty ? "Meine Übersetzung wird hier erscheinen ..." : translationViewModel.translatedText)
+                        .foregroundColor(translationViewModel.translatedText.isEmpty ? colorManager.currentColor.color.opacity(0.5) : colorManager.currentColor.color)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading) // Übersetzung oben links ausrichten
+                // Button zum Übersetzen
+                Button("Übersetzen") {
+                    Task {
+                          print("Content to be translated: \(content)")
+                          await translationViewModel.translateText(content)
+                      }
+                }
+                .padding()
+                .disabled(content.isEmpty)
+                
+                Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .toolbar {
@@ -52,13 +69,16 @@ struct AddEntryView: View {
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
+            .task {
+                await translationViewModel.fetchUserPreferredLanguage()
+            }
         }
     }
     
     private func saveEntry() {
         guard !isSaving else { return }
         isSaving = true
-
+        
         Task {
             do {
                 _ = try await viewModel.createEntry(content: content) // Speichere den Eintrag
@@ -73,5 +93,5 @@ struct AddEntryView: View {
 
 
 #Preview {
-    AddEntryView(viewModel: EntryViewModel(entryStoreRepository: EntryStoreRepository(), userId: "testUser"))
+    AddEntryView(viewModel: EntryViewModel(entryStoreRepository: EntryStoreRepository(), userId: "testUser"), colorManager: ColorManager())
 }
