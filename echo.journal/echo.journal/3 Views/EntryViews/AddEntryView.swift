@@ -11,8 +11,7 @@ struct AddEntryView: View {
     @Environment(\.dismiss) private var dismiss // Um das Sheet zu schließen
     
     @State private var content: String = "" // Inhalt des neuen Eintrags
-    @State private var isSaving = false // Zustand zum Verhindern von Mehrfachklicks
-    @State private var showPreferredLanguageTestView = false // Zustand für das Sheet
+    @State private var translationDebounceTimer: Timer? // Timer für Debouncing
     
     var body: some View {
         NavigationStack {
@@ -27,6 +26,9 @@ struct AddEntryView: View {
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 1) // Rahmen für das TextEditor
                         )
                         .autocorrectionDisabled(true) // Autokorrektur deaktivieren
+                        .onChange(of: content) { _, newValue in
+                            handleTextChange(newValue: newValue)
+                        }
                 }
                 .padding()
                 
@@ -38,15 +40,6 @@ struct AddEntryView: View {
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading) // Übersetzung oben links ausrichten
-                // Button zum Übersetzen
-                Button("Übersetzen") {
-                    Task {
-                          print("Content to be translated: \(content)")
-                          await translationViewModel.translateText(content)
-                      }
-                }
-                .padding()
-                .disabled(content.isEmpty)
                 
                 Spacer()
             }
@@ -59,9 +52,16 @@ struct AddEntryView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Speichern") {
-                        saveEntry() // Speichere den Eintrag
+                        Task {
+                            do {
+                                try await viewModel.createEntry(content: content) // Direkter Aufruf
+                                dismiss() // Schließe das Sheet nach erfolgreichem Speichern
+                            } catch {
+                                print("Fehler beim Speichern: \(viewModel.errorMessage ?? "Unbekannter Fehler")")
+                            }
+                        }
                     }
-                    .disabled(isSaving || content.isEmpty) // Deaktiviere Button während des Speicherns
+                    .disabled(content.isEmpty) // Deaktiviere Button während des Speicherns
                 }
             }
             .navigationBarTitleDisplayMode(.inline) // Keine Platzverschwendung für NavigationTitle
@@ -75,17 +75,14 @@ struct AddEntryView: View {
         }
     }
     
-    private func saveEntry() {
-        guard !isSaving else { return }
-        isSaving = true
+    func handleTextChange(newValue: String) {
+        // Invalidate any existing timer to debounce input
+        translationDebounceTimer?.invalidate()
         
-        Task {
-            do {
-                _ = try await viewModel.createEntry(content: content) // Speichere den Eintrag
-                dismiss() // Schließe das Sheet nach erfolgreichem Speichern
-            } catch {
-                print("Fehler beim Speichern des Eintrags: \(error.localizedDescription)")
-                isSaving = false
+        // Start a new debounce timer with a 1-second delay
+        translationDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+            Task {
+                await translationViewModel.translateText(newValue)
             }
         }
     }

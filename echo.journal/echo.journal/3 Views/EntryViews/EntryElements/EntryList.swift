@@ -9,7 +9,7 @@ struct EntryList: View {
     
     var body: some View {
         List {
-            ForEach(entryViewModel.entries) { entry in
+            ForEach(entryViewModel.entries.sorted(by: { $0.createdAt > $1.createdAt })) { entry in
                 ZStack {
                     // Unsichtbarer NavigationLink für die Navigation
                     NavigationLink(value: entry) {
@@ -32,7 +32,7 @@ struct EntryList: View {
                         },
                         onDelete: {
                             Task {
-                                await entryViewModel.deleteEntry(entryId: entry.id)
+                                await entryViewModel.deleteEntry(entryId: entry.id) // Eintrag löschen
                             }
                         }
                     )
@@ -46,11 +46,5 @@ struct EntryList: View {
         .navigationDestination(for: JournalEntry.self) { entry in
             EntryDetailView(viewModel: entryViewModel, entry: entry)
         }
-//        // Navigation bei Auswahl eines Eintrags programmgesteuert auslösen
-//        .onChange(of: selectedEntry) { entry in
-//            if let entry = entry {
-//                entryViewModel.selectedEntry = entry
-//            }
-//        }
     }
 }

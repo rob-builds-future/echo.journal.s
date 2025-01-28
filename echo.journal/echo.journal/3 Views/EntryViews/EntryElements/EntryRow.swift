@@ -45,7 +45,6 @@ struct EntryRow: View {
             }
             .padding(16) // Innenabstand der Kachel
         }
-        .padding(.horizontal, 16) // Außenabstand
         .padding(.vertical, 8)
     }
 }

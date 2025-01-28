@@ -6,35 +6,36 @@ class EntryViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
     @Published var selectedEntry: JournalEntry?
+    @Published var isSaving = false // Zustandsvariable zum Verhindern von Mehrfachklicks
     
     private let entryStoreRepository: EntryStoreRepository
     private let userId: String // Benutzer-ID, um Einträge zuzuordnen
-
+    
     init(entryStoreRepository: EntryStoreRepository, userId: String) {
         self.entryStoreRepository = entryStoreRepository
         self.userId = userId
     }
-
+    
     // MARK: - CRUD Methods
-
-    func createEntry(content: String) async throws -> JournalEntry {
-        isLoading = true
+    
+    func createEntry(content: String) async throws {
+        guard !isSaving else { return } // Verhindere Mehrfachklicks
+        isSaving = true
         errorMessage = nil
         
         defer {
-            isLoading = false // Sicherstellen, dass isLoading zurückgesetzt wird
+            isSaving = false // Reset nach Abschluss
         }
         
         do {
             let newEntry = try await entryStoreRepository.createEntry(userId: userId, content: content)
-            entries.append(newEntry) // Füge den neuen Eintrag zur Liste hinzu
-            return newEntry // Gib den neuen Eintrag zurück
+            entries.append(newEntry) // Neuen Eintrag zur Liste hinzufügen
         } catch {
             errorMessage = "Fehler beim Erstellen des Eintrags: \(error.localizedDescription)"
-            throw error // Wirf den Fehler weiter
+            throw error
         }
     }
-
+    
     func loadEntries() async {
         isLoading = true
         errorMessage = nil
@@ -47,7 +48,7 @@ class EntryViewModel: ObservableObject {
         
         isLoading = false
     }
-
+    
     func updateEntry(entryId: String, content: String) async {
         isLoading = true
         errorMessage = nil
@@ -64,7 +65,7 @@ class EntryViewModel: ObservableObject {
         
         isLoading = false
     }
-
+    
     func toggleFavorite(entryId: String) async {
         isLoading = true
         errorMessage = nil
@@ -80,7 +81,7 @@ class EntryViewModel: ObservableObject {
         
         isLoading = false
     }
-
+    
     func deleteEntry(entryId: String) async {
         isLoading = true
         errorMessage = nil

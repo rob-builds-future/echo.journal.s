@@ -1,14 +1,12 @@
 import Foundation
 
 struct JournalEntry: Identifiable, Codable, Hashable {
-    var id: String = UUID().uuidString
+    var id: String = ""
     let userId: String
     var content: String
-    var translatedContent: String? = nil
-    var isFavorite: Bool = false
-    var language: String = "de"
     var createdAt: Date = Date()
-    var updatedAt: Date = Date()
+    var updatedAt: Date? = nil
+    var isFavorite: Bool = false
     
     init(userId: String, content: String) {
         self.userId = userId

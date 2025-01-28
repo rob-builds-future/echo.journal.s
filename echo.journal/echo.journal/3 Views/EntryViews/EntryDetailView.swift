@@ -53,7 +53,7 @@ struct EntryDetailView: View {
 
             HStack {
                 Image(systemName: "clock")
-                Text("Aktualisiert am: \(entry.updatedAt.formatted(date: .abbreviated, time: .shortened))")
+                Text("Aktualisiert am: \(entry.updatedAt?.formatted(date: .abbreviated, time: .shortened) ?? "")")
             }
             .font(.footnote)
             .foregroundColor(.gray)

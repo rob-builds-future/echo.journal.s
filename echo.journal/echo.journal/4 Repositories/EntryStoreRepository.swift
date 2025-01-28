@@ -6,14 +6,23 @@ class EntryStoreRepository {
     
     // Erstelle einen neuen Tagebucheintrag für einen Benutzer
     func createEntry(userId: String, content: String) async throws -> JournalEntry {
-        let entry = JournalEntry(userId: userId, content: content)
+        // 1. Erstelle den Eintrag ohne ID
+        var entry = JournalEntry(userId: userId, content: content)
         let entryData = try Firestore.Encoder().encode(entry)
-        
-        let _ = try await store.collection(DocumentPath.users.rawValue)
+
+        // 2. Füge den Eintrag hinzu und erhalte die generierte Dokument-ID
+        let documentRef = try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
-            .collection("journalEntries") // Unterkollektion für die Tagebucheinträge
+            .collection("journalEntries")
             .addDocument(data: entryData)
-        
+
+        // 3. Setze die generierte Dokument-ID im Eintrag
+        entry.id = documentRef.documentID
+
+        // 4. Aktualisiere das Firestore-Dokument mit der ID (optional, falls du die ID speichern möchtest)
+        try await documentRef.updateData(["id": entry.id])
+
+        // 5. Gib den aktualisierten Eintrag zurück
         return entry
     }
     
