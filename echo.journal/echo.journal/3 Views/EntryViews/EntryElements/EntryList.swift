@@ -2,42 +2,42 @@ import SwiftUI
 
 struct EntryList: View {
     @ObservedObject var entryViewModel: EntryViewModel // ViewModel für die Liste
+    @ObservedObject var colorManager: ColorManager
     
     @Environment(\.colorScheme) var colorScheme // Aktuelles Farbschema
     
-    @State private var selectedEntry: JournalEntry?
+    let filterFavorites: Bool
     
     var body: some View {
         List {
-            ForEach(entryViewModel.entries.sorted(by: { $0.createdAt > $1.createdAt })) { entry in
-                ZStack {
-                    // Unsichtbarer NavigationLink für die Navigation
-                    NavigationLink(value: entry) {
-                        EmptyView() // Unsichtbarer Inhalt
-                    }
-                    .buttonStyle(.plain)
-                    .frame(width: 0, height: 0) // Unsichtbar machen
-                    
-                    // Sichtbare Kachel
-                    EntryRow(
-                        entry: entry,
-                        colorScheme: colorScheme,
-                        onEdit: {
-                            entryViewModel.selectedEntry = entry
-                        },
-                        onToggleFavorite: {
-                            Task {
-                                await entryViewModel.toggleFavorite(entryId: entry.id)
-                            }
-                        },
-                        onDelete: {
-                            Task {
-                                await entryViewModel.deleteEntry(entryId: entry.id) // Eintrag löschen
-                            }
+            ForEach(entryViewModel.entries
+                .filter { !filterFavorites || $0.isFavorite }
+                .sorted(by: { $0.createdAt > $1.createdAt })
+            ) { entry in
+                EntryRow(
+                    entryViewModel: entryViewModel,
+                    colorManager: colorManager,
+                    entry: entry,
+                    colorScheme: colorScheme,
+                    onEdit: {
+                        
+                    },
+                    onToggleFavorite: {
+                        Task {
+                            await entryViewModel.toggleFavorite(entryId: entry.id)
                         }
-                    )
-                    .contentShape(Rectangle()) // Klickbereich für die gesamte Kachel
-                }
+                    },
+                    onDelete: {
+                        Task {
+                            await entryViewModel.deleteEntry(entryId: entry.id) // Eintrag löschen
+                        }
+                    }
+                )
+                .background(
+                    NavigationLink("", value: entry) // Unsichtbarer NavigationLink im Hintergrund
+                        .opacity(0) // Komplett unsichtbar
+                )
+                .contentShape(RoundedRectangle(cornerRadius: 12)) // Klickbereich exakt auf RoundedRectangle begrenzen
                 .listRowSeparator(.hidden) // Separator verbergen
             }
         }

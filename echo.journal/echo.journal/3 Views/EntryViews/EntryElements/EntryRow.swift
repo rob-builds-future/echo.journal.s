@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct EntryRow: View {
+    @ObservedObject var entryViewModel: EntryViewModel // ViewModel for the list
+    @ObservedObject var colorManager: ColorManager
+    
     let entry: JournalEntry
     let colorScheme: ColorScheme
     let onEdit: () -> Void
@@ -8,43 +11,61 @@ struct EntryRow: View {
     let onDelete: () -> Void
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topLeading) {
+            // Entry background
             RoundedRectangle(cornerRadius: 12)
                 .fill(colorScheme == .dark ? Color.gray.opacity(0.15) : Color.white)
-                .shadow(color: colorScheme == .dark ? .black.opacity(0.2) : .gray.opacity(0.2), radius: 4, x: 0, y: 2)
+                .shadow(color: colorManager.currentColor.color.opacity(0.2), radius: 6, x: 0, y: 3)
             
-            HStack(spacing: 12) {
-                // Eintragsinhalt
-                VStack(alignment: .leading, spacing: 6) {
+            // Bookmark placed in the background so it doesn't affect layout
+            if entry.isFavorite {
+                Image(systemName: "bookmark.fill")
+                    .font(.system(size: 32)) // Size control without affecting layout
+                    .foregroundColor(colorManager.currentColor.color)
+                    .background(Color.clear)
+                    .offset(x: 300, y: -8) // Position above the date
+            }
+            
+            HStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 8) {
+                    // Entry date
                     Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
-                        .font(.caption)
+                        .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(.gray)
                     
+                    // Entry content
                     Text(entry.content)
-                        .font(.body)
-                        .lineLimit(2)
+                        .font(.system(size: 14, weight: .regular, design: .rounded))
+                        .lineLimit(4)
                         .truncationMode(.tail)
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .foregroundColor(colorScheme == .dark ? .white.opacity(0.9) : .black.opacity(0.9))
+                        .frame(minHeight: 70, alignment: .top)
                 }
+                .padding()
                 
                 Spacer()
                 
-                // Menü mit Optionen
-                Menu {
-                    Button("Bearbeiten", action: onEdit)
-                    Button("Favorit", action: onToggleFavorite)
-                    Button("Löschen", role: .destructive, action: onDelete)
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 10)
-                        .background(Capsule().fill(colorScheme == .dark ? .gray.opacity(0.2) : .gray.opacity(0.3)))
+                VStack(spacing: 0) {
+                    Spacer()
+                    // Menu button on the right
+                    Menu {
+                        Button("Edit", action: onEdit)
+                        Button("Favorite", action: onToggleFavorite)
+                        Button("Delete", role: .destructive, action: onDelete)
+                    } label: {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(colorManager.currentColor.color.opacity(0.2))
+                            .frame(width: 56, height: 56) // Fixed size for menu area
+                            .overlay(
+                                Image(systemName: "ellipsis")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(colorScheme == .dark ? .black : .white)
+                            )
+                    }
                 }
             }
-            .padding(16) // Innenabstand der Kachel
         }
+        .frame(height: 120)
         .padding(.vertical, 8)
     }
 }

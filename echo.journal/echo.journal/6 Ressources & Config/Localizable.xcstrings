@@ -1,7 +1,10 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@'s Tagebuch" : {
+    "" : {
+
+    },
+    "'s Tagebuch" : {
 
     },
     "Abbrechen" : {
@@ -22,13 +25,13 @@
     "Benutzername: %@" : {
 
     },
-    "Bevorzugte Sprache: %@" : {
-
-    },
     "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
 
     },
     "Dein Nutzername" : {
+
+    },
+    "Delete" : {
 
     },
     "Details" : {
@@ -43,6 +46,9 @@
     "echo." : {
 
     },
+    "Edit" : {
+
+    },
     "Erstellt am: %@" : {
 
     },
@@ -52,10 +58,7 @@
     "Farbe Deines echo." : {
 
     },
-    "Favorit" : {
-
-    },
-    "Fehler: %@" : {
+    "Favorite" : {
 
     },
     "Fertig" : {

@@ -5,7 +5,6 @@ class EntryViewModel: ObservableObject {
     @Published var entries: [JournalEntry] = []
     @Published var errorMessage: String?
     @Published var isLoading = false
-    @Published var selectedEntry: JournalEntry?
     @Published var isSaving = false // Zustandsvariable zum Verhindern von Mehrfachklicks
     
     private let entryStoreRepository: EntryStoreRepository

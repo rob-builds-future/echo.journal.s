@@ -8,7 +8,7 @@
 import Foundation
 
 class TranslationAPIRepository {
-    private let baseURL = "http://localhost:5001/translate"
+    private let baseURL = "http://192.168.68.111:5001/translate"
     
     func translate(text: String, targetLanguage: String) async throws -> String {
         guard let url = URL(string: baseURL) else { throw URLError(.badURL) }
