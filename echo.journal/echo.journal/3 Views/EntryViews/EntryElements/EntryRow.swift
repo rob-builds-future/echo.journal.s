@@ -28,10 +28,24 @@ struct EntryRow: View {
             
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 8) {
-                    // Entry date
-                    Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(.gray)
+                    HStack {
+                        Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
+                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .foregroundColor(.gray)
+                        
+                        Spacer()
+                        
+                        // 🔹 Wortanzahl in der Listenelement-Vorschau
+                        Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count) Wörter")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                        Spacer()
+                        
+                        Text("⏱ \(calculateWritingDuration(from: entry.createdAt)) min")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                    }
                     
                     // Entry content
                     Text(entry.content)
@@ -68,4 +82,10 @@ struct EntryRow: View {
         .frame(height: 120)
         .padding(.vertical, 8)
     }
+}
+
+// 📌 Funktion zur Berechnung der Schreibdauer in Minuten
+func calculateWritingDuration(from startDate: Date) -> Int {
+    let durationInMinutes = Int(Date().timeIntervalSince(startDate) / 60)
+    return max(durationInMinutes, 1) // Mindestens 1 Minute anzeigen
 }

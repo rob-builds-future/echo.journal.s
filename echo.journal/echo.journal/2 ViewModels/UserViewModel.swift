@@ -4,7 +4,7 @@ import FirebaseAuth
 @MainActor
 class UserViewModel: ObservableObject {
     @Published var currentUser: User?
-    @Published var isLoading = false
+    @Published var isLoading = true
     @Published var errorMessage: String?
     @Published var isLoggedIn = false
     @Published var user: FirebaseAuth.User?
@@ -17,6 +17,8 @@ class UserViewModel: ObservableObject {
     init(authRepository: UserAuthRepository, storeRepository: UserStoreRepository) {
         self.authRepository = authRepository
         self.storeRepository = storeRepository
+        
+        startVM()
     }
     
     // MARK: - Auth Methods
@@ -39,7 +41,7 @@ class UserViewModel: ObservableObject {
             // 4. Onboarding-Status in UserDefaults initialisieren
             let onboardingKey = "hasCompletedOnboarding_\(user.id)"
             UserDefaults.standard.set(false, forKey: onboardingKey)
-            self.hasCompletedOnboarding = false // UI sofort aktualisieren
+            self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
             
         } catch {
             self.errorMessage = "Registrierung fehlgeschlagen: \(error.localizedDescription)"
@@ -62,6 +64,9 @@ class UserViewModel: ObservableObject {
             } else {
                 self.currentUser = user
             }
+            
+            let onboardingKey = "hasCompletedOnboarding_\(user.id)"
+            self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
             
             self.isLoggedIn = true // Setze isLoggedIn auf true
             
@@ -127,10 +132,40 @@ class UserViewModel: ObservableObject {
     func updateOnboardingStatus() {
         guard let userId = currentUser?.id else { return } // Stelle sicher, dass ein Benutzer angemeldet ist
         
-        hasCompletedOnboarding = true // UI sofort aktualisieren
+        let onboardingKey = "hasCompletedOnboarding_\(userId)"
         
         // Speichere den Status benutzerspezifisch
-        UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding_\(userId)")
+        UserDefaults.standard.set(true, forKey: onboardingKey)
+        hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
+    }
+    
+    func startVM() {
+        Task {
+            let minimumLoadingTime: UInt64 = 3_000_000_000 // 1 Sekunde in Nanosekunden
+            let startTime = DispatchTime.now() // Startzeit des Ladevorgangs
+            
+            do {
+                // 1. Benutzer aus AuthRepository laden
+                if let user = try await authRepository.getCurrentUser() {
+                    currentUser = user
+                    isLoggedIn = true
+//
+//                        // 2. Onboarding-Status des Benutzers laden
+                        let userId = user.id
+                        let onboardingKey = "hasCompletedOnboarding_\(userId)"
+                        hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
+                }
+            } catch {
+                errorMessage = "Fehler beim Abrufen des aktuellen Benutzers: \(error.localizedDescription)"
+            }
+            
+            // Berechne verbleibende Zeit, um die Mindestladezeit einzuhalten
+            let elapsedTime = DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds
+            let remainingTime = minimumLoadingTime > elapsedTime ? minimumLoadingTime - elapsedTime : 0
+            try? await Task.sleep(nanoseconds: remainingTime)
+            
+            isLoading = false // Ladezustand beenden
+        }
     }
     
     //func updateOnboardingStatus() {

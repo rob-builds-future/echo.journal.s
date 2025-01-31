@@ -11,7 +11,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            if isLoading {
+            if viewModel.isLoading {
                 SplashView(colorManager: colorManager) // Ladebildschirm anzeigen, solange isLoading true ist
             } else if viewModel.isLoggedIn {
                 if !viewModel.hasCompletedOnboarding {
@@ -25,32 +25,7 @@ struct ContentView: View {
             
         }
         .onAppear {
-            Task {
-                let minimumLoadingTime: UInt64 = 3_000_000_000 // 1 Sekunde in Nanosekunden
-                let startTime = DispatchTime.now() // Startzeit des Ladevorgangs
-                
-                do {
-                    // 1. Benutzer aus AuthRepository laden
-                    if let user = try await viewModel.authRepository.getCurrentUser() {
-                        viewModel.currentUser = user
-                        viewModel.isLoggedIn = true
-                        
-                        // 2. Onboarding-Status des Benutzers laden
-                        let userId = user.id
-                        let onboardingKey = "hasCompletedOnboarding_\(userId)"
-                        viewModel.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
-                    }
-                } catch {
-                    viewModel.errorMessage = "Fehler beim Abrufen des aktuellen Benutzers: \(error.localizedDescription)"
-                }
-                
-                // Berechne verbleibende Zeit, um die Mindestladezeit einzuhalten
-                let elapsedTime = DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds
-                let remainingTime = minimumLoadingTime > elapsedTime ? minimumLoadingTime - elapsedTime : 0
-                try? await Task.sleep(nanoseconds: remainingTime)
-                
-                isLoading = false // Ladezustand beenden
-            }
+            
         }
     }
 }
