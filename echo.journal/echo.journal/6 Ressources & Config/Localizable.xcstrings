@@ -7,10 +7,10 @@
     "'s Tagebuch" : {
 
     },
-    "%lld Wörter" : {
+    "%@" : {
 
     },
-    "⏱ %lld min" : {
+    "%lld Worte" : {
 
     },
     "Abbrechen" : {

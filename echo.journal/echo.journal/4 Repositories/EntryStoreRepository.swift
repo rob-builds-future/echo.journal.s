@@ -5,23 +5,28 @@ class EntryStoreRepository {
     let store = Firestore.firestore()
     
     // Erstelle einen neuen Tagebucheintrag für einen Benutzer
-    func createEntry(userId: String, content: String) async throws -> JournalEntry {
+    func createEntry(userId: String, content: String, duration: Double) async throws -> JournalEntry {
         // 1. Erstelle den Eintrag ohne ID
-        var entry = JournalEntry(userId: userId, content: content)
+        var entry = JournalEntry(
+            userId: userId,
+            content: content,
+            duration: duration // 🔹 Speichert Dauer als Double
+        )
+        
         let entryData = try Firestore.Encoder().encode(entry)
-
+        
         // 2. Füge den Eintrag hinzu und erhalte die generierte Dokument-ID
         let documentRef = try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
             .collection("journalEntries")
             .addDocument(data: entryData)
-
+        
         // 3. Setze die generierte Dokument-ID im Eintrag
         entry.id = documentRef.documentID
-
+        
         // 4. Aktualisiere das Firestore-Dokument mit der ID (optional, falls du die ID speichern möchtest)
         try await documentRef.updateData(["id": entry.id])
-
+        
         // 5. Gib den aktualisierten Eintrag zurück
         return entry
     }
@@ -34,20 +39,11 @@ class EntryStoreRepository {
             .getDocuments()
         
         return snapshot.documents.compactMap { document in
-            try? document.data(as: JournalEntry.self)
+            var entry = try? document.data(as: JournalEntry.self)
+            entry?.duration = document.data()["duration"] as? Double ?? 0 // ⏱ Sicherstellen, dass `duration` existiert
+            return entry
         }
     }
-    
-    /* Hole einen spezifischen Tagebucheintrag
-    func getEntry(userId: String, entryId: String) async throws -> JournalEntry? {
-        let document = try await store.collection(DocumentPath.users.rawValue)
-            .document(userId)
-            .collection("journalEntries") // Nested Unterkollektion für die Tagebucheinträge
-            .document(entryId)
-            .getDocument()
-        
-        return try document.data(as: JournalEntry.self)
-    }*/
     
     // Aktualisiere einen Tagebucheintrag
     func updateEntry(userId: String, entryId: String, content: String) async throws {

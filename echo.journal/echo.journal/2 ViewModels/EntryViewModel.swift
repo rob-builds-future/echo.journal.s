@@ -10,12 +10,40 @@ class EntryViewModel: ObservableObject {
     private let entryStoreRepository: EntryStoreRepository
     private let userId: String // Benutzer-ID, um Einträge zuzuordnen
     
+    // Start- und Endzeit für das Schreiben eines Eintrags
+    private var startTime: Date?
+    private var stopTime: Date?
+    
     init(entryStoreRepository: EntryStoreRepository, userId: String) {
         self.entryStoreRepository = entryStoreRepository
         self.userId = userId
     }
     
-    // MARK: - CRUD Methods
+    // MARK: - Zeitmessung
+    
+    func startTimer(content: String) {
+        if startTime == nil && !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            startTime = Date()
+        }
+    }
+    
+    func stopTimer(content: String) {
+        if startTime != nil && !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            stopTime = Date()
+        }
+    }
+    
+    func getDuration() -> TimeInterval {
+        guard let startTime, let stopTime else { return 0 }
+        return startTime.distance(to: stopTime)
+    }
+    
+    func formattedDuration(_ duration: TimeInterval) -> String {
+           let minutes = max(Int(duration / 60), 1) // Mindestens 1 Minute
+           return "\(minutes) Minuten"
+       }
+    
+    // MARK: - CRUD Methoden
     
     func createEntry(content: String) async throws {
         guard !isSaving else { return } // Verhindere Mehrfachklicks
@@ -26,8 +54,11 @@ class EntryViewModel: ObservableObject {
             isSaving = false // Reset nach Abschluss
         }
         
+        stopTimer(content: content) // ⏱ Stoppe den Timer
+        let duration = getDuration() // ⏱ Berechne die Dauer
+
         do {
-            let newEntry = try await entryStoreRepository.createEntry(userId: userId, content: content)
+            let newEntry = try await entryStoreRepository.createEntry(userId: userId, content: content, duration: duration)
             entries.append(newEntry) // Neuen Eintrag zur Liste hinzufügen
         } catch {
             errorMessage = "Fehler beim Erstellen des Eintrags: \(error.localizedDescription)"

@@ -24,7 +24,7 @@ struct EntryListView: View {
             .refreshable { // Lade die Entries mit Pull-to-Refresh
                 await entryViewModel.loadEntries()
             }
-            .padding(.top, 12) // etwas Abstand von der Toolbar
+            //.padding(.top, 12) // etwas Abstand von der Toolbar
         }
         .sheet(isPresented: $showingAddEntry) { // AddEntry Sheet
             AddEntryView(viewModel: entryViewModel, colorManager: colorManager)
@@ -64,12 +64,12 @@ struct EntryListView: View {
                     }) {
                         Image(systemName: showFavoritesOnly ? "bookmark.fill" : "bookmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .foregroundColor(.white)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 16)
                             .background(
                                 Capsule()
-                                    .fill(colorScheme == .dark ? Color.gray.opacity(0.5) : Color.gray.opacity(0.3))
+                                    .fill(Color(UIColor.systemGray4))
                             )
                     }
                     
