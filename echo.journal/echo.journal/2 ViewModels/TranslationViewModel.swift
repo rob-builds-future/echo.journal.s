@@ -8,6 +8,9 @@ class TranslationViewModel: ObservableObject {
     @Published var translatedText: String = ""
     @Published var userPreferredLanguage: Language = .en
     
+    private var translationDebounceTimer: Timer?
+
+    
     init(translationRepository: TranslationAPIRepository, userAuthRepository: UserAuthRepository) {
         self.translationRepository = translationRepository
         self.userAuthRepository = userAuthRepository
@@ -37,6 +40,15 @@ class TranslationViewModel: ObservableObject {
             self.translatedText = translation
         } catch {
             print("Translation Error: \(error.localizedDescription)")
+        }
+    }
+    
+    func handleTextChange(newValue: String) {
+        translationDebounceTimer?.invalidate()
+        translationDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+            Task {
+                await self.translateText(newValue)
+            }
         }
     }
 }

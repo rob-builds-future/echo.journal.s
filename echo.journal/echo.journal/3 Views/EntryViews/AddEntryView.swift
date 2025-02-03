@@ -32,7 +32,7 @@ struct AddEntryView: View {
                         .font(.system(size: 16, weight: .regular, design: .rounded))
                         .onChange(of: content) { _, newValue in
                             viewModel.startTimer(content: newValue)
-                            handleTextChange(newValue: newValue)
+                            translationViewModel.handleTextChange(newValue: newValue)
                         }
                     
                     HStack {
@@ -76,6 +76,12 @@ struct AddEntryView: View {
                     }
                 }
                 
+                ToolbarItem(placement: .principal) {
+                    Text(viewModel.formattedDate(Date()))
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(.gray)
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         Task {
@@ -105,15 +111,6 @@ struct AddEntryView: View {
             }
             .task {
                 await translationViewModel.fetchUserPreferredLanguage()
-            }
-        }
-    }
-    
-    private func handleTextChange(newValue: String) {
-        translationDebounceTimer?.invalidate()
-        translationDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
-            Task {
-                await translationViewModel.translateText(newValue)
             }
         }
     }

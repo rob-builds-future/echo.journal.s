@@ -66,6 +66,14 @@ class EntryViewModel: ObservableObject {
         }
     }
     
+    /// Formatiert das Erstellungsdatum
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
+    }
+    
     func loadEntries() async {
         isLoading = true
         errorMessage = nil
