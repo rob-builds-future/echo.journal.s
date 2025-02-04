@@ -5,13 +5,14 @@ struct JournalEntry: Identifiable, Codable, Hashable {
     let userId: String
     var content: String
     var duration: Double
-    var createdAt: Date = Date()
+    var createdAt: Date
     var updatedAt: Date? = nil
     var isFavorite: Bool = false
     
-    init(userId: String, content: String, duration: Double) {
+    init(userId: String, content: String, duration: Double, createdAt: Date) {
         self.userId = userId
         self.content = content
         self.duration = duration
+        self.createdAt = createdAt
     }
 }

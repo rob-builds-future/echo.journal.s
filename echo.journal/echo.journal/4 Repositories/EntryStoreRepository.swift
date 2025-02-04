@@ -5,12 +5,13 @@ class EntryStoreRepository {
     let store = Firestore.firestore()
     
     // Erstelle einen neuen Tagebucheintrag für einen Benutzer
-    func createEntry(userId: String, content: String, duration: Double) async throws -> JournalEntry {
+    func createEntry(userId: String, content: String, duration: Double, createdAt: Date) async throws -> JournalEntry {
         // 1. Erstelle den Eintrag ohne ID
         var entry = JournalEntry(
             userId: userId,
             content: content,
-            duration: duration // 🔹 Speichert Dauer als Double
+            duration: duration,
+            createdAt: createdAt
         )
         
         let entryData = try Firestore.Encoder().encode(entry)

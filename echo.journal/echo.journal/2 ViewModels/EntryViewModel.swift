@@ -45,7 +45,7 @@ class EntryViewModel: ObservableObject {
     
     // MARK: - CRUD Methoden
     
-    func createEntry(content: String) async throws {
+    func createEntry(content: String, date: Date) async throws {
         guard !isSaving else { return } // Verhindere Mehrfachklicks
         isSaving = true
         errorMessage = nil
@@ -58,13 +58,19 @@ class EntryViewModel: ObservableObject {
         let duration = getDuration() // ⏱ Berechne die Dauer
 
         do {
-            let newEntry = try await entryStoreRepository.createEntry(userId: userId, content: content, duration: duration)
+            let newEntry = try await entryStoreRepository.createEntry(
+                userId: userId,
+                content: content,
+                duration: duration,
+                createdAt: date // ✅ Speichert das gewählte Datum
+            )
             entries.append(newEntry) // Neuen Eintrag zur Liste hinzufügen
         } catch {
             errorMessage = "Fehler beim Erstellen des Eintrags: \(error.localizedDescription)"
             throw error
         }
     }
+
     
     /// Formatiert das Erstellungsdatum
     func formattedDate(_ date: Date) -> String {

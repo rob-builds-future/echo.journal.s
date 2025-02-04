@@ -37,15 +37,19 @@ class TranslationViewModel: ObservableObject {
                 targetLanguage: userPreferredLanguage.code
             )
             print("Translation Result: \(translation)")
-            self.translatedText = translation
+            
+            DispatchQueue.main.async {
+                        self.objectWillChange.send()  // Erzwinge UI-Update
+                        self.translatedText = translation
+                    }
         } catch {
             print("Translation Error: \(error.localizedDescription)")
         }
     }
     
-    func handleTextChange(newValue: String) {
+    func handleTextChange(newValue: String, debounceTime: TimeInterval) {
         translationDebounceTimer?.invalidate()
-        translationDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+        translationDebounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false) { _ in
             Task {
                 await self.translateText(newValue)
             }

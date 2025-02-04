@@ -17,11 +17,8 @@ struct EntryList: View {
                 EntryRow(
                     entryViewModel: entryViewModel,
                     colorManager: colorManager,
+                    colorScheme: _colorScheme,
                     entry: entry,
-                    colorScheme: colorScheme,
-                    onEdit: {
-                        
-                    },
                     onToggleFavorite: {
                         Task {
                             await entryViewModel.toggleFavorite(entryId: entry.id)

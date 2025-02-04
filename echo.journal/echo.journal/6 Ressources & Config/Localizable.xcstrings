@@ -4,10 +4,10 @@
     "" : {
 
     },
-    "'s Tagebuch" : {
+    "%@" : {
 
     },
-    "%@" : {
+    "%@'s Tagebuch" : {
 
     },
     "%lld Worte" : {
@@ -25,16 +25,25 @@
     "Anmelden" : {
 
     },
+    "Anzeigen" : {
+
+    },
     "Benutzername: %@" : {
 
     },
     "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
 
     },
+    "Datum wählen" : {
+
+    },
     "Dein Nutzername" : {
 
     },
-    "Delete" : {
+    "Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?" : {
+
+    },
+    "e." : {
 
     },
     "Echo Farbe: %@" : {
@@ -46,7 +55,10 @@
     "echo." : {
 
     },
-    "Edit" : {
+    "Eintrag löschen?" : {
+
+    },
+    "Entfavorisieren" : {
 
     },
     "Farbe" : {
@@ -55,7 +67,7 @@
     "Farbe Deines echo." : {
 
     },
-    "Favorite" : {
+    "Favorisieren" : {
 
     },
     "Fertig" : {

@@ -4,11 +4,13 @@ struct EntryListView: View {
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var colorManager: ColorManager
     @StateObject private var entryViewModel: EntryViewModel
+    @StateObject private var inspirationViewModel = InspirationViewModel()
     
     @Environment(\.colorScheme) var colorScheme
     
     @State private var showingAddEntry = false
     @State private var showFavoritesOnly = false
+    @State private var showInspirationPopover = false
     
     init(userViewModel: UserViewModel, colorManager: ColorManager) {
         self.userViewModel = userViewModel
@@ -17,36 +19,75 @@ struct EntryListView: View {
     }
     
     var body: some View {
-        VStack {
+        ZStack {
+            // Liste mit Einträgen
             EntryList(entryViewModel: entryViewModel,
                       colorManager: colorManager,
-                      filterFavorites: showFavoritesOnly) // Liste mit Einträgen
-            .refreshable { // Lade die Entries mit Pull-to-Refresh
+                      filterFavorites: showFavoritesOnly)
+            .refreshable {
                 await entryViewModel.loadEntries()
             }
-            //.padding(.top, 12) // etwas Abstand von der Toolbar
+            // Fade-Out-Overlay am unteren Bildschirmrand
+            VStack {
+                Spacer()
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.clear, Color(UIColor.systemBackground)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: 80) // Passe die Höhe nach Bedarf an
+                .allowsHitTesting(false) // Damit blockiert der Gradient keine Interaktionen
+            }
         }
+        .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showingAddEntry) { // AddEntry Sheet
             AddEntryView(viewModel: entryViewModel, colorManager: colorManager)
         }
         .toolbar {
-            ToolbarItem(placement: .principal) { // Titel Toolbar Element
-                HStack(spacing: 0) {
-                    Text(userViewModel.currentUser?.username ?? "")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(colorManager.currentColor.color) // Nur der Benutzername in Farbe
-                    
-                    Text("'s Tagebuch")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(colorScheme == .dark ? .white : .black) // Standardfarbe für den Rest
+            ToolbarItem(placement: .navigationBarLeading) { // echo Inspiration Toolbar Element
+                VStack {
+                    if let dailyInsp = inspirationViewModel.dailyInspiration() {
+                        Button(action: { showInspirationPopover.toggle() }) {
+                            Text("e.")
+                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                                .padding(8)
+                                .background(
+                                    Circle()
+                                        .fill(colorManager.currentColor.color)
+                                )
+                        }
+                        .popover(isPresented: $showInspirationPopover) {
+                            VStack(spacing: 12) {
+                                Text(dailyInsp.text)
+                                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                                    .foregroundStyle(.white)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                //                                if let author = dailyInsp.author {
+                                //                                    Text("– \(author)")
+                                //                                        .font(.footnote)
+                                //                                        .foregroundColor(.secondary)
+                                //                                }
+                            }
+                            .presentationCompactAdaptation(.popover)
+                            .padding()
+                            .background(colorManager.currentColor.color)
+                        }
+                    }
                 }
+            }
+            
+            ToolbarItem(placement: .principal) { // Titel Toolbar Element
+                Text("\(userViewModel.currentUser?.username ?? "")'s Tagebuch")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundColor(colorScheme == .dark ? .white : .black) // Standardfarbe für den Rest
             }
             
             ToolbarItem(placement: .navigationBarTrailing) { // User Settings Toolbar Element
                 NavigationLink(destination: SettingsView(viewModel: userViewModel, colorManager: colorManager)) {
                     Image(systemName: "person.fill")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
                         .padding(.vertical, 6)
                         .padding(.horizontal, 12)
                         .background(
@@ -98,9 +139,7 @@ struct EntryListView: View {
         .navigationBarTitleDisplayMode(.inline) // Beseitige Platzhalter für Navigationtitle
         .toolbarBackground(Color.clear, for: .bottomBar) // Mache bottom Toolbar transparent
         .onAppear { // Lade on view appear die entries
-            Task {
-                await entryViewModel.loadEntries()
-            }
+            Task { await entryViewModel.loadEntries() }
         }
     }
 }
