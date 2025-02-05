@@ -8,11 +8,11 @@ struct DetailView: View {
     let colorManager: ColorManager
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             // Anzeige des Eintragsinhalts
             Text(entry.content)
                 .font(.system(size: 16, weight: .regular, design: .rounded))
-                .padding(4)
+                .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Divider()
@@ -20,22 +20,24 @@ struct DetailView: View {
             // HStack: links Dauer, mittig (optional) Aktualisierungsdatum und rechts Wortanzahl
             if let updated = entry.updatedAt {
                 HStack {
-                    Text("\(viewModel.formattedDuration(entry.duration))")
+                    Text("\(viewModel.formattedDuration(entry.duration)) min")
                     Spacer()
                     Text("Aktualisiert: \(updated.formatted(date: .abbreviated, time: .omitted))")
                     Spacer()
                     Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count) Worte")
                 }
-                .font(.footnote)
+                .font(.system(size: 12, weight: .regular, design: .rounded))
                 .foregroundColor(.gray)
+                .padding(4)
             } else {
                 HStack {
-                    Text("\(viewModel.formattedDuration(entry.duration))")
+                    Text("\(viewModel.formattedDuration(entry.duration)) min")
                     Spacer()
                     Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count) Worte")
                 }
-                .font(.footnote)
+                .font(.system(size: 12, weight: .regular, design: .rounded))
                 .foregroundColor(.gray)
+                .padding(4)
             }
             
             // Übersetzungsbereich
@@ -46,8 +48,7 @@ struct DetailView: View {
             .foregroundColor(translationViewModel.translatedText.isEmpty
                              ? colorManager.currentColor.color.opacity(0.5)
                              : colorManager.currentColor.color)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 4)
+            .padding(.top, 8)
         }
     }
 }

@@ -40,7 +40,7 @@ class EntryViewModel: ObservableObject {
     
     func formattedDuration(_ duration: TimeInterval) -> String {
            let minutes = max(Int(duration / 60), 1) // Mindestens 1 Minute
-           return "\(minutes) Minuten"
+           return "\(minutes)"
        }
     
     // MARK: - CRUD Methoden

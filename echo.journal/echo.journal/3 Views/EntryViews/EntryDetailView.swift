@@ -15,6 +15,9 @@ struct EntryDetailView: View {
     @State private var isEditing: Bool = false          // Zustand für den Bearbeitungsmodus
     @State private var updatedContent: String = ""      // Bearbeiteter Inhalt des Eintrags
     
+    let capsuleWidth: CGFloat = 60
+    let capsuleHeight: CGFloat = 30
+    
     // Eigener Initializer
     init(viewModel: EntryViewModel, colorManager: ColorManager, entry: JournalEntry) {
         self.viewModel = viewModel
@@ -32,8 +35,8 @@ struct EntryDetailView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     if isEditing {
                         EditView(
-                            updatedContent: $updatedContent,
                             translationViewModel: translationViewModel,
+                            updatedContent: $updatedContent,
                             viewModel: viewModel,
                             colorManager: colorManager,
                             wordCount: wordCount,
@@ -75,8 +78,7 @@ struct EntryDetailView: View {
                     Image(systemName: "xmark")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 14)
+                        .frame(width: capsuleWidth, height: capsuleHeight)
                         .background(Capsule().fill(Color(UIColor.systemGray2)))
                 }
             }
@@ -101,8 +103,7 @@ struct EntryDetailView: View {
                         Image(systemName: "checkmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 14)
+                            .frame(width: capsuleWidth, height: capsuleHeight)
                             .background(Capsule().fill(colorManager.currentColor.color))
                     }
                 } else {
@@ -110,8 +111,7 @@ struct EntryDetailView: View {
                         Image(systemName: "pencil")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 14)
+                            .frame(width: capsuleWidth, height: capsuleHeight)
                             .background(Capsule().fill(colorManager.currentColor.color))
                     }
                 }

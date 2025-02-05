@@ -52,15 +52,28 @@ struct EntryRow: View {
                         Spacer()
                         
                         // Wortanzahl in der Listenelement-Vorschau
-                        Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count) Worte")
-                            .font(.system(size: 12, weight: .regular, design: .rounded))
-                            .foregroundColor(.gray)
-                            .offset(y: -16)
+                        HStack(spacing: 4) {
+                            Image(systemName: "quote.closing")
+                                .font(.system(size: 12, weight: .regular, design: .rounded))
+                                .foregroundColor(.gray)
+                                .offset(y: -16)
+                            Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count)")
+                                .font(.system(size: 12, weight: .regular, design: .rounded))
+                                .foregroundColor(.gray)
+                                .offset(y: -16)
+                        }
                         
-                        Text("\(entryViewModel.formattedDuration(entry.duration))")
-                            .font(.system(size: 12, weight: .regular, design: .rounded))
-                            .foregroundColor(.gray)
-                            .offset(y: -16)
+                        // Dauer mit timer Icon
+                        HStack(spacing: 4) {
+                            Image(systemName: "timer")
+                                .font(.system(size: 12, weight: .regular, design: .rounded))
+                                .foregroundColor(.gray)
+                                .offset(y: -16)
+                            Text("\(entryViewModel.formattedDuration(entry.duration)) min")
+                                .font(.system(size: 12, weight: .regular, design: .rounded))
+                                .foregroundColor(.gray)
+                                .offset(y: -16)
+                        }
                     }
                     // Entry content
                     Text(entry.content)

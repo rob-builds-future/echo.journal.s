@@ -4,10 +4,16 @@
     "" : {
 
     },
-    "%@" : {
+    " %@" : {
+
+    },
+    "%@ min" : {
 
     },
     "%@'s Tagebuch" : {
+
+    },
+    "%lld" : {
 
     },
     "%lld Worte" : {
@@ -20,6 +26,9 @@
 
     },
     "Aktualisiert: %@" : {
+
+    },
+    "Änderungen verwerfen?" : {
 
     },
     "Anmelden" : {
@@ -94,6 +103,9 @@
     "Mitglied seit: %@" : {
 
     },
+    "Möchtest du die Änderungen wirklich verwerfen?" : {
+
+    },
     "Neuer Benutzername" : {
 
     },
@@ -119,6 +131,12 @@
 
     },
     "Sprache Deines echo." : {
+
+    },
+    "Statistics" : {
+
+    },
+    "Verwerfen" : {
 
     },
     "Wähle eine Farbe" : {

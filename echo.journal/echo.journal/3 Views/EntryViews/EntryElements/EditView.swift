@@ -1,37 +1,47 @@
 import SwiftUI
 
 struct EditView: View {
-    @Binding var updatedContent: String
     @ObservedObject var translationViewModel: TranslationViewModel
+    
+    @Binding var updatedContent: String
+
     let viewModel: EntryViewModel
     let colorManager: ColorManager
     let wordCount: Int
     let isEditing: Bool
+    
+    @State private var isTextEditorFocused: Bool = false
+    @FocusState private var textEditorFocused: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             // TextEditor, der genauso aussieht wie in AddEntryView:
             TextEditor(text: $updatedContent)
                 .frame(maxWidth: .infinity, minHeight: 300, alignment: .leading)
-                .padding(4)
+                .padding(.bottom, 8)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        .fill(Color.white) // Hintergrundfarbe für den Editor
+                        //.shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2) // Schatten hinzufügen
                 )
                 .autocorrectionDisabled(true)
                 .font(.system(size: 16, weight: .regular, design: .rounded))
+                .focused($textEditorFocused) // Fokusbindung aktivieren
+                .onAppear {
+                    textEditorFocused = true // Cursor direkt setzen
+                }
                 .onChange(of: updatedContent) { _, newValue in
                     viewModel.startTimer(content: newValue)
                     translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3)
                 }
-            
+            Divider()
             // Wortanzahl
             HStack {
                 Spacer()
                 Text("\(wordCount) Worte")
                     .font(.system(size: 12, weight: .regular, design: .rounded))
                     .foregroundColor(.gray)
-                    .padding(.horizontal, 4)
+                    .padding(4)
             }
             
             // Übersetzungsbereich (sowie im Detailmodus)
@@ -43,8 +53,7 @@ struct EditView: View {
                              ? colorManager.currentColor.color.opacity(0.5)
                              : colorManager.currentColor.color)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 4)
+            .padding(.top, 8)
         }
     }
 }
