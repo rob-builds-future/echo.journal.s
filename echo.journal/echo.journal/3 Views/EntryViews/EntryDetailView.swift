@@ -32,7 +32,7 @@ struct EntryDetailView: View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    if viewModel.isEditing, let entry {
+                    if viewModel.isEditing {
                         // Bearbeitungsansicht
                         EditView(
                             translationViewModel: translationViewModel,
