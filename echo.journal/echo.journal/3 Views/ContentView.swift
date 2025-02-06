@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     // ViewModel für die Benutzerverwaltung (Authentifizierung & Datenverwaltung)
-    @StateObject private var viewModel: UserViewModel = UserViewModel(
+    @StateObject private var userViewModel: UserViewModel = UserViewModel(
         authRepository: .init(),
         storeRepository: .init()
     )
@@ -15,20 +15,20 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            if viewModel.isLoading {
+            if userViewModel.isLoading {
                 // Ladebildschirm anzeigen, während das ViewModel noch lädt
                 SplashView(colorManager: colorManager)
-            } else if viewModel.isLoggedIn {
-                if !viewModel.hasCompletedOnboarding {
+            } else if userViewModel.isLoggedIn {
+                if !userViewModel.hasCompletedOnboarding {
                     // Zeigt das Onboarding an, falls es noch nicht abgeschlossen wurde
-                    OnboardingInfoView(viewModel: viewModel, colorManager: colorManager)
+                    OnboardingInfoView(viewModel: userViewModel, colorManager: colorManager)
                 } else {
                     // Nach dem Onboarding wird die Hauptansicht mit den Tagebucheinträgen geladen
-                    EntryListView(userViewModel: viewModel, colorManager: colorManager)
+                    EntryListView(userViewModel: userViewModel, colorManager: colorManager)
                 }
             } else {
                 // Falls der Benutzer nicht eingeloggt ist, wird die Anmeldeansicht angezeigt
-                SignUpSignInView(viewModel: viewModel, colorManager: colorManager)
+                SignUpSignInView(viewModel: userViewModel, colorManager: colorManager)
             }
         }
         .onAppear {

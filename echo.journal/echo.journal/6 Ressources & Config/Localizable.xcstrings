@@ -55,6 +55,12 @@
     "Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?" : {
 
     },
+    "Durchschnittliche Dauer pro Eintrag: %@" : {
+
+    },
+    "Durchschnittliche Wörter pro Eintrag: %lld" : {
+
+    },
     "e." : {
 
     },
@@ -83,6 +89,12 @@
 
     },
     "Fertig" : {
+
+    },
+    "Gesamtdauer: %@" : {
+
+    },
+    "Gesamtworte: %lld" : {
 
     },
     "Hier sind einige Informationen über die App und wie du sie nutzen kannst..." : {
@@ -136,7 +148,7 @@
     "Sprache Deines echo." : {
 
     },
-    "Statistics" : {
+    "Top verwendete Wörter" : {
 
     },
     "Verwerfen" : {

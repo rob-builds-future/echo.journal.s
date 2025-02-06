@@ -1,74 +1,162 @@
 import Foundation
+import Combine
+import NaturalLanguage
 
+@MainActor
 class StatisticsViewModel: ObservableObject {
-//    @Published var totalJournalingTime: Int = 0 // Minuten
-//    @Published var totalWordCount: Int = 0
-//    @Published var totalJournalingDays: Int = 0
-//    @Published var averageEntryLength: Int = 0
-//    @Published var averageEntryTime: Int = 0 // Minuten
-//    @Published var journalingDays: [Date] = []
-//    @Published var frequentWords: [(word: String, count: Int)] = []
-//    
-//    private let entryViewModel: EntryViewModel
-//    private let translationViewModel: TranslationViewModel
-//    
-//    init(totalJournalingTime: Int, totalWordCount: Int, totalJournalingDays: Int, averageEntryLength: Int, averageEntryTime: Int, journalingDays: [Date], frequentWords: [(word: String, count: Int)], entryViewModel: EntryViewModel, translationViewModel: TranslationViewModel) {
-//        self.totalJournalingTime = totalJournalingTime
-//        self.totalWordCount = totalWordCount
-//        self.totalJournalingDays = totalJournalingDays
-//        self.averageEntryLength = averageEntryLength
-//        self.averageEntryTime = averageEntryTime
-//        self.journalingDays = journalingDays
-//        self.frequentWords = frequentWords
-//        self.entryViewModel = entryViewModel
-//        self.translationViewModel = translationViewModel
-//    }
+    // Bisherige Statistiken
+    @Published var totalDuration: Double = 0  // in Minuten
+    @Published var totalWords: Int = 0
     
-    //    func fetchStatistics() {
-    //        let entries = entryRepository.fetchAllEntries()
+    // Kalender-Properties (wie in der vorherigen Version)
+    @Published var displayedMonth: Date = Date()
+    
+    // Abhängigkeit zu EntryViewModel, um auf die JournalEntries zuzugreifen
+    private let entryViewModel: EntryViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    // Top verwendete Wörter
+    @Published var topWords: [(word: String, count: Int)] = []
+    
+    init(entryViewModel: EntryViewModel) {
+        self.entryViewModel = entryViewModel
+        
+        // Beobachtung der JournalEntries, um Statistiken zu aktualisieren
+        entryViewModel.$entries
+            .sink { [weak self] entries in
+                guard let self = self else { return }
+                // Berechnung der Gesamtdauer (hier wird angenommen, dass die Duration in Sekunden gespeichert wurde)
+                self.totalDuration = entries.reduce(0) { $0 + $1.duration } / 60
+                // Wortanzahl
+                self.totalWords = entries.reduce(0) { count, entry in
+                    count + entry.content.split { $0.isWhitespace }.count
+                }
+                // Top Wörter berechnen (hier z.B. Top 30)
+                self.topWords = self.calculateTopWords(from: entries, top: 30)
+            }
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Formatierte Statistiken (wie zuvor)
+    var formattedDuration: String {
+        let totalMinutes = Int(totalDuration)
+        let hours = totalMinutes / 60
+        let minutes = totalMinutes % 60
+        return "\(hours) Stunden \(minutes) Minuten"
+    }
+    
+    var averageDuration: Double {
+        let count = entryViewModel.entries.count
+        guard count > 0 else { return 0 }
+        return totalDuration / Double(count)
+    }
+    
+    var formattedAverageDuration: String {
+        let avgMinutes = Int(averageDuration)
+        let hours = avgMinutes / 60
+        let minutes = avgMinutes % 60
+        return "\(hours) Stunden \(minutes) Minuten"
+    }
+    
+    var averageWords: Double {
+        let count = entryViewModel.entries.count
+        guard count > 0 else { return 0 }
+        return Double(totalWords) / Double(count)
+    }
+    
+    // MARK: - Kalenderfunktionen (wie zuvor)
+    
+    var monthYearString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "LLLL yyyy"
+        return formatter.string(from: displayedMonth)
+    }
+    
+    var weekdays: [String] {
+        var symbols = Calendar.current.shortStandaloneWeekdaySymbols
+        let sunday = symbols.remove(at: 0)
+        symbols.append(sunday)
+        return symbols
+    }
+    
+    func daysForDisplayedMonth() -> [Date] {
+        let calendar = Calendar.current
+        guard let monthInterval = calendar.dateInterval(of: .month, for: displayedMonth),
+              let firstWeekInterval = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start) else {
+            return []
+        }
+        
+        var days: [Date] = []
+        var current = firstWeekInterval.start
+        let dayCount = 42  // typisches 6x7-Gitter
+        for _ in 0..<dayCount {
+            days.append(current)
+            current = calendar.date(byAdding: .day, value: 1, to: current)!
+        }
+        return days
+    }
+    
+    func hasEntry(on date: Date) -> Bool {
+        let calendar = Calendar.current
+        return entryViewModel.entries.contains { entry in
+            calendar.isDate(entry.createdAt, inSameDayAs: date)
+        }
+    }
+    
+    func goToPreviousMonth() {
+        if let newDate = Calendar.current.date(byAdding: .month, value: -1, to: displayedMonth) {
+            displayedMonth = newDate
+        }
+    }
+    
+    func goToNextMonth() {
+        if let newDate = Calendar.current.date(byAdding: .month, value: 1, to: displayedMonth) {
+            displayedMonth = newDate
+        }
+    }
+    
+    // MARK: - Top Words Ranking
+    
+    /// Erzeugt ein Ranking der am häufigsten verwendeten Wörter aus den JournalEntries.
+    /// Dabei wird NSLinguisticTagger zur Lemmatisierung genutzt, um unterschiedliche Formen
+    /// eines Wortes zusammenzuführen.
+    func calculateTopWords(from entries: [JournalEntry], top: Int = 30) -> [(word: String, count: Int)] {
+        // Alle Inhalte zusammenführen
+        let fullText = entries.map { $0.content }.joined(separator: " ")
+        
+        // Wörter extrahieren und lemmatisieren
+        let tagger = NSLinguisticTagger(tagSchemes: [.lemma], options: 0)
+        tagger.string = fullText
+        
+        var wordCounts: [String: Int] = [:]
+        let range = NSRange(location: 0, length: fullText.utf16.count)
+        
+        tagger.enumerateTags(in: range,
+                             unit: .word,
+                             scheme: .lemma,
+                             options: [.omitPunctuation, .omitWhitespace, .omitOther]) { tag, tokenRange, _ in
+            if let lemma = tag?.rawValue.lowercased() {
+                // Erhöhe den Zähler für das lemmatisierte Wort
+                wordCounts[lemma, default: 0] += 1
+            } else {
+                // Falls keine Lemma gefunden wurde, kann man auch den Originaltoken verwenden:
+                if let tokenRange = Range(tokenRange, in: fullText) {
+                    let token = String(fullText[tokenRange]).lowercased()
+                    wordCounts[token, default: 0] += 1
+                }
+            }
+        }
+        
+        // Sortieren und Top-N auswählen; mit map wird der Typ in [(word: String, count: Int)] umgewandelt
+        let sortedWords = wordCounts.sorted { $0.value > $1.value }
+        return sortedWords.prefix(top).map { (word: $0.key, count: $0.value) }
+    }
+    
+    // Im nächsten Schritt könntest du eine Funktion hinzufügen, die
+    // das TranslationViewModel verwendet, um die Top-Wörter zu übersetzen.
+    // Beispiel:
     //
-    //        totalJournalingTime = entries.reduce(0) { $0 + $1.duration }
-    //        totalWordCount = entries.reduce(0) { $0 + $1.content.split { $0.isWhitespace || $0.isNewline }.count }
-    //        totalJournalingDays = Set(entries.map { Calendar.current.startOfDay(for: $0.date) }).count
-    //
-    //        if !entries.isEmpty {
-    //            averageEntryLength = totalWordCount / entries.count
-    //            averageEntryTime = totalJournalingTime / entries.count
-    //        }
-    //
-    //        journalingDays = entries.map { Calendar.current.startOfDay(for: $0.date) }
-    //
-    //        fetchFrequentWords(from: entries)
-    //    }
-    //
-    //    private func fetchFrequentWords(from entries: [JournalEntry]) {
-    //        var wordCounts: [String: Int] = [:]
-    //
-    //        for entry in entries {
-    //            let words = entry.content.lowercased().split { !$0.isLetter }
-    //            for word in words {
-    //                let stemmedWord = stem(word: String(word)) // Stemming-Algorithmus anwenden
-    //                wordCounts[stemmedWord, default: 0] += 1
-    //            }
-    //        }
-    //
-    //        let sortedWords = wordCounts.sorted { $0.value > $1.value }.prefix(10)
-    //        frequentWords = sortedWords.map { ($0.key, $0.value) }
-    //
-    //        translateFrequentWords()
-    //    }
-    //
-    //    private func stem(word: String) -> String {
-    //        return word // Hier könnte eine Stemmer-Logik eingebaut werden
-    //    }
-    //
-    //    private func translateFrequentWords() {
-    //        for (index, word) in frequentWords.enumerated() {
-    //            translationService.translate(word.word) { translatedWord in
-    //                DispatchQueue.main.async {
-    //                    self.frequentWords[index].word = translatedWord
-    //                }
-    //            }
-    //        }
-    //    }
+    // func translatedTopWords(completion: @escaping ([(original: String, translated: String)]) -> Void) {
+    //     // Übersetzungslogik hier...
+    // }
 }

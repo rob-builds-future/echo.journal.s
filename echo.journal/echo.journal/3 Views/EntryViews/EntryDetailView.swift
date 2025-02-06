@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EntryDetailView: View {
-    @ObservedObject var viewModel: EntryViewModel
+    @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
     @StateObject private var translationViewModel = TranslationViewModel(
         translationRepository: TranslationAPIRepository(),
@@ -18,36 +18,36 @@ struct EntryDetailView: View {
     let capsuleHeight: CGFloat = 30
 
     init(viewModel: EntryViewModel, colorManager: ColorManager, entryId: String) {
-        self.viewModel = viewModel
+        self.entryViewModel = viewModel
         self.colorManager = colorManager
         self.entryId = entryId
     }
     
     /// Holt den aktuellen Eintrag aus dem ViewModel anhand der ID
     private var entry: JournalEntry? {
-        viewModel.entries.first { $0.id == entryId }
+        entryViewModel.entries.first { $0.id == entryId }
     }
 
     var body: some View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    if viewModel.isEditing {
+                    if entryViewModel.isEditing {
                         // Bearbeitungsansicht
                         EditView(
                             translationViewModel: translationViewModel,
-                            updatedContent: $viewModel.updatedContent,
-                            viewModel: viewModel,
+                            updatedContent: $entryViewModel.updatedContent,
+                            viewModel: entryViewModel,
                             colorManager: colorManager,
-                            wordCount: viewModel.updatedContent.split { $0.isWhitespace || $0.isNewline }.count,
-                            isEditing: viewModel.isEditing
+                            wordCount: entryViewModel.updatedContent.split { $0.isWhitespace || $0.isNewline }.count,
+                            isEditing: entryViewModel.isEditing
                         )
                     } else if let entry {
                         // Detailansicht
                         DetailView(
                             translationViewModel: translationViewModel,
                             entry: entry,
-                            viewModel: viewModel,
+                            viewModel: entryViewModel,
                             colorManager: colorManager
                         )
                     }
@@ -70,8 +70,8 @@ struct EntryDetailView: View {
             /// **Linke Toolbar: Schließen oder Bearbeitung beenden**
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    if viewModel.isEditing {
-                        viewModel.exitEditMode()
+                    if entryViewModel.isEditing {
+                        entryViewModel.exitEditMode()
                     } else {
                         dismiss()
                     }
@@ -86,10 +86,10 @@ struct EntryDetailView: View {
 
             /// **Zentrale Toolbar: Anzeige oder Bearbeitung des Erstellungsdatums**
             ToolbarItem(placement: .principal) {
-                if viewModel.isEditing {
+                if entryViewModel.isEditing {
                     // Klickbares Datum öffnet DatePicker im Bearbeitungsmodus
                     Button(action: { showDatePicker.toggle() }) {
-                        Text(viewModel.selectedDate?.formatted(date: .abbreviated, time: .omitted) ?? "")
+                        Text(entryViewModel.selectedDate?.formatted(date: .abbreviated, time: .omitted) ?? "")
                             .font(.system(size: 16, weight: .bold, design: .rounded))
                             .foregroundColor(colorManager.currentColor.color)
                     }
@@ -97,8 +97,8 @@ struct EntryDetailView: View {
                         VStack {
                             // DatePicker für das Erstellungsdatum (keine zukünftigen Daten erlaubt)
                             DatePicker("Datum auswählen", selection: Binding(
-                                get: { viewModel.selectedDate ?? Date() },
-                                set: { viewModel.selectedDate = $0 }
+                                get: { entryViewModel.selectedDate ?? Date() },
+                                set: { entryViewModel.selectedDate = $0 }
                             ), in: ...Date(), displayedComponents: .date)
                             .datePickerStyle(GraphicalDatePickerStyle())
                             .padding()
@@ -112,7 +112,7 @@ struct EntryDetailView: View {
                     }
                 } else if let entry {
                     // Anzeige des Erstellungsdatums im Nicht-Bearbeitungsmodus
-                    Text(viewModel.formattedDate(entry.createdAt))
+                    Text(entryViewModel.formattedDate(entry.createdAt))
                         .font(.system(size: 16, weight: .bold, design: .rounded))
                         .foregroundColor(.gray)
                 }
@@ -120,9 +120,9 @@ struct EntryDetailView: View {
 
             /// **Rechte Toolbar: Bearbeiten oder Speichern**
             ToolbarItem(placement: .navigationBarTrailing) {
-                if viewModel.isEditing {
+                if entryViewModel.isEditing {
                     // Speichern-Button
-                    Button(action: { Task { await viewModel.updateEntry(entryId: entryId) } }) {
+                    Button(action: { Task { await entryViewModel.updateEntry(entryId: entryId) } }) {
                         Image(systemName: "checkmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
@@ -131,7 +131,7 @@ struct EntryDetailView: View {
                     }
                 } else {
                     // Bearbeiten-Button
-                    Button(action: { viewModel.enterEditMode(entryId: entryId) }) {
+                    Button(action: { entryViewModel.enterEditMode(entryId: entryId) }) {
                         Image(systemName: "pencil")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddEntryView: View {
-    @ObservedObject var viewModel: EntryViewModel
+    @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
     @StateObject private var translationViewModel = TranslationViewModel(
         translationRepository: TranslationAPIRepository(),
@@ -9,7 +9,7 @@ struct AddEntryView: View {
     )
     @StateObject private var inspirationViewModel = InspirationViewModel()
     
-    @Environment(\.dismiss) private var dismiss // Ermöglicht das Schließen der View
+    @Environment(\.dismiss) private var dismiss
     
     @State private var content: String = "" // Inhalt des neuen Eintrags
     @State private var entryDate: Date = Date() // Datum des Eintrags
@@ -47,7 +47,7 @@ struct AddEntryView: View {
                                 textEditorFocused = true // Cursor direkt setzen
                             }
                             .onChange(of: content) { _, newValue in
-                                viewModel.startTimer(content: newValue) // Timer für die Schreibzeit
+                                entryViewModel.startTimer(content: newValue) // Timer für die Schreibzeit
                                 translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3) // Übersetzungen auslösen
                             }
 
@@ -136,7 +136,7 @@ struct AddEntryView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         Task {
-                            try await viewModel.createEntry(content: content, date: entryDate)
+                            try await entryViewModel.createEntry(content: content, date: entryDate)
                             dismiss() // Schließt die Ansicht nach dem Speichern
                         }
                     }) {

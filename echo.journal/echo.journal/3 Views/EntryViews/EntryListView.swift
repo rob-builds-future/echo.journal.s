@@ -51,13 +51,13 @@ struct EntryListView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showingAddEntry) {
-            AddEntryView(viewModel: entryViewModel, colorManager: colorManager)
+            AddEntryView(entryViewModel: entryViewModel, colorManager: colorManager)
         }
         .toolbar {
             /// **OBERE TOOLBAR**
             // Links: Statistik-Ansicht
             ToolbarItem(placement: .navigationBarLeading) {
-                NavigationLink(destination: StatisticsView()) {
+                NavigationLink(destination: StatisticsView(entryViewModel: entryViewModel)) {
                     Image(systemName: "calendar.and.person") // calendar.and.person, arrow.up.right.circle.fill, chart.xyaxis.line
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .black : .white)
