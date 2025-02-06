@@ -4,15 +4,15 @@ struct SignUpSignInView: View {
     @ObservedObject var viewModel: UserViewModel
     @ObservedObject var colorManager: ColorManager
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var colorScheme // Ermittelt das aktuelle Farbschema (Hell/Dunkel)
     
-    @State private var email = ""
-    @State private var password = ""
-    @State private var isRegistering = false
+    @State private var email = ""       // Eingegebene E-Mail-Adresse
+    @State private var password = ""    // Eingegebenes Passwort
+    @State private var isRegistering = false // Umschalter für Login oder Registrierung
     
     var body: some View {
-        ZStack{
-            // video background mit overlay
+        ZStack {
+            // Hintergrundvideo mit dunklem Overlay
             VideoBackgroundViewRep(videoName: "loginBackground2")
                 .overlay {
                     Color.black.opacity(0.5)
@@ -24,10 +24,12 @@ struct SignUpSignInView: View {
                 
                 Spacer().frame(height: 60)
                 
+                // Logo (Echo-Symbol)
                 EchoSymbolView(colorManager: colorManager)
                     .frame(width: 130, height: 130)
                     .scaleEffect(0.7)
                 
+                // App-Name
                 Text("echo.")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
@@ -35,7 +37,7 @@ struct SignUpSignInView: View {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    // Hauptüberschrift
+                    // Hauptüberschrift (Anmelden / Registrieren)
                     Text(isRegistering ? "Registrieren" : "Anmelden")
                         .font(.system(size: 25, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
@@ -49,19 +51,22 @@ struct SignUpSignInView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
+                // Eingabefeld für E-Mail
                 TextField("Mail-Adresse", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .textInputAutocapitalization(.never)
                     .disableAutocorrection(true)
                     .keyboardType(.emailAddress)
                 
+                // Eingabefeld für Passwort
                 SecureField("Passwort", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 if viewModel.isLoading {
+                    // Ladeindikator während der Authentifizierung
                     ProgressView()
                 } else {
-                    // Primärer Anmelden und Registrieren Button
+                    // Primärer Button für Anmeldung oder Registrierung
                     Button {
                         Task {
                             if isRegistering {
@@ -80,26 +85,28 @@ struct SignUpSignInView: View {
                             .cornerRadius(8)
                     }
                     
-                    // Divider mit "ODER" in der Mitte
-                    HStack{
+                    // Visueller Divider mit "ODER" in der Mitte
+                    HStack {
                         Rectangle()
                             .fill(Color.gray)
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                             .offset(y: 2)
-                            .padding(.leading,8)
+                            .padding(.leading, 8)
+                        
                         Text("ODER")
                             .font(.system(size: 15, weight: .regular, design: .rounded))
                             .foregroundColor(.white)
+                        
                         Rectangle()
                             .fill(Color.gray)
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                             .offset(y: 2)
-                            .padding(.trailing,8)
+                            .padding(.trailing, 8)
                     }
                     
-                    // Wechsel-Button (Zum Login / Zur Registrierung)
+                    // Umschalter zwischen Anmeldung und Registrierung
                     Button(isRegistering ? "Zum Login" : "Zur Registrierung") {
                         isRegistering.toggle()
                     }
@@ -117,8 +124,9 @@ struct SignUpSignInView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 20)
         }
-        .contentShape(Rectangle()) // Macht den gesamten Bereich des main VStack tappable
+        .contentShape(Rectangle()) // Macht den gesamten Bereich tappable
         .onTapGesture {
+            // Blendet die Tastatur aus, wenn außerhalb getippt wird
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
@@ -127,4 +135,3 @@ struct SignUpSignInView: View {
 #Preview {
     SignUpSignInView(viewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()), colorManager: ColorManager())
 }
-

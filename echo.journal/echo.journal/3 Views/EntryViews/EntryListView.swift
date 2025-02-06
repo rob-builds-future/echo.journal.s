@@ -5,7 +5,6 @@ struct EntryListView: View {
     @ObservedObject var colorManager: ColorManager
     @StateObject private var entryViewModel: EntryViewModel
     @StateObject private var inspirationViewModel = InspirationViewModel()
-    //@StateObject private var statisticsViewModel: StatisticsViewModel
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -30,7 +29,7 @@ struct EntryListView: View {
     
     var body: some View {
         ZStack {
-            // The list of entries
+            // Liste der Tagebucheinträge mit Favoriten-Filter
             EntryList(entryViewModel: entryViewModel,
                       colorManager: colorManager,
                       filterFavorites: showFavoritesOnly)
@@ -38,7 +37,7 @@ struct EntryListView: View {
                 await entryViewModel.loadEntries()
             }
             
-            // Fade-out overlay at the bottom
+            // Weicher Verlauf am unteren Bildschirmrand
             VStack {
                 Spacer()
                 LinearGradient(
@@ -55,48 +54,42 @@ struct EntryListView: View {
             AddEntryView(viewModel: entryViewModel, colorManager: colorManager)
         }
         .toolbar {
-            // Top Toolbar Items
-            
-            // Left: Statistics Button leading to the StatisticsView
+            /// **OBERE TOOLBAR**
+            // Links: Statistik-Ansicht
             ToolbarItem(placement: .navigationBarLeading) {
                 NavigationLink(destination: StatisticsView()) {
-                    Image(systemName: "chart.bar.fill")
+                    Image(systemName: "calendar.and.person") // calendar.and.person, arrow.up.right.circle.fill, chart.xyaxis.line
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .black : .white)
                         .frame(width: capsuleWidth, height: capsuleHeight)
                         .background(
-                            Capsule()
-                                .fill(colorScheme == .dark ? Color.gray.opacity(0.5) : Color.gray.opacity(0.3))
+                            Capsule().fill(colorScheme == .dark ? Color.gray.opacity(0.5) : Color.gray.opacity(0.3))
                         )
                 }
             }
             
-            // Center: Title
+            // Mitte: Titel mit Benutzername
             ToolbarItem(placement: .principal) {
                 Text("\(userViewModel.currentUser?.username ?? "")'s Tagebuch")
                     .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? .white : .black)
             }
             
-            // Right: User Settings
+            // Rechts: Einstellungen
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: SettingsView(viewModel: userViewModel, colorManager: colorManager)) {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "slider.horizontal.3") // person.fill, slider.horizontal3, person.crop.circle.fill
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .black : .white)
                         .frame(width: capsuleWidth, height: capsuleHeight)
                         .background(
-                            Capsule()
-                                .fill(colorScheme == .dark ? Color.gray.opacity(0.5) : Color.gray.opacity(0.3))
+                            Capsule().fill(colorScheme == .dark ? Color.gray.opacity(0.5) : Color.gray.opacity(0.3))
                         )
                 }
             }
             
-            /// BOTTOM TOOLBAR
-            // Jeder Button ist ein eigenes ToolbarItem und bekommt eine fixe Breite,
-            // hier ein Drittel der Bildschirmbreite.
-            
-            // Favoriten-Filter-Button (links)
+            /// **UNTERE TOOLBAR*
+            // Links: Favoriten-Filter
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     showFavoritesOnly.toggle()
@@ -105,15 +98,13 @@ struct EntryListView: View {
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .frame(width: capsuleWidth, height: capsuleHeight)
-                        .background(
-                            Capsule().fill(Color(UIColor.systemGray4))
-                        )
+                        .background(Capsule().fill(Color(UIColor.systemGray4)))
                 }
                 .padding(.leading, 16)
                 .frame(width: buttonWidth, alignment: .leading)
             }
             
-            // Plus-Button (in der Mitte)
+            // Mitte: Neuer Eintrag erstellen
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     showingAddEntry.toggle()
@@ -130,7 +121,7 @@ struct EntryListView: View {
                 .frame(width: buttonWidth, alignment: .center)
             }
             
-            // Inspiration-Button (rechts)
+            // Rechts: Inspiration anzeigen
             ToolbarItem(placement: .bottomBar) {
                 if let dailyInsp = inspirationViewModel.dailyInspiration() {
                     Button(action: {
@@ -140,9 +131,7 @@ struct EntryListView: View {
                             .font(.system(size: 18, weight: .bold, design: .rounded))
                             .foregroundStyle(.white)
                             .padding(12)
-                            .background(
-                                Circle().fill(colorManager.currentColor.color)
-                            )
+                            .background(Circle().fill(colorManager.currentColor.color))
                     }
                     .popover(isPresented: $showInspirationPopover, attachmentAnchor: .point(.topTrailing)) {
                         VStack(spacing: 12) {
@@ -165,11 +154,4 @@ struct EntryListView: View {
             Task { await entryViewModel.loadEntries() }
         }
     }
-}
-
-#Preview {
-    EntryListView(
-        userViewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()),
-        colorManager: ColorManager()
-    )
 }

@@ -1,36 +1,43 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel : UserViewModel = UserViewModel(
+    // ViewModel für die Benutzerverwaltung (Authentifizierung & Datenverwaltung)
+    @StateObject private var viewModel: UserViewModel = UserViewModel(
         authRepository: .init(),
         storeRepository: .init()
     )
+    
+    // Farbverwaltung für das Design
     @StateObject private var colorManager = ColorManager()
     
-    @State private var isLoading: Bool = true // Ladezustand
+    // Ladezustand für die Ansicht
+    @State private var isLoading: Bool = true
     
     var body: some View {
         NavigationStack {
             if viewModel.isLoading {
-                SplashView(colorManager: colorManager) // Ladebildschirm anzeigen, solange isLoading true ist
+                // Ladebildschirm anzeigen, während das ViewModel noch lädt
+                SplashView(colorManager: colorManager)
             } else if viewModel.isLoggedIn {
                 if !viewModel.hasCompletedOnboarding {
-                    OnboardingInfoView(viewModel: viewModel, colorManager: colorManager) // Zeige Onboarding, wenn nicht abgeschlossen
+                    // Zeigt das Onboarding an, falls es noch nicht abgeschlossen wurde
+                    OnboardingInfoView(viewModel: viewModel, colorManager: colorManager)
                 } else {
-                    EntryListView(userViewModel: viewModel, colorManager: colorManager) // Hauptansicht nach Onboarding
+                    // Nach dem Onboarding wird die Hauptansicht mit den Tagebucheinträgen geladen
+                    EntryListView(userViewModel: viewModel, colorManager: colorManager)
                 }
             } else {
+                // Falls der Benutzer nicht eingeloggt ist, wird die Anmeldeansicht angezeigt
                 SignUpSignInView(viewModel: viewModel, colorManager: colorManager)
             }
-            
         }
         .onAppear {
-            
+            // Hier können Aktionen beim ersten Laden der Ansicht erfolgen (falls benötigt)
         }
     }
 }
 
 #Preview {
     ContentView()
-        .environmentObject(ColorManager()) // ColorManager explizit bereitstellen
+        .environmentObject(ColorManager()) // Stellt sicher, dass ColorManager in der Vorschau verfügbar ist
 }

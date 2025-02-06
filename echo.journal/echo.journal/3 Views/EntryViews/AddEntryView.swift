@@ -9,56 +9,59 @@ struct AddEntryView: View {
     )
     @StateObject private var inspirationViewModel = InspirationViewModel()
     
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismiss // Ermöglicht das Schließen der View
     
-    @State private var content: String = ""
-    @State private var entryDate: Date = Date()
-    @State private var showDatePicker = false
-    @State private var showAlert = false
+    @State private var content: String = "" // Inhalt des neuen Eintrags
+    @State private var entryDate: Date = Date() // Datum des Eintrags
+    @State private var showDatePicker = false // Steuert die Sichtbarkeit des DatePickers
+    @State private var showAlert = false // Zeigt das Bestätigungs-Popup für das Verwerfen der Änderungen
     
     @State private var isTextEditorFocused: Bool = false
-    @FocusState private var textEditorFocused: Bool
-    
+    @FocusState private var textEditorFocused: Bool // Steuerung des Fokus auf das Textfeld
+
     let capsuleWidth: CGFloat = 60
     let capsuleHeight: CGFloat = 30
-    
+
+    /// Berechnet die Wortanzahl des Eintrags
     var wordCount: Int {
         content.split { $0.isWhitespace || $0.isNewline }.count
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 VStack(alignment: .leading) {
                     ZStack(alignment: .topLeading) {
+                        // TextEditor für den Tagebucheintrag
                         TextEditor(text: $content)
                             .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
                             .padding(4)
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.white) // Hintergrundfarbe für den Editor
-                                    //.shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2) // Schatten hinzufügen
+                                    .fill(Color.white) // Hintergrundfarbe des Editors
                             )
                             .autocorrectionDisabled(true)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
-                            .focused($textEditorFocused) // Fokusbindung aktivieren
+                            .focused($textEditorFocused) // Aktiviert den Fokus beim Öffnen
                             .onAppear {
                                 textEditorFocused = true // Cursor direkt setzen
                             }
                             .onChange(of: content) { _, newValue in
-                                viewModel.startTimer(content: newValue)
-                                translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3)
+                                viewModel.startTimer(content: newValue) // Timer für die Schreibzeit
+                                translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3) // Übersetzungen auslösen
                             }
-                        // Platzhalter: Nur anzeigen, wenn der Editor leer ist
+
+                        // Platzhalter mit Inspirationstext, falls das Feld leer ist
                         if content.isEmpty, let currentInsp = inspirationViewModel.currentInspiration {
-                            HStack (alignment: .top){
+                            HStack(alignment: .top) {
                                 Text(" \(currentInsp.text)")
                                     .font(.system(size: 16, weight: .regular, design: .rounded))
                                     .foregroundColor(colorManager.currentColor.color.opacity(0.5))
                                     .padding(8)
                                     .padding(.top, 4)
                                 Spacer()
-                                // Button zum Blättern
+                                
+                                // Button zum Wechseln der Inspiration
                                 Button(action: {
                                     inspirationViewModel.nextInspiration()
                                 }) {
@@ -67,17 +70,18 @@ struct AddEntryView: View {
                                         .foregroundColor(.white)
                                         .padding(8)
                                         .background(
-                                            Circle()
-                                                .fill(colorManager.currentColor.color)
+                                            Circle().fill(colorManager.currentColor.color)
                                         )
                                 }
                                 .padding(.trailing, 8)
                                 .padding(.top, 8)
                             }
-                            .zIndex(1)
+                            .zIndex(1) // Stellt sicher, dass der Platzhalter über dem TextEditor liegt
                         }
                     }
-                    Divider()
+                    
+                    Divider() // Trennt den TextEditor von der Wortanzahl
+                    
                     HStack {
                         Spacer()
                         Text("\(wordCount) Worte")
@@ -87,37 +91,39 @@ struct AddEntryView: View {
                     }
                 }
                 .padding(.horizontal)
-                
+
+                // Bereich für die automatische Übersetzung
                 VStack(alignment: .leading) {
-                    Text(translationViewModel.translatedText.isEmpty ? "Hier werde ich für Dich übersetzen. Ich warte ..." : translationViewModel.translatedText)
+                    Text(translationViewModel.translatedText.isEmpty
+                         ? "Hier werde ich für Dich übersetzen. Ich warte ..."
+                         : translationViewModel.translatedText)
                         .font(.system(size: 16, weight: .regular, design: .rounded))
-                        .foregroundColor(translationViewModel.translatedText.isEmpty ? colorManager.currentColor.color.opacity(0.5) : colorManager.currentColor.color)
+                        .foregroundColor(translationViewModel.translatedText.isEmpty
+                                         ? colorManager.currentColor.color.opacity(0.5)
+                                         : colorManager.currentColor.color)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.horizontal)
                 .padding(.vertical, 4)
-                
+
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
             .toolbar {
-                // Abbrechen Button (Links)
+                /// **Abbrechen-Button (links)**
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showAlert = true }) {
-                        HStack {
-                            Image(systemName: "xmark")
-                        }
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                        .frame(width: capsuleWidth, height: capsuleHeight)
-                        .background(
-                            Capsule()
-                                .fill(Color(UIColor.systemGray2))
-                        )
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .frame(width: capsuleWidth, height: capsuleHeight)
+                            .background(Capsule().fill(Color(UIColor.systemGray2)))
                     }
                 }
-                // Klickbares Datum (Mitte)
+
+                /// **Klickbares Datum (Mitte)**
                 ToolbarItem(placement: .principal) {
                     Button(action: { showDatePicker.toggle() }) {
                         Text(entryDate.formatted(date: .abbreviated, time: .omitted))
@@ -125,45 +131,49 @@ struct AddEntryView: View {
                             .foregroundColor(colorManager.currentColor.color)
                     }
                 }
-                // Speichern Button (Rechts)
+
+                /// **Speichern-Button (rechts)**
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         Task {
                             try await viewModel.createEntry(content: content, date: entryDate)
-                            dismiss()
+                            dismiss() // Schließt die Ansicht nach dem Speichern
                         }
                     }) {
-                        HStack {
-                            Image(systemName: "checkmark")
-                        }
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                        .frame(width: capsuleWidth, height: capsuleHeight)
-                        .background(
-                            Capsule()
-                                .fill(content.isEmpty ? Color(UIColor.systemGray4) : colorManager.currentColor.color)
-                        )
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .frame(width: capsuleWidth, height: capsuleHeight)
+                            .background(
+                                Capsule().fill(content.isEmpty ? Color(UIColor.systemGray4) : colorManager.currentColor.color)
+                            )
                     }
-                    .disabled(content.isEmpty)
+                    .disabled(content.isEmpty) // Deaktiviert Speichern, wenn das Feld leer ist
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+
+            // **Tipp auf den Bildschirm schließt die Tastatur**
             .contentShape(Rectangle())
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
+
+            // **Lädt die bevorzugte Sprache beim Öffnen**
             .task {
                 await translationViewModel.fetchUserPreferredLanguage()
             }
             .onAppear {
-                UITextView.appearance().tintColor = UIColor.gray
+                UITextView.appearance().tintColor = UIColor.gray // Setzt die Cursor-Farbe
             }
+
+            // **Datumsauswahl als Sheet**
             .sheet(isPresented: $showDatePicker) {
                 VStack {
                     DatePicker("Datum wählen", selection: $entryDate, in: ...Date(), displayedComponents: .date)
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .padding()
-                    
+
                     Button("Fertig") {
                         showDatePicker = false
                     }
@@ -171,16 +181,14 @@ struct AddEntryView: View {
                 }
                 .presentationDetents([.medium])
             }
+
+            // **Bestätigungsdialog für Abbrechen**
             .alert("Änderungen verwerfen?", isPresented: $showAlert) {
-                            Button("Abbrechen", role: .cancel) {}
-                            Button("Verwerfen", role: .destructive) { dismiss() }
-                        } message: {
-                            Text("Möchtest du die Änderungen wirklich verwerfen?")
-                        }
+                Button("Abbrechen", role: .cancel) {}
+                Button("Verwerfen", role: .destructive) { dismiss() }
+            } message: {
+                Text("Möchtest du die Änderungen wirklich verwerfen?")
+            }
         }
     }
-}
-
-#Preview {
-    AddEntryView(viewModel: EntryViewModel(entryStoreRepository: EntryStoreRepository(), userId: "testUser"), colorManager: ColorManager())
 }

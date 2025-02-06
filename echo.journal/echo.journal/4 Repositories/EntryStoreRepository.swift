@@ -4,7 +4,8 @@ import FirebaseAuth
 class EntryStoreRepository {
     let store = Firestore.firestore()
     
-    // Erstelle einen neuen Tagebucheintrag für einen Benutzer
+    /// Erstellt einen neuen Tagebucheintrag für einen Benutzer und speichert ihn in Firestore.
+    /// Gibt den erstellten Eintrag mit der generierten Dokument-ID zurück.
     func createEntry(userId: String, content: String, duration: Double, createdAt: Date) async throws -> JournalEntry {
         // 1. Erstelle den Eintrag ohne ID
         var entry = JournalEntry(
@@ -25,41 +26,48 @@ class EntryStoreRepository {
         // 3. Setze die generierte Dokument-ID im Eintrag
         entry.id = documentRef.documentID
         
-        // 4. Aktualisiere das Firestore-Dokument mit der ID (optional, falls du die ID speichern möchtest)
+        // 4. Speichere die ID direkt im Firestore-Dokument (optional)
         try await documentRef.updateData(["id": entry.id])
         
         // 5. Gib den aktualisierten Eintrag zurück
         return entry
     }
     
-    // Hole alle Tagebucheinträge
+    /// Holt alle Tagebucheinträge eines Benutzers aus Firestore.
+    /// Gibt eine Liste von `JournalEntry`-Objekten zurück.
     func getEntries(userId: String) async throws -> [JournalEntry] {
         let snapshot = try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
-            .collection("journalEntries") // Nested Unterkollektion für die Tagebucheinträge
+            .collection("journalEntries")
             .getDocuments()
         
         return snapshot.documents.compactMap { document in
             var entry = try? document.data(as: JournalEntry.self)
-            entry?.duration = document.data()["duration"] as? Double ?? 0 // ⏱ Sicherstellen, dass `duration` existiert
+            entry?.duration = document.data()["duration"] as? Double ?? 0 // Fallback, falls `duration` fehlt
             return entry
         }
     }
     
-    // Aktualisiere einen Tagebucheintrag
-    func updateEntry(userId: String, entryId: String, content: String) async throws {
-        let entryData: [String: Any] = [
+    /// Aktualisiert den Inhalt eines bestehenden Tagebucheintrags.
+    /// Falls `createdAt` übergeben wird, wird auch das Erstellungsdatum aktualisiert.
+    func updateEntry(userId: String, entryId: String, content: String, createdAt: Date? = nil) async throws {
+        var entryData: [String: Any] = [
             "content": content,
-            "updatedAt": Date() // Aktualisiere das Datum
+            "updatedAt": Date() // Aktualisierungszeitpunkt setzen
         ]
+        
+        if let newCreatedAt = createdAt {
+            entryData["createdAt"] = newCreatedAt
+        }
+        
         try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
-            .collection("journalEntries") // Nested Unterkollektion für die Tagebucheinträge
+            .collection("journalEntries")
             .document(entryId)
             .updateData(entryData)
     }
-    
-    // Füge diese Methode in EntryStoreRepository.swift hinzu
+
+    /// Setzt oder entfernt die Favoritenmarkierung (`isFavorite`) eines Eintrags.
     func toggleFavorite(userId: String, entryId: String) async throws {
         let documentRef = store.collection(DocumentPath.users.rawValue)
             .document(userId)
@@ -73,11 +81,11 @@ class EntryStoreRepository {
         try await documentRef.updateData(["isFavorite": newFavoriteStatus])
     }
     
-    // Lösche einen Tagebucheintrag
+    /// Löscht einen Tagebucheintrag aus Firestore.
     func deleteEntry(userId: String, entryId: String) async throws {
         try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
-            .collection("journalEntries") // Unterkollektion für die Tagebucheinträge
+            .collection("journalEntries")
             .document(entryId)
             .delete()
     }

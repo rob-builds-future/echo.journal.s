@@ -8,41 +8,42 @@ struct EntryDetailView: View {
         userAuthRepository: UserAuthRepository()
     )
     @StateObject private var speechViewModel = SpeechViewModel()
-    
+
     @Environment(\.dismiss) private var dismiss
     
-    @State private var entry: JournalEntry              // Der anzuzeigende Eintrag
-    @State private var isEditing: Bool = false          // Zustand für den Bearbeitungsmodus
-    @State private var updatedContent: String = ""      // Bearbeiteter Inhalt des Eintrags
-    
+    let entryId: String // Speichert nur die ID, um immer die aktuelle Version des Eintrags zu verwenden
+    @State private var showDatePicker = false // Steuert die Sichtbarkeit des DatePickers
+
     let capsuleWidth: CGFloat = 60
     let capsuleHeight: CGFloat = 30
-    
-    // Eigener Initializer
-    init(viewModel: EntryViewModel, colorManager: ColorManager, entry: JournalEntry) {
+
+    init(viewModel: EntryViewModel, colorManager: ColorManager, entryId: String) {
         self.viewModel = viewModel
         self.colorManager = colorManager
-        _entry = State(initialValue: entry)
+        self.entryId = entryId
     }
     
-    private var wordCount: Int {
-        updatedContent.split { $0.isWhitespace || $0.isNewline }.count
+    /// Holt den aktuellen Eintrag aus dem ViewModel anhand der ID
+    private var entry: JournalEntry? {
+        viewModel.entries.first { $0.id == entryId }
     }
-    
+
     var body: some View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    if isEditing {
+                    if viewModel.isEditing, let entry {
+                        // Bearbeitungsansicht
                         EditView(
                             translationViewModel: translationViewModel,
-                            updatedContent: $updatedContent,
+                            updatedContent: $viewModel.updatedContent,
                             viewModel: viewModel,
                             colorManager: colorManager,
-                            wordCount: wordCount,
-                            isEditing: isEditing
+                            wordCount: viewModel.updatedContent.split { $0.isWhitespace || $0.isNewline }.count,
+                            isEditing: viewModel.isEditing
                         )
-                    } else {
+                    } else if let entry {
+                        // Detailansicht
                         DetailView(
                             translationViewModel: translationViewModel,
                             entry: entry,
@@ -53,7 +54,7 @@ struct EntryDetailView: View {
                 }
                 .padding()
             }
-            // Overlay-Button für Text-to-Speech, unten links
+            // Overlay für Text-to-Speech Button
             .overlay(
                 SpeechButtonView(
                     speechViewModel: speechViewModel,
@@ -66,11 +67,11 @@ struct EntryDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            // Linke Toolbar: X-Button
+            /// **Linke Toolbar: Schließen oder Bearbeitung beenden**
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    if isEditing {
-                        exitEditMode()
+                    if viewModel.isEditing {
+                        viewModel.exitEditMode()
                     } else {
                         dismiss()
                     }
@@ -82,24 +83,46 @@ struct EntryDetailView: View {
                         .background(Capsule().fill(Color(UIColor.systemGray2)))
                 }
             }
-            
-            // Mittig: Anzeige des Erstellungsdatums
+
+            /// **Zentrale Toolbar: Anzeige oder Bearbeitung des Erstellungsdatums**
             ToolbarItem(placement: .principal) {
-                Text(viewModel.formattedDate(entry.createdAt))
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .foregroundColor(.gray)
-            }
-            
-            // Rechte Toolbar: Bearbeiten oder Speichern
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if isEditing {
-                    Button(action: {
-                        Task {
-                            await viewModel.updateEntry(entryId: entry.id, content: updatedContent)
-                            entry.content = updatedContent
-                            isEditing = false
+                if viewModel.isEditing {
+                    // Klickbares Datum öffnet DatePicker im Bearbeitungsmodus
+                    Button(action: { showDatePicker.toggle() }) {
+                        Text(viewModel.selectedDate?.formatted(date: .abbreviated, time: .omitted) ?? "")
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(colorManager.currentColor.color)
+                    }
+                    .sheet(isPresented: $showDatePicker) {
+                        VStack {
+                            // DatePicker für das Erstellungsdatum (keine zukünftigen Daten erlaubt)
+                            DatePicker("Datum auswählen", selection: Binding(
+                                get: { viewModel.selectedDate ?? Date() },
+                                set: { viewModel.selectedDate = $0 }
+                            ), in: ...Date(), displayedComponents: .date)
+                            .datePickerStyle(GraphicalDatePickerStyle())
+                            .padding()
+                            
+                            Button("Fertig") {
+                                showDatePicker = false
+                            }
+                            .padding()
                         }
-                    }) {
+                        .presentationDetents([.medium])
+                    }
+                } else if let entry {
+                    // Anzeige des Erstellungsdatums im Nicht-Bearbeitungsmodus
+                    Text(viewModel.formattedDate(entry.createdAt))
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(.gray)
+                }
+            }
+
+            /// **Rechte Toolbar: Bearbeiten oder Speichern**
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if viewModel.isEditing {
+                    // Speichern-Button
+                    Button(action: { Task { await viewModel.updateEntry(entryId: entryId) } }) {
                         Image(systemName: "checkmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
@@ -107,7 +130,8 @@ struct EntryDetailView: View {
                             .background(Capsule().fill(colorManager.currentColor.color))
                     }
                 } else {
-                    Button(action: { enterEditMode() }) {
+                    // Bearbeiten-Button
+                    Button(action: { viewModel.enterEditMode(entryId: entryId) }) {
                         Image(systemName: "pencil")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
@@ -120,26 +144,10 @@ struct EntryDetailView: View {
         .onAppear {
             Task {
                 await translationViewModel.fetchUserPreferredLanguage()
-                await translationViewModel.translateText(entry.content)
+                if let entry = entry {
+                    await translationViewModel.translateText(entry.content)
+                }
             }
         }
-    }
-    
-    // MARK: - Edit Funktionen
-    
-    /// Wechselt in den Bearbeitungsmodus und lädt den aktuellen Inhalt.
-    private func enterEditMode() {
-        isEditing = true
-        updatedContent = entry.content
-        Task {
-            await translationViewModel.fetchUserPreferredLanguage()
-            await translationViewModel.translateText(entry.content)
-        }
-    }
-    
-    /// Verwirft Änderungen und verlässt den Bearbeitungsmodus.
-    private func exitEditMode() {
-        isEditing = false
-        updatedContent = entry.content // Setzt den ursprünglichen Inhalt zurück
     }
 }

@@ -6,6 +6,9 @@ class EntryViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
     @Published var isSaving = false // Zustandsvariable zum Verhindern von Mehrfachklicks
+    @Published var isEditing = false
+    @Published var selectedDate: Date?
+    @Published var updatedContent: String = ""
     
     private let entryStoreRepository: EntryStoreRepository
     private let userId: String // Benutzer-ID, um Einträge zuzuordnen
@@ -17,6 +20,22 @@ class EntryViewModel: ObservableObject {
     init(entryStoreRepository: EntryStoreRepository, userId: String) {
         self.entryStoreRepository = entryStoreRepository
         self.userId = userId
+    }
+    
+    // MARK: - Bearbeitungsmodus steuern
+    
+    /// Startet den Bearbeitungsmodus
+    func enterEditMode(entryId: String) {
+        if let entry = entries.first(where: { $0.id == entryId }) {
+            isEditing = true
+            updatedContent = entry.content // ✅ Vorhandenen Inhalt setzen!
+            selectedDate = entry.createdAt
+        }
+    }
+    
+    /// Beendet den Bearbeitungsmodus
+    func exitEditMode() {
+        isEditing = false
     }
     
     // MARK: - Zeitmessung
@@ -39,9 +58,9 @@ class EntryViewModel: ObservableObject {
     }
     
     func formattedDuration(_ duration: TimeInterval) -> String {
-           let minutes = max(Int(duration / 60), 1) // Mindestens 1 Minute
-           return "\(minutes)"
-       }
+        let minutes = max(Int(duration / 60), 1) // Mindestens 1 Minute
+        return "\(minutes)"
+    }
     
     // MARK: - CRUD Methoden
     
@@ -56,7 +75,7 @@ class EntryViewModel: ObservableObject {
         
         stopTimer(content: content) // ⏱ Stoppe den Timer
         let duration = getDuration() // ⏱ Berechne die Dauer
-
+        
         do {
             let newEntry = try await entryStoreRepository.createEntry(
                 userId: userId,
@@ -70,7 +89,7 @@ class EntryViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     
     /// Formatiert das Erstellungsdatum
     func formattedDate(_ date: Date) -> String {
@@ -93,22 +112,29 @@ class EntryViewModel: ObservableObject {
         isLoading = false
     }
     
-    func updateEntry(entryId: String, content: String) async {
-        isLoading = true
+    /// Aktualisiert einen Eintrag in Firestore.
+    func updateEntry(entryId: String) async {
+        guard let selectedDate else { return }
+        isSaving = true
         errorMessage = nil
         
         do {
-            try await entryStoreRepository.updateEntry(userId: userId, entryId: entryId, content: content)
+            try await entryStoreRepository.updateEntry(userId: userId, entryId: entryId, content: updatedContent, createdAt: selectedDate)
+            
             if let index = entries.firstIndex(where: { $0.id == entryId }) {
-                entries[index].content = content // Aktualisiere den Eintrag in der Liste
-                entries[index].updatedAt = Date() // Aktualisiere das Datum
+                entries[index].content = updatedContent
+                entries[index].createdAt = selectedDate
+                entries[index].updatedAt = Date()
             }
+            
+            isEditing = false
         } catch {
             errorMessage = "Fehler beim Aktualisieren des Eintrags: \(error.localizedDescription)"
         }
         
-        isLoading = false
+        isSaving = false
     }
+    
     
     func toggleFavorite(entryId: String) async {
         isLoading = true
