@@ -7,6 +7,16 @@
     " %@" : {
 
     },
+    "%@ (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$lld)"
+          }
+        }
+      }
+    },
     "%@ min" : {
 
     },
@@ -16,7 +26,16 @@
     "%lld" : {
 
     },
+    "%lld Einträge" : {
+
+    },
+    "%lld Tage" : {
+
+    },
     "%lld Worte" : {
+
+    },
+    "%lld." : {
 
     },
     "Abbrechen" : {
@@ -49,16 +68,19 @@
     "Datum wählen" : {
 
     },
+    "Dauer" : {
+
+    },
     "Dein Nutzername" : {
 
     },
+    "Dein Schreib-Tracker" : {
+
+    },
+    "Deine Schreib-Erfolge" : {
+
+    },
     "Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?" : {
-
-    },
-    "Durchschnittliche Dauer pro Eintrag: %@" : {
-
-    },
-    "Durchschnittliche Wörter pro Eintrag: %lld" : {
 
     },
     "e." : {
@@ -91,12 +113,6 @@
     "Fertig" : {
 
     },
-    "Gesamtdauer: %@" : {
-
-    },
-    "Gesamtworte: %lld" : {
-
-    },
     "Hier sind einige Informationen über die App und wie du sie nutzen kannst..." : {
 
     },
@@ -125,6 +141,12 @@
 
     },
     "Nutzername" : {
+
+    },
+    "Ø Worte" : {
+
+    },
+    "Ø Zeit" : {
 
     },
     "ODER" : {
@@ -161,6 +183,9 @@
 
     },
     "Weiter" : {
+
+    },
+    "Worte" : {
 
     },
     "Zielsprache" : {

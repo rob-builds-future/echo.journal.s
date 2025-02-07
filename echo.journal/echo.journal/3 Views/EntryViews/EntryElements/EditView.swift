@@ -5,7 +5,7 @@ struct EditView: View {
     
     @Binding var updatedContent: String
 
-    let viewModel: EntryViewModel
+    let entryViewModel: EntryViewModel
     let colorManager: ColorManager
     let wordCount: Int
     let isEditing: Bool
@@ -31,7 +31,7 @@ struct EditView: View {
                     textEditorFocused = true // Cursor direkt setzen
                 }
                 .onChange(of: updatedContent) { _, newValue in
-                    viewModel.startTimer(content: newValue)
+                    entryViewModel.startTimer(content: newValue)
                     translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3)
                 }
             Divider()

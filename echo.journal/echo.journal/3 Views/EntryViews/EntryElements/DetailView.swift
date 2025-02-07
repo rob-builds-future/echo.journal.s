@@ -4,7 +4,7 @@ struct DetailView: View {
     @ObservedObject var translationViewModel: TranslationViewModel
     
     let entry: JournalEntry
-    let viewModel: EntryViewModel
+    let entryViewModel: EntryViewModel
     let colorManager: ColorManager
     
     var body: some View {
@@ -20,7 +20,7 @@ struct DetailView: View {
             // HStack: links Dauer, mittig (optional) Aktualisierungsdatum und rechts Wortanzahl
             if let updated = entry.updatedAt {
                 HStack {
-                    Text("\(viewModel.formattedDuration(entry.duration)) min")
+                    Text("\(entryViewModel.formattedDuration(entry.duration)) min")
                     Spacer()
                     Text("Aktualisiert: \(updated.formatted(date: .abbreviated, time: .omitted))")
                     Spacer()
@@ -31,7 +31,7 @@ struct DetailView: View {
                 .padding(4)
             } else {
                 HStack {
-                    Text("\(viewModel.formattedDuration(entry.duration)) min")
+                    Text("\(entryViewModel.formattedDuration(entry.duration)) min")
                     Spacer()
                     Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count) Worte")
                 }

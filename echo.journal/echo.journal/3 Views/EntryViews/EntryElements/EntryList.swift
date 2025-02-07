@@ -1,10 +1,11 @@
 import SwiftUI
 
 struct EntryList: View {
-    @ObservedObject var entryViewModel: EntryViewModel // ViewModel für die Liste
+    @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
+    @ObservedObject var translationViewModel: TranslationViewModel
     
-    @Environment(\.colorScheme) var colorScheme // Aktuelles Farbschema
+    @Environment(\.colorScheme) var colorScheme
     
     let filterFavorites: Bool
     
@@ -41,7 +42,7 @@ struct EntryList: View {
         .listStyle(PlainListStyle())
         // Navigation für JournalEntry aktivieren
         .navigationDestination(for: JournalEntry.self) { entry in
-            EntryDetailView(viewModel: entryViewModel, colorManager: colorManager, entryId: entry.id)
+            EntryDetailView(entryViewModel: entryViewModel, colorManager: colorManager, translationViewModel: translationViewModel, entryId: entry.id)
         }
     }
 }

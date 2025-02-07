@@ -3,10 +3,7 @@ import SwiftUI
 struct AddEntryView: View {
     @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
-    @StateObject private var translationViewModel = TranslationViewModel(
-        translationRepository: TranslationAPIRepository(),
-        userAuthRepository: UserAuthRepository()
-    )
+    @ObservedObject var translationViewModel: TranslationViewModel
     @StateObject private var inspirationViewModel = InspirationViewModel()
     
     @Environment(\.dismiss) private var dismiss

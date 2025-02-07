@@ -64,6 +64,11 @@ class StatisticsViewModel: ObservableObject {
         return Double(totalWords) / Double(count)
     }
     
+    /// Gesamtanzahl der Einträge
+    var totalEntries: Int {
+        entryViewModel.entries.count
+    }
+    
     // MARK: - Kalenderfunktionen (wie zuvor)
     
     var monthYearString: String {
@@ -139,7 +144,6 @@ class StatisticsViewModel: ObservableObject {
                 // Erhöhe den Zähler für das lemmatisierte Wort
                 wordCounts[lemma, default: 0] += 1
             } else {
-                // Falls keine Lemma gefunden wurde, kann man auch den Originaltoken verwenden:
                 if let tokenRange = Range(tokenRange, in: fullText) {
                     let token = String(fullText[tokenRange]).lowercased()
                     wordCounts[token, default: 0] += 1
@@ -147,16 +151,12 @@ class StatisticsViewModel: ObservableObject {
             }
         }
         
-        // Sortieren und Top-N auswählen; mit map wird der Typ in [(word: String, count: Int)] umgewandelt
-        let sortedWords = wordCounts.sorted { $0.value > $1.value }
+        // Filtere alle Wörter, die 3 oder weniger Buchstaben haben
+        let filteredWords = wordCounts.filter { $0.key.count > 3 }
+        
+        // Sortieren und Top-N auswählen; umwandeln in das gewünschte Format
+        let sortedWords = filteredWords.sorted { $0.value > $1.value }
         return sortedWords.prefix(top).map { (word: $0.key, count: $0.value) }
     }
-    
-    // Im nächsten Schritt könntest du eine Funktion hinzufügen, die
-    // das TranslationViewModel verwendet, um die Top-Wörter zu übersetzen.
-    // Beispiel:
-    //
-    // func translatedTopWords(completion: @escaping ([(original: String, translated: String)]) -> Void) {
-    //     // Übersetzungslogik hier...
-    // }
+
 }

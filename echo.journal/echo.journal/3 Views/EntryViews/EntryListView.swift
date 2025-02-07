@@ -5,6 +5,10 @@ struct EntryListView: View {
     @ObservedObject var colorManager: ColorManager
     @StateObject private var entryViewModel: EntryViewModel
     @StateObject private var inspirationViewModel = InspirationViewModel()
+    @StateObject private var translationViewModel = TranslationViewModel(
+        translationRepository: TranslationAPIRepository(),
+        userAuthRepository: UserAuthRepository()
+    )
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -32,6 +36,7 @@ struct EntryListView: View {
             // Liste der Tagebucheinträge mit Favoriten-Filter
             EntryList(entryViewModel: entryViewModel,
                       colorManager: colorManager,
+                      translationViewModel: translationViewModel,
                       filterFavorites: showFavoritesOnly)
             .refreshable {
                 await entryViewModel.loadEntries()
@@ -51,13 +56,13 @@ struct EntryListView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showingAddEntry) {
-            AddEntryView(entryViewModel: entryViewModel, colorManager: colorManager)
+            AddEntryView(entryViewModel: entryViewModel, colorManager: colorManager, translationViewModel: translationViewModel)
         }
         .toolbar {
             /// **OBERE TOOLBAR**
             // Links: Statistik-Ansicht
             ToolbarItem(placement: .navigationBarLeading) {
-                NavigationLink(destination: StatisticsView(entryViewModel: entryViewModel)) {
+                NavigationLink(destination: StatisticsView(entryViewModel: entryViewModel, colorManager: colorManager, translationViewModel: translationViewModel)) {
                     Image(systemName: "calendar.and.person") // calendar.and.person, arrow.up.right.circle.fill, chart.xyaxis.line
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .black : .white)

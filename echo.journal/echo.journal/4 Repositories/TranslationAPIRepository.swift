@@ -1,73 +1,76 @@
 import Foundation
 
 class TranslationAPIRepository {
-    // Basis-URL des lokalen Übersetzungsservers
+    // Basis-URL des Übersetzungsservers
     private let baseURL = "http://localhost:5001/translate"
     
-    /// Führt eine asynchrone Übersetzung durch.
-    /// - Parameters:
-    ///   - text: Der zu übersetzende Text.
-    ///   - targetLanguage: Die Zielsprache (z. B. "de" für Deutsch).
-    /// - Returns: Der übersetzte Text als `String`.
-    /// - Throws: Fehler bei Netzwerk- oder JSON-Verarbeitungsproblemen.
-    func translate(text: String, targetLanguage: String) async throws -> String {
-        // Erzeuge die URL, werfe Fehler, falls ungültig
+    // Eigene URLSession mit erhöhter Timeout-Konfiguration
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        // Erhöhe den Timeout für einzelne Requests (z. B. auf 20 Sekunden)
+        config.timeoutIntervalForRequest = 20
+        config.timeoutIntervalForResource = 30
+        return URLSession(configuration: config)
+    }()
+    
+    /// Führt eine Übersetzung für Top‑Words durch und gibt ein strukturiertes Ergebnis zurück.
+        func translateForTopWord(text: String, targetLanguage: String, sourceLanguage: String, alternatives: Int) async throws -> TopWordTranslation {
+            guard let url = URL(string: baseURL) else { throw URLError(.badURL) }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.timeoutInterval = 10
+            
+            let body: [String: Any] = [
+                "q": text,
+                "source": sourceLanguage,      // Hier z. B. "de"
+                "target": targetLanguage,        // z. B. der Code der userPreferredLanguage
+                "format": "text",
+                "alternatives": alternatives   // z. B. 3
+            ]
+            
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            // JSON parsen: Wir erwarten "translatedText" und "alternatives"
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+               let mainText = json["translatedText"] as? String {
+                let alternativesArray = json["alternatives"] as? [String] ?? []
+                return TopWordTranslation(main: mainText, alternatives: alternativesArray)
+            } else {
+                throw NSError(domain: "TranslationError", code: 1, userInfo: [
+                    NSLocalizedDescriptionKey: "Missing expected keys in response"
+                ])
+            }
+        }
+    
+    // Bestehende Methode, falls du sie auch weiterhin benötigst:
+    func translate(text: String, targetLanguage: String, sourceLanguage: String) async throws -> String {
         guard let url = URL(string: baseURL) else { throw URLError(.badURL) }
         
-        // Erstelle die HTTP-Anfrage
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.timeoutInterval = 10  // Timeout nach 10 Sekunden
         
-        // Erstelle den JSON-Request-Body
         let body: [String: Any] = [
-            "q": text,             // Der zu übersetzende Text
-            "source": "auto",      // Automatische Spracherkennung
-            "target": targetLanguage, // Zielsprachen-Code
-            "format": "text"       // Format als einfacher Text
+            "q": text,
+            "source": sourceLanguage,
+            "target": targetLanguage,
+            "format": "text"
         ]
         
-        do {
-            // Debugging: Logge die Anfrage
-            print("Base URL: \(baseURL)")
-            print("Request Body: \(body)")
-            
-            // Konvertiere den Request-Body in JSON-Daten
-            request.httpBody = try JSONSerialization.data(withJSONObject: body)
-            
-            // Führe den API-Call aus und erhalte die Antwort
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            // Debugging: Logge die HTTP-Response
-            if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Status Code: \(httpResponse.statusCode)")
-                print("Response Headers: \(httpResponse.allHeaderFields)")
-            }
-            
-            // Debugging: Logge die Antwortdaten als String
-            print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No data")")
-            
-            // Versuche, die Antwort als JSON zu parsen
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-               let translatedText = json["translatedText"] as? String {
-                print("Translated Text: \(translatedText)") // Debugging-Log
-                return translatedText
-            } else {
-                // Falls die Antwort nicht das erwartete Format hat
-                print("Error: Missing 'translatedText' in response")
-                throw NSError(domain: "TranslationError", code: 1, userInfo: [
-                    NSLocalizedDescriptionKey: "Missing 'translatedText' in response"
-                ])
-            }
-        } catch let error as URLError {
-            // Fehlerhandling bei Netzwerkfehlern
-            print("URLError: \(error.localizedDescription) (Code: \(error.code.rawValue))")
-            throw error
-        } catch {
-            // Fehlerhandling bei anderen Fehlern (z. B. JSON-Parsing)
-            print("Unexpected Error: \(error.localizedDescription)")
-            throw error
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, _) = try await session.data(for: request)
+        
+        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+           let translatedText = json["translatedText"] as? String {
+            return translatedText
+        } else {
+            throw NSError(domain: "TranslationError", code: 1, userInfo: [
+                NSLocalizedDescriptionKey: "Missing 'translatedText' in response"
+            ])
         }
     }
 }

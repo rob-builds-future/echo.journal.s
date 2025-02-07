@@ -3,10 +3,7 @@ import SwiftUI
 struct EntryDetailView: View {
     @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
-    @StateObject private var translationViewModel = TranslationViewModel(
-        translationRepository: TranslationAPIRepository(),
-        userAuthRepository: UserAuthRepository()
-    )
+    @ObservedObject var translationViewModel: TranslationViewModel
     @StateObject private var speechViewModel = SpeechViewModel()
 
     @Environment(\.dismiss) private var dismiss
@@ -17,9 +14,10 @@ struct EntryDetailView: View {
     let capsuleWidth: CGFloat = 60
     let capsuleHeight: CGFloat = 30
 
-    init(viewModel: EntryViewModel, colorManager: ColorManager, entryId: String) {
-        self.entryViewModel = viewModel
+    init(entryViewModel: EntryViewModel, colorManager: ColorManager, translationViewModel: TranslationViewModel, entryId: String) {
+        self.entryViewModel = entryViewModel
         self.colorManager = colorManager
+        self.translationViewModel = translationViewModel
         self.entryId = entryId
     }
     
@@ -37,7 +35,7 @@ struct EntryDetailView: View {
                         EditView(
                             translationViewModel: translationViewModel,
                             updatedContent: $entryViewModel.updatedContent,
-                            viewModel: entryViewModel,
+                            entryViewModel: entryViewModel,
                             colorManager: colorManager,
                             wordCount: entryViewModel.updatedContent.split { $0.isWhitespace || $0.isNewline }.count,
                             isEditing: entryViewModel.isEditing
@@ -47,7 +45,7 @@ struct EntryDetailView: View {
                         DetailView(
                             translationViewModel: translationViewModel,
                             entry: entry,
-                            viewModel: entryViewModel,
+                            entryViewModel: entryViewModel,
                             colorManager: colorManager
                         )
                     }
