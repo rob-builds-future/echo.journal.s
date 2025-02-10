@@ -9,7 +9,7 @@ struct OnboardingUserDataView: View {
     
     @State private var username: String = ""
     @State private var selectedLanguage: Language = .en // Standardwert
-    @State private var selectedColorScheme: EchoColor = .azulLuminoso // Standardfarbe
+    @State private var selectedColorScheme: EchoColor = .lichtblau // Standardfarbe
     
     var body: some View {
         VStack(spacing: 16) {

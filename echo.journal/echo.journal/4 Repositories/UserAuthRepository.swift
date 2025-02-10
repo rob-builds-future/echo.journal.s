@@ -17,7 +17,8 @@ class UserAuthRepository {
                 id: firebaseUser.uid,
                 email: email,
                 username: String(username),
-                preferredLanguage: .en
+                preferredLanguage: .en,
+                createdAt: Date()
             )
         } catch {
             print("SignUp Error: \(error.localizedDescription)")

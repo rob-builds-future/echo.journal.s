@@ -14,16 +14,17 @@ struct EntryRow: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            // Entry background
+            // Entry background – Dark Mode: schwarz, Light Mode: weiß
             RoundedRectangle(cornerRadius: 12)
-                .fill(colorScheme == .dark ? Color.gray.opacity(0.15) : Color.white)
-                .shadow(color: colorScheme == .dark ? Color.white : Color(UIColor.systemGray5), radius: 4, x: 0, y: 0)
+                .fill(colorScheme == .dark ? Color.black : Color.white)
+                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2), radius: 4, x: 0, y: 0)
             
             // Bookmark placed in the background so it doesn't affect layout
             if entry.isFavorite {
                 Image(systemName: "bookmark.fill")
                     .font(.system(size: 32)) // Size control without affecting layout
-                    .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray2) : Color(UIColor.systemGray4))
+                    // Hier verwenden wir den currentColor-Akzent
+                    .foregroundColor(colorManager.currentColor.color)
                     .background(Color.clear)
                     .offset(x: 300, y: -8) // Position above the date
                     .padding(0)
@@ -38,12 +39,14 @@ struct EntryRow: View {
                                 topLeft: 12, topRight: 0,
                                 bottomLeft: 0, bottomRight: 12
                             )
-                            .fill(Color.gray.opacity(0.1))
+                            // Badge-Hintergrund: invertierte Farben zum Haupt-Hintergrund
+                            .fill(colorScheme == .dark ? Color.white : Color.black)
                             .frame(width: 120, height: 28) // Gleiche Höhe wie die Texte
                             
                             Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
+                                // Text im Badge in der invertierten Farbe
                                 .font(.system(size: 14, weight: .bold, design: .rounded))
-                                .foregroundColor(.gray)
+                                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 4)
                         }
@@ -55,11 +58,12 @@ struct EntryRow: View {
                         HStack(spacing: 4) {
                             Image(systemName: "quote.closing")
                                 .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(.gray)
+                                // Icons in der Hauptfarbe (hell: schwarz, dunkel: weiß)
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 .offset(y: -16)
                             Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count)")
                                 .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(.gray)
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 .offset(y: -16)
                         }
                         
@@ -67,11 +71,11 @@ struct EntryRow: View {
                         HStack(spacing: 4) {
                             Image(systemName: "timer")
                                 .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(.gray)
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 .offset(y: -16)
                             Text("\(entryViewModel.formattedDuration(entry.duration)) min")
                                 .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(.gray)
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 .offset(y: -16)
                         }
                     }
@@ -80,7 +84,7 @@ struct EntryRow: View {
                         .font(.system(size: 14, weight: .regular, design: .rounded))
                         .lineLimit(4)
                         .truncationMode(.tail)
-                        .foregroundColor(colorScheme == .dark ? .white.opacity(0.9) : .black.opacity(0.9))
+                        .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.9) : Color.black.opacity(0.9))
                         .frame(minHeight: 70, alignment: .top)
                 }
                 .padding()
@@ -94,7 +98,7 @@ struct EntryRow: View {
                         NavigationLink(value: entry) {
                             Label {
                                 Text("Anzeigen")
-                                    .font(.system(size: 16, weight: .semibold, design: .rounded)) // ✅ Angepasste Schriftart
+                                    .font(.system(size: 16, weight: .semibold, design: .rounded))
                             } icon: {
                                 Image(systemName: "eye")
                             }
@@ -103,7 +107,7 @@ struct EntryRow: View {
                         Button(action: onToggleFavorite) {
                             Label {
                                 Text(entry.isFavorite ? "Entfavorisieren" : "Favorisieren")
-                                    .font(.system(size: 16, weight: .semibold, design: .rounded)) // ✅ Angepasste Schriftart
+                                    .font(.system(size: 16, weight: .semibold, design: .rounded))
                             } icon: {
                                 Image(systemName: entry.isFavorite ? "bookmark.slash.fill" : "bookmark.fill")
                             }
@@ -114,19 +118,21 @@ struct EntryRow: View {
                         } label: {
                             Label {
                                 Text("Löschen")
-                                    .font(.system(size: 16, weight: .semibold, design: .rounded)) // ✅ Angepasste Schriftart
+                                    .font(.system(size: 16, weight: .semibold, design: .rounded))
                             } icon: {
                                 Image(systemName: "trash")
                             }
                         }
                     } label: {
                         CustomCornerShape(topLeft: 12, topRight: 0, bottomLeft: 0, bottomRight: 12)
-                            .fill(colorManager.currentColor.color.opacity(0.2))
+                            // Hintergrund des Menüs: currentColor-Akzent mit reduzierter Opazität
+                            .fill(colorManager.currentColor.color.opacity(0.5))
                             .frame(width: 56, height: 56)
                             .overlay(
                                 Image(systemName: "ellipsis")
                                     .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(colorScheme == .dark ? .black : .white)
+                                    // Für gute Lesbarkeit: Dunkelmodus → weiß, Light Mode → schwarz
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                             )
                     }
                 }

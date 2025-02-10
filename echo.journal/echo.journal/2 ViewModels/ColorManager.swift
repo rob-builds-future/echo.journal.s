@@ -4,7 +4,7 @@ import SwiftUI
 class ColorManager: ObservableObject {
     @Published var currentColor: EchoColor
     
-    private let defaultColor: EchoColor = .azulLuminoso // Standardfarbe
+    private let defaultColor: EchoColor = .lichtblau // Standardfarbe
     private let userDefaultsKey = "SelectedThemeColor" // Schlüssel für Persistenz
 
     init() {

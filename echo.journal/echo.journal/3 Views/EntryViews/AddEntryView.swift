@@ -7,6 +7,7 @@ struct AddEntryView: View {
     @StateObject private var inspirationViewModel = InspirationViewModel()
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var content: String = "" // Inhalt des neuen Eintrags
     @State private var entryDate: Date = Date() // Datum des Eintrags
@@ -35,7 +36,7 @@ struct AddEntryView: View {
                             .padding(4)
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.white) // Hintergrundfarbe des Editors
+                                    .fill(Color(UIColor.systemBackground)) // Hintergrundfarbe des Editors
                             )
                             .autocorrectionDisabled(true)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
@@ -114,9 +115,7 @@ struct AddEntryView: View {
                     Button(action: { showAlert = true }) {
                         Image(systemName: "xmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(width: capsuleWidth, height: capsuleHeight)
-                            .background(Capsule().fill(Color(UIColor.systemGray2)))
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                 }
 

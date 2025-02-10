@@ -17,12 +17,11 @@ struct EditView: View {
         VStack(alignment: .leading, spacing: 0) {
             // TextEditor, der genauso aussieht wie in AddEntryView:
             TextEditor(text: $updatedContent)
-                .frame(maxWidth: .infinity, minHeight: 300, alignment: .leading)
+                .frame(maxWidth: .infinity, minHeight: 290, alignment: .leading)
                 .padding(.bottom, 8)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.white) // Hintergrundfarbe für den Editor
-                        //.shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2) // Schatten hinzufügen
+                        .fill(Color(UIColor.systemBackground)) // Hintergrundfarbe des Editors
                 )
                 .autocorrectionDisabled(true)
                 .font(.system(size: 16, weight: .regular, design: .rounded))

@@ -38,6 +38,10 @@ struct EntryList: View {
                 .contentShape(RoundedRectangle(cornerRadius: 12)) // Klickbereich exakt auf RoundedRectangle begrenzen
                 .listRowSeparator(.hidden) // Separator verbergen
             }
+            // Abstand für letzten Eintrag in Liste
+            Rectangle()
+                .fill(.clear)
+                .frame(height: 100)
         }
         .listStyle(PlainListStyle())
         // Navigation für JournalEntry aktivieren

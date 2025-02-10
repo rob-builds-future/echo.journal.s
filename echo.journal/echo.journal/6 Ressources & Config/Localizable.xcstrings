@@ -68,16 +68,22 @@
     "Datum wählen" : {
 
     },
-    "Dauer" : {
-
-    },
     "Dein Nutzername" : {
 
     },
     "Dein Schreib-Tracker" : {
 
     },
+    "Deine Einstellungen" : {
+
+    },
     "Deine Schreib-Erfolge" : {
+
+    },
+    "Deine Statistik" : {
+
+    },
+    "Deine Top-Worte" : {
 
     },
     "Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?" : {
@@ -101,6 +107,9 @@
     "Entfavorisieren" : {
 
     },
+    "Erinnerungen" : {
+
+    },
     "Farbe" : {
 
     },
@@ -111,6 +120,15 @@
 
     },
     "Fertig" : {
+
+    },
+    "Gesamt Worte" : {
+
+    },
+    "Gesamt Zeit" : {
+
+    },
+    "Hier kannst Du Erinnerungen (Push-Benachrichtigungen) einstellen. (Demnächst verfügbar)" : {
 
     },
     "Hier sind einige Informationen über die App und wie du sie nutzen kannst..." : {
@@ -129,6 +147,9 @@
 
     },
     "Melde Dich mit Mail-Adresse und Passwort an." : {
+
+    },
+    "Minuten" : {
 
     },
     "Mitglied seit: %@" : {
@@ -155,7 +176,7 @@
     "Passwort" : {
 
     },
-    "Profil" : {
+    "Profil‑Einstellungen" : {
 
     },
     "Registriere Dich mit Mail-Adresse und Passwort." : {
@@ -170,16 +191,19 @@
     "Sprache Deines echo." : {
 
     },
-    "Top verwendete Wörter" : {
+    "Verwerfen" : {
 
     },
-    "Verwerfen" : {
+    "Vorlagen" : {
 
     },
     "Wähle eine Farbe" : {
 
     },
     "Wähle eine Sprache" : {
+
+    },
+    "Wähle Vorlagen für Deine Tagebucheinträge aus. (Demnächst verfügbar)" : {
 
     },
     "Weiter" : {

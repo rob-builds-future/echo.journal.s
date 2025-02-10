@@ -14,7 +14,7 @@ class SpeechViewModel: ObservableObject {
         }
     }
     
-    func speak(text: String, language: String = "pt-BR", voiceName: String? = nil) {
+    func speak(text: String, language: String = "en-US", voiceName: String? = nil) {
         guard !text.isEmpty else { return }
         
         let utterance = AVSpeechUtterance(string: text)

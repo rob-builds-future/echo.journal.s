@@ -16,10 +16,10 @@ struct StatisticsTileView: View {
             
             // Inhalt der Kachel: Grid mit den Statistiken
             VStack(spacing: 16) {
-                Spacer().frame(height: 40)
+                Spacer().frame(height: 30)
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     VStack {
-                        Text("Dauer")
+                        Text("Gesamt Zeit")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         Text(statisticsViewModel.formattedDuration)
@@ -27,7 +27,7 @@ struct StatisticsTileView: View {
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                     VStack {
-                        Text("Worte")
+                        Text("Gesamt Worte")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         Text("\(statisticsViewModel.totalWords)")

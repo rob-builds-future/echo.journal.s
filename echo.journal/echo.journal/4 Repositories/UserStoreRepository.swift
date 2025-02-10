@@ -34,7 +34,8 @@ class UserStoreRepository {
             id: id,
             email: data["email"] as? String ?? "",
             username: data["username"] as? String ?? "",
-            preferredLanguage: preferredLanguage
+            preferredLanguage: preferredLanguage,
+            createdAt: data["createdAt"] as? Date ?? Date()
         )
     }
 
