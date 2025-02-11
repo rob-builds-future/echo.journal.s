@@ -30,7 +30,7 @@ struct SignUpSignInView: View {
                     .scaleEffect(0.7)
                 
                 // App-Name
-                Text("echo.")
+                Text("echoDot")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                 
@@ -38,28 +38,30 @@ struct SignUpSignInView: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     // Hauptüberschrift (Anmelden / Registrieren)
-                    Text(isRegistering ? "Registrieren" : "Anmelden")
+                    Text(isRegistering
+                         ? "register"
+                         : "signIn")
                         .font(.system(size: 25, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                     
                     // Untertitel
                     Text(isRegistering
-                         ? "Registriere Dich mit Mail-Adresse und Passwort."
-                         : "Melde Dich mit Mail-Adresse und Passwort an.")
-                    .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .foregroundColor(.white)
+                         ? "registerInstructions"
+                         : "signInInstructions")
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundColor(.white)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 // Eingabefeld für E-Mail
-                TextField("Mail-Adresse", text: $email)
+                TextField("emailAddress", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .textInputAutocapitalization(.never)
                     .disableAutocorrection(true)
                     .keyboardType(.emailAddress)
                 
                 // Eingabefeld für Passwort
-                SecureField("Passwort", text: $password)
+                SecureField("password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 if viewModel.isLoading {
@@ -76,7 +78,9 @@ struct SignUpSignInView: View {
                             }
                         }
                     } label: {
-                        Text(isRegistering ? "Registrieren" : "Anmelden")
+                        Text(isRegistering
+                             ? "register"
+                             : "signIn")
                             .font(.system(size: 16, weight: .bold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? .white : .black)
                             .padding(.vertical, 12)
@@ -94,7 +98,7 @@ struct SignUpSignInView: View {
                             .offset(y: 2)
                             .padding(.leading, 8)
                         
-                        Text("ODER")
+                        Text("or")
                             .font(.system(size: 15, weight: .regular, design: .rounded))
                             .foregroundColor(.white)
                         
@@ -107,7 +111,9 @@ struct SignUpSignInView: View {
                     }
                     
                     // Umschalter zwischen Anmeldung und Registrierung
-                    Button(isRegistering ? "Zum Login" : "Zur Registrierung") {
+                    Button(isRegistering
+                           ? "toLogin"
+                           : "toRegister") {
                         isRegistering.toggle()
                     }
                     .font(.system(size: 15, weight: .regular, design: .rounded))

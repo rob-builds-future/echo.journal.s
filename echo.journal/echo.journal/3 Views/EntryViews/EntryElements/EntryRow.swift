@@ -13,76 +13,19 @@ struct EntryRow: View {
     @State private var showDeleteAlert = false
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack (alignment: .topTrailing) {
             // Entry background – Dark Mode: schwarz, Light Mode: weiß
             RoundedRectangle(cornerRadius: 12)
                 .fill(colorScheme == .dark ? Color.black : Color.white)
-                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2), radius: 4, x: 0, y: 0)
-            
-            // Bookmark placed in the background so it doesn't affect layout
-            if entry.isFavorite {
-                Image(systemName: "bookmark.fill")
-                    .font(.system(size: 32)) // Size control without affecting layout
-                    // Hier verwenden wir den currentColor-Akzent
-                    .foregroundColor(colorManager.currentColor.color)
-                    .background(Color.clear)
-                    .offset(x: 300, y: -8) // Position above the date
-                    .padding(0)
-            }
+                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2),
+                        radius: 4, x: 0, y: 0)
             
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 0) {
-                    HStack {
-                        // Datum mit bündigem Hintergrund oben links
-                        ZStack {
-                            CustomCornerShape(
-                                topLeft: 12, topRight: 0,
-                                bottomLeft: 0, bottomRight: 12
-                            )
-                            // Badge-Hintergrund: invertierte Farben zum Haupt-Hintergrund
-                            .fill(colorScheme == .dark ? Color.white : Color.black)
-                            .frame(width: 120, height: 28) // Gleiche Höhe wie die Texte
-                            
-                            Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
-                                // Text im Badge in der invertierten Farbe
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
-                                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
-                                .padding(.horizontal, 4)
-                                .padding(.vertical, 4)
-                        }
-                        .offset(x: -16, y: -16)
-                        
-                        Spacer()
-                        
-                        // Wortanzahl in der Listenelement-Vorschau
-                        HStack(spacing: 4) {
-                            Image(systemName: "quote.closing")
-                                .font(.system(size: 12, weight: .regular, design: .rounded))
-                                // Icons in der Hauptfarbe (hell: schwarz, dunkel: weiß)
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .offset(y: -16)
-                            Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count)")
-                                .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .offset(y: -16)
-                        }
-                        
-                        // Dauer mit timer Icon
-                        HStack(spacing: 4) {
-                            Image(systemName: "timer")
-                                .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .offset(y: -16)
-                            Text("\(entryViewModel.formattedDuration(entry.duration)) min")
-                                .font(.system(size: 12, weight: .regular, design: .rounded))
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .offset(y: -16)
-                        }
-                    }
-                    // Entry content
+                    // Entry-Inhalt
                     Text(entry.content)
                         .font(.system(size: 14, weight: .regular, design: .rounded))
-                        .lineLimit(4)
+                        .lineLimit(5)
                         .truncationMode(.tail)
                         .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.9) : Color.black.opacity(0.9))
                         .frame(minHeight: 70, alignment: .top)
@@ -90,14 +33,13 @@ struct EntryRow: View {
                 .padding()
                 
                 Spacer()
-                
+                // Menü-Button auf der rechten Seite
                 VStack(spacing: 0) {
                     Spacer()
-                    // Menu button on the right
                     Menu {
                         NavigationLink(value: entry) {
                             Label {
-                                Text("Anzeigen")
+                                Text("showEntry")
                                     .font(.system(size: 16, weight: .semibold, design: .rounded))
                             } icon: {
                                 Image(systemName: "eye")
@@ -106,7 +48,7 @@ struct EntryRow: View {
                         
                         Button(action: onToggleFavorite) {
                             Label {
-                                Text(entry.isFavorite ? "Entfavorisieren" : "Favorisieren")
+                                Text(entry.isFavorite ? "unfavorite" : "favorite")
                                     .font(.system(size: 16, weight: .semibold, design: .rounded))
                             } icon: {
                                 Image(systemName: entry.isFavorite ? "bookmark.slash.fill" : "bookmark.fill")
@@ -117,7 +59,7 @@ struct EntryRow: View {
                             showDeleteAlert = true
                         } label: {
                             Label {
-                                Text("Löschen")
+                                Text("delete")
                                     .font(.system(size: 16, weight: .semibold, design: .rounded))
                             } icon: {
                                 Image(systemName: "trash")
@@ -125,26 +67,71 @@ struct EntryRow: View {
                         }
                     } label: {
                         CustomCornerShape(topLeft: 12, topRight: 0, bottomLeft: 0, bottomRight: 12)
-                            // Hintergrund des Menüs: currentColor-Akzent mit reduzierter Opazität
                             .fill(colorManager.currentColor.color.opacity(0.5))
                             .frame(width: 56, height: 56)
                             .overlay(
                                 Image(systemName: "ellipsis")
                                     .font(.system(size: 16, weight: .bold))
-                                    // Für gute Lesbarkeit: Dunkelmodus → weiß, Light Mode → schwarz
                                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                             )
                     }
                 }
             }
+            .padding(.top, 20)
         }
-        .frame(height: 120)
-        .padding(.vertical, 8)
-        .alert("Eintrag löschen?", isPresented: $showDeleteAlert) {
-            Button("Abbrechen", role: .cancel) {}
-            Button("Löschen", role: .destructive, action: onDelete)
+        // Alle Elemente (Datum, Wortanzahl, Dauer) werden rechts positioniert
+        .overlay(
+            HStack {
+                // Datumsbadge
+                Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
+                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                    .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(
+                        CustomCornerShape(topLeft: 12, topRight: 0, bottomLeft: 0, bottomRight: 12)
+                            .fill(colorScheme == .dark ? Color.white : Color.black)
+                    )
+                Spacer()
+                
+                // Bookmark, falls favorisiert
+                if entry.isFavorite {
+                    Image(systemName: "bookmark.fill")
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    Divider()
+                        .frame(height: 14)
+                }
+                // HStack für Wortanzahl
+                HStack(spacing: 4) {
+                    Image(systemName: "quote.closing")
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    Text("\(entry.content.split { $0.isWhitespace || $0.isNewline }.count)")
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                }
+                Divider()
+                    .frame(height: 14)
+                // HStack für Dauer
+                HStack(spacing: 4) {
+                    Image(systemName: "timer")
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    Text("\(entryViewModel.formattedDuration(entry.duration)) min")
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                }
+                .padding(.trailing)
+            },
+            alignment: .topTrailing
+        )
+        .alert("entryDeleteTitle", isPresented: $showDeleteAlert) {
+            Button("cancel", role: .cancel) {}
+            Button("delete", role: .destructive, action: onDelete)
         } message: {
-            Text("Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?")
+            Text("entryDeleteMessage")
         }
+        .padding(.vertical, 4)
     }
 }

@@ -6,6 +6,7 @@ struct CalendarTileView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
+    let userCreatedAt: Date
     private let today = Date()
     
     // Berechne nur Tage innerhalb des angezeigten Monats, an denen ein Journal-Eintrag existiert
@@ -64,17 +65,34 @@ struct CalendarTileView: View {
                 let days = statisticsViewModel.daysForDisplayedMonth()
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
                     ForEach(days, id: \.self) { date in
+                        let isBeforeCreation = Calendar.current.compare(date, to: userCreatedAt, toGranularity: .day) == .orderedAscending
+                        let isCreatedDay = Calendar.current.isDate(date, equalTo: userCreatedAt, toGranularity: .day)
+                        let isFuture = Calendar.current.compare(date, to: today, toGranularity: .day) == .orderedDescending
+
                         ZStack {
                             if Calendar.current.isDate(date, equalTo: statisticsViewModel.displayedMonth, toGranularity: .month) {
-                                if statisticsViewModel.hasEntry(on: date) {
+                                // Zeige den Eintrag-Kreis nur, wenn der Tag nicht vor dem Erstellungsdatum liegt.
+                                if statisticsViewModel.hasEntry(on: date) && !isBeforeCreation {
                                     Circle()
-                                        .fill(colorManager.currentColor.color) // ohne opacity
+                                        .fill(colorManager.currentColor.color)
                                         .frame(width: 25, height: 25)
                                 }
-                                let isFuture = Calendar.current.compare(date, to: today, toGranularity: .day) == .orderedDescending
+                                
+                                // Bestimme die Textfarbe:
+                                let textColor: Color = (isFuture || isBeforeCreation)
+                                    ? Color.gray
+                                    : (colorScheme == .dark ? Color.white : Color.black)
+                                
                                 Text("\(Calendar.current.component(.day, from: date))")
                                     .font(.system(size: 12, weight: .regular, design: .rounded))
-                                    .foregroundColor(isFuture ? Color.gray : (colorScheme == .dark ? Color.white : Color.black))
+                                    .foregroundColor(textColor)
+                                
+                                // Falls der Tag genau dem Erstellungsdatum entspricht, füge einen goldenen Ring hinzu:
+                                if isCreatedDay {
+                                    Circle()
+                                        .stroke(Color.yellow, lineWidth: 2)
+                                        .frame(width: 30, height: 30)
+                                }
                             } else {
                                 Text("")
                             }
@@ -88,7 +106,7 @@ struct CalendarTileView: View {
         // Overlay: Header – links Titel mit Hintergrund, rechts der Zähler
         .overlay(
             HStack {
-                Text("Dein Schreib-Tracker")
+                Text("writingTracker")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                     .padding(.horizontal, 8)
@@ -98,10 +116,15 @@ struct CalendarTileView: View {
                             .fill(colorScheme == .dark ? Color.white : Color.black)
                     )
                 Spacer()
-                Text("\(journaledDaysCount) Tage")
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                    .padding(.trailing, 16)
+                HStack(spacing: 0) {
+                    Text("\(journaledDaysCount) ")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    Text("days")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                        .padding(.trailing, 16)
+                }
             },
             alignment: .top
         )

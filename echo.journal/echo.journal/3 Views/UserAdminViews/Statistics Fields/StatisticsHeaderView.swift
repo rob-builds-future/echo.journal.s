@@ -13,7 +13,7 @@ struct StatisticsHeaderView: View {
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
                     Text("\(totalWords)")
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    Text("Worte")
+                    Text("statisticsHeaderWords")
                         .font(.system(size: 12, weight: .semibold, design: .rounded))
                 }
                
@@ -31,7 +31,7 @@ struct StatisticsHeaderView: View {
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
                     Text("\(Int(totalTime))")
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    Text("Minuten")
+                    Text("statisticsHeaderTime")
                         .bold()
                         .font(.caption)
                         .font(.system(size: 12, weight: .semibold, design: .rounded))

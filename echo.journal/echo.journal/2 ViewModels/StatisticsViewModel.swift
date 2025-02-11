@@ -42,7 +42,11 @@ class StatisticsViewModel: ObservableObject {
         let totalMinutes = Int(totalDuration)
         let hours = totalMinutes / 60
         let minutes = totalMinutes % 60
-        return "\(hours) Stunden \(minutes) Minuten"
+        return String.localizedStringWithFormat(
+            NSLocalizedString("durationFormat", comment: "Format für Dauer in Stunden und Minuten"),
+            hours,
+            minutes
+        )
     }
     
     var averageDuration: Double {
@@ -53,9 +57,10 @@ class StatisticsViewModel: ObservableObject {
     
     var formattedAverageDuration: String {
         let avgMinutes = Int(averageDuration)
-        let hours = avgMinutes / 60
-        let minutes = avgMinutes % 60
-        return "\(hours) Stunden \(minutes) Minuten"
+        return String.localizedStringWithFormat(
+            NSLocalizedString("minutesFormat", comment: "Durchschnittliche Dauer in Minuten"),
+            avgMinutes
+        )
     }
     
     var averageWords: Double {

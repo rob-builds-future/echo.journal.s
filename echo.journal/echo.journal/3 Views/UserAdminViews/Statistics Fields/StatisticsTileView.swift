@@ -3,9 +3,9 @@ import SwiftUI
 struct StatisticsTileView: View {
     @ObservedObject var statisticsViewModel: StatisticsViewModel
     @ObservedObject var colorManager: ColorManager
-
+    
     @Environment(\.colorScheme) var colorScheme
-
+    
     var body: some View {
         ZStack {
             // Kachel-Hintergrund: Im Dark Mode schwarz, im Light Mode weiß
@@ -19,7 +19,7 @@ struct StatisticsTileView: View {
                 Spacer().frame(height: 30)
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     VStack {
-                        Text("Gesamt Zeit")
+                        Text("totalTime")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         Text(statisticsViewModel.formattedDuration)
@@ -27,7 +27,7 @@ struct StatisticsTileView: View {
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                     VStack {
-                        Text("Gesamt Worte")
+                        Text("totalWords")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         Text("\(statisticsViewModel.totalWords)")
@@ -35,7 +35,7 @@ struct StatisticsTileView: View {
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                     VStack {
-                        Text("Ø Zeit")
+                        Text("averageTime")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         Text(statisticsViewModel.formattedAverageDuration)
@@ -43,7 +43,7 @@ struct StatisticsTileView: View {
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                     VStack {
-                        Text("Ø Worte")
+                        Text("averageWords")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         Text("\(Int(statisticsViewModel.averageWords))")
@@ -57,9 +57,8 @@ struct StatisticsTileView: View {
         // Overlay: Header ganz oben in der Kachel
         .overlay(
             HStack {
-                Text("Deine Schreib-Erfolge")
+                Text("writingAchievements")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
-                    // Im Dark Mode: Headerhintergrund weiß, Text schwarz; im Light Mode: umgekehrt.
                     .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
@@ -68,10 +67,15 @@ struct StatisticsTileView: View {
                             .fill(colorScheme == .dark ? Color.white : Color.black)
                     )
                 Spacer()
-                Text("\(statisticsViewModel.totalEntries) Einträge")
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                    .padding(.trailing, 16)
+                HStack(spacing: 0) {
+                    Text("\(statisticsViewModel.totalEntries) ")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    Text("entryCount")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                        .padding(.trailing, 16)
+                }
             },
             alignment: .top
         )

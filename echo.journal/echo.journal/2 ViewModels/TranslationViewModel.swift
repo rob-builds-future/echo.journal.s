@@ -63,24 +63,6 @@ class TranslationViewModel: ObservableObject {
 }
 
 extension TranslationViewModel {
-    /// Allgemeine Übersetzungsmethode (ohne explizite Quellsprache)
-    func translation(for text: String) async -> String {
-        do {
-            let result = try await translationRepository.translate(
-                text: text,
-                targetLanguage: userPreferredLanguage.code,
-                sourceLanguage: "auto"
-            )
-            let capitalizedResult = result.prefix(1).uppercased() + result.dropFirst()
-            if capitalizedResult.lowercased() == text.lowercased() {
-                return text.prefix(1).uppercased() + text.dropFirst()
-            }
-            return capitalizedResult
-        } catch {
-            print("Translation Error: \(error.localizedDescription)")
-            return text.prefix(1).uppercased() + text.dropFirst()
-        }
-    }
     
     /// Übersetzt Top‑Words: Es wird explizit "de" als Eingabesprache genutzt.
     /// Die Methode enthält einen Retry-Mechanismus (bis zu 2 Versuche) und nutzt optional einen Cache.

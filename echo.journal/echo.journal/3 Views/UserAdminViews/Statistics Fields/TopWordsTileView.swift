@@ -24,7 +24,7 @@ struct TopWordsTileView: View {
     // Ausgelagerter Header als eigene Computed Property
     private var headerOverlay: some View {
         HStack {
-            Text("Deine Top-Worte")
+            Text("topWords")
                 .font(.system(size: 14, weight: .bold, design: .rounded))
                 .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                 .padding(.horizontal, 8)

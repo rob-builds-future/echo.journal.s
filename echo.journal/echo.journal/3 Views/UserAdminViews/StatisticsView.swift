@@ -1,17 +1,22 @@
 import SwiftUI
 
 struct StatisticsView: View {
+    // MARK: - Observed Objects
+    @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var statisticsViewModel: StatisticsViewModel
     @ObservedObject var translationViewModel: TranslationViewModel
     @ObservedObject var colorManager: ColorManager
     
+    // MARK: - Environment Values
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) var colorScheme
     
-    init(entryViewModel: EntryViewModel,
-         colorManager: ColorManager,
+    // MARK: - Initializer
+    init(userViewModel: UserViewModel,
+         statisticsViewModel: StatisticsViewModel,
          translationViewModel: TranslationViewModel,
-         statisticsViewModel: StatisticsViewModel) {
+         colorManager: ColorManager) {
+        self.userViewModel = userViewModel
         self.statisticsViewModel = statisticsViewModel
         self.translationViewModel = translationViewModel
         self.colorManager = colorManager
@@ -21,13 +26,23 @@ struct StatisticsView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Schreibverhalten-Kachel
-                StatisticsTileView(statisticsViewModel: statisticsViewModel, colorManager: colorManager)
+                StatisticsTileView(
+                    statisticsViewModel: statisticsViewModel,
+                    colorManager: colorManager
+                )
                 
                 // Kalender-Kachel
-                CalendarTileView(statisticsViewModel: statisticsViewModel, colorManager: colorManager)
+                CalendarTileView(
+                    statisticsViewModel: statisticsViewModel,
+                    colorManager: colorManager,
+                    userCreatedAt: userViewModel.currentUser?.createdAt ?? Date()
+                )
                 
                 // Top-Words-Kachel (Liste mit Paging)
-                TopWordsTileView(statisticsViewModel: statisticsViewModel, translationViewModel: translationViewModel, colorManager: colorManager)
+                TopWordsTileView(
+                    statisticsViewModel: statisticsViewModel,
+                    translationViewModel: translationViewModel,
+                    colorManager: colorManager)
             }
             .padding()
         }
@@ -42,9 +57,9 @@ struct StatisticsView: View {
                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }
             }
-            // Mitte: Titel mit Benutzername
+            // Mitte: Titel mit Benutzername (übersetzt)
             ToolbarItem(placement: .principal) {
-                Text("Deine Statistik")
+                Text("statistics")
                     .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? .white : .black)
             }

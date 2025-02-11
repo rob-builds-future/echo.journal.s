@@ -35,7 +35,7 @@ class UserStoreRepository {
             email: data["email"] as? String ?? "",
             username: data["username"] as? String ?? "",
             preferredLanguage: preferredLanguage,
-            createdAt: data["createdAt"] as? Date ?? Date()
+            createdAt: (data["createdAt"] as? Timestamp)?.dateValue() ?? Date()
         )
     }
 

@@ -87,24 +87,24 @@ struct EntryListView: View {
             // Links: Statistik-Ansicht
             ToolbarItem(placement: .navigationBarLeading) {
                 NavigationLink(destination: StatisticsView(
-                    entryViewModel: entryViewModel,
-                    colorManager: colorManager,
+                    userViewModel: userViewModel,
+                    statisticsViewModel: statisticsViewModel,
                     translationViewModel: translationViewModel,
-                    statisticsViewModel: statisticsViewModel
+                    colorManager: colorManager
                 )) {
                     Image(systemName: "calendar.and.person")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
             }
-            
             // Mitte: Titel mit Benutzername
             ToolbarItem(placement: .principal) {
-                Text("\(userViewModel.currentUser?.username ?? "")'s Tagebuch")
+                let username = userViewModel.currentUser?.username ?? ""
+                // Verwende String(format:) mit dem Lokalisierungsschlüssel
+                Text(String(format: NSLocalizedString("journalTitle", comment: "Titel des Tagebuchs eines Nutzers"), username))
                     .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? .white : .black)
             }
-            
             // Rechts: Einstellungen
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: SettingsView(viewModel: userViewModel, colorManager: colorManager)) {
@@ -113,7 +113,6 @@ struct EntryListView: View {
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
             }
-            
             /// UNTERE TOOLBAR
             // Links: Favoriten-Filter
             ToolbarItem(placement: .bottomBar) {
@@ -129,7 +128,6 @@ struct EntryListView: View {
                 .padding(.leading, 16)
                 .frame(width: buttonWidth, alignment: .leading)
             }
-            
             // Mitte: Neuer Eintrag erstellen
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
@@ -144,7 +142,6 @@ struct EntryListView: View {
                 }
                 .frame(width: buttonWidth, alignment: .center)
             }
-            
             // Rechts: Inspiration anzeigen
             ToolbarItem(placement: .bottomBar) {
                 if let dailyInspiration = inspirationViewModel.dailyInspiration() {
@@ -160,12 +157,14 @@ struct EntryListView: View {
                     .popover(isPresented: $showInspirationPopover, attachmentAnchor: .point(.topTrailing)) {
                         VStack(spacing: 12) {
                             Text(dailyInspiration.text)
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
                                 .foregroundStyle(.white)
                                 .fixedSize(horizontal: false, vertical: true)
+                            Color.clear
+                                .scaleEffect(1.5)
                         }
                         .presentationCompactAdaptation(.popover)
-                        .padding()
+                        .padding(20)
                         .background(colorManager.currentColor.color)
                     }
                     .frame(width: buttonWidth, alignment: .center)
