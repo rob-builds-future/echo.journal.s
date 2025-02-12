@@ -77,10 +77,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 	├── 4 Repositories/
 	│   ├── JournalRepository.swift
 	│   └── TranslationRepository.swift
-	├── 5 Services/ 
-	│   ├── FirebaseService.swift
-	│   └── TranslationService.swift
-	└── 6 Ressources & Config/
+	└── 5 Ressources & Config/
     	├── Assets
      	├── Plist
     	└── Localizable
@@ -91,13 +88,13 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 Aufgabe: Definieren die Datenstrukturen/Objekte der App (z.B. JournalEntry, User)
 
-Erste Structs: Tagebucheintrag (JournalEntry), Nutzerprofil (User), ggf. weitere: (Übersetzung (Translation), Schreibanregung (Prompt), ...).
+Structs: Tagebucheintrag (JournalEntry), Nutzerprofil (User), ggf. weitere: (Übersetzung (Translation), Schreibanregung (Prompt), ...).
  
 ##### 2. ViewModels
 
-Aufgabe: Verwalten den UI-State und die UI-Logik, verbinden Views mit Repositories
+Aufgabe: Implementieren die Business-Logik und koordinieren verschiedene Repos
 
-Erste ViewModels:
+ViewModels:
 
 - Tagebucheinträge anzeigen und verwalten (JournalViewModel: loadEntries(), addEntry(), deleteEntry()).
  
@@ -107,7 +104,7 @@ Erste ViewModels:
 
 Aufgabe: Zeigen die UI an und nehmen User-Interaktionen entgegen
 
-Erste Views:
+Views:
 
 - Eintragsübersicht (JournalListView),
  
@@ -119,26 +116,19 @@ Erste Views:
 
 ##### 4. Repositories
 
-Aufgabe: Implementieren die Business-Logik und koordinieren verschiedene Services
+Aufgabe: Kümmern sich um die technische Kommunikation mit externen APIs/Systemen (Firebase, LibreTranslate)
 
-Erste Repos: 
+- Firebase-Kommunikation (FirebaseService),
+
+- LibreTranslateAPI-Docker-Container-Kommunikation (TranslationService).
+
+Repos: 
 
 - Einträge laden und speichern (JournalRepository: fetchEntries(), saveEntry(), deleteEntry()),
   
 - Texte übersetzen (TranslationRepository: translateText()),
   
 - ggf. weitere (Benutzerprofil verwalten (UserRepository: getUser(), updateUser()), Schreibanregungen bereitstellen (PromptRepository: getDailyPrompt(), fetchPrompts(), ...).
-
-##### 5. Services
-
-Aufgabe: Kümmern sich um die technische Kommunikation mit externen APIs/Systemen (Firebase, LibreTranslate)
-
-Services:
-
-- Firebase-Kommunikation (FirebaseService),
- 
-- LibreTranslateAPI-Docker-Container-Kommunikation (TranslationService).
-
 
 #### Datenspeicherung
 
@@ -147,18 +137,16 @@ Services:
 - Tagebucheinträge: Titel, Inhalt, Datum, Tags, Sprache, Übersetzungen.
  
 - Benutzerprofile: Name, Zielsprache, Einstellungen.
- 	
-- Übersetzungen: Quelltext, Zieltext, Sprache.
    
 - Schreibanregungen: Tägliche Inspirationen.
 
 ##### Wo und wie?
 
-- Firebase: Hauptspeicherort für alle Daten.
+- Firebase: Hauptspeicherort für Daten.
 
 - Warum Firebase? Echtzeit-Synchronisation zwischen Geräten. Skalierbarkeit und einfache Integration. Möglichkeit für späteren Offline-Support.
 
-Swift Data wird derzeit nicht genutzt, kann ggf. später für einen Offline-Modus integriert werden.
+- Loakler Speicher UserDefault für Daten wie Onboarding Bool und gewähltes Farbschema.
 
 
 
