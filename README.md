@@ -15,23 +15,15 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 ## Design
 ### Dark Mode
 
-| Entry List                                      | New Entry                                    | Show:Change Entry                                      |
-|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
-| ![Entry List](./img/Entry%20List_dark.png)       | ![New Entry](./img/New%20Entry_dark.PNG)       | ![Show:Change Entry](./img/Show%3AChange%20Entry_dark.png) |
-
-| Sign In                                         | SplashScreen                                 | Statistics                                             |
-|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
-| ![Sign In](./img/Sign%20In_dark.png)             | ![SplashScreen](./img/SplashScreen_dark.png)   | ![Statistics](./img/Statistics_dark.PNG)              |
+| Entry List                                    | Entry List Popup | New Entry                                      | Onboarding1                                    | Onboarding2                                    | Settings | Show:Change Entry                                  | Sign In                                      | SplashScreen                                   | Statistics                                      |
+|-----------------------------------------------|------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|----------|-----------------------------------------------------|----------------------------------------------|------------------------------------------------|------------------------------------------------|
+| ![Entry List](./img/Entry%20List_dark.png)     | N/A              | ![New Entry](./img/New%20Entry_dark.PNG)         | ![Onboarding1](./img/Onboarding1_dark.png)        | ![Onboarding2](./img/Onboarding2_dark.png)        | N/A      | ![Show:Change Entry](./img/Show:Change%20Entry_dark.png) | ![Sign In](./img/Sign%20In_dark.png)             | ![SplashScreen](./img/SplashScreen_dark.pn)     | ![Statistics](./img/Statistics_dark.PNG)          |
 
 ### Light Mode
 
-| New Entry                                       | Settings                                     | Show:Change Entry                                      |
-|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
-| ![New Entry](./img/New%20Entry_light.png)        | ![Settings](./img/Settings_light.png)         | ![Show:Change Entry](./img/Show%3AChange%20Entry_light.png) |
-
-| Sign In                                         | Entry List Popup                             | Statistics                                             |
-|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
-| ![Sign In](./img/Sign%20In_light.png)            | ![Entry List Popup](./img/Entry%20List%20Popup_light.png)  | ![Statistics](./img/Statistics_light.png)             |
+| Entry List                                    | Entry List Popup                                   | New Entry                                      | Onboarding1                                    | Onboarding2                                    | Settings                                     | Show:Change Entry                                  | Sign In                                      | SplashScreen                                   | Statistics                                      |
+|-----------------------------------------------|----------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|----------------------------------------------|-----------------------------------------------------|----------------------------------------------|------------------------------------------------|------------------------------------------------|
+| ![Entry List](./img/Entry%20List_light.PNG)    | ![Entry List Popup](./img/Entry%20List%20Popup_light.png) | ![New Entry](./img/New%20Entry_light.png)         | ![Onboarding1](./img/Onboarding1_light.png)        | ![Onboarding2](./img/Onboarding2_light.png)        | ![Settings](./img/Settings_light.png)         | ![Show:Change Entry](./img/Show:Change%20Entry_light.png) | ![Sign In](./img/Sign%20In_light.png)            | ![SplashScreen](./img/SplashScreen_light.png)    | ![Statistics](./img/Statistics_light.png)         |
 
 
 ## Features
