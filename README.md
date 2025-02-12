@@ -13,18 +13,17 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 
 ## Design
-
-### Dark Mode
-
-| Entry List | Entry List Popup | New Entry | Onboarding1 | Onboarding2 | Settings | Show:Change Entry | Sign In | SplashScreen | Statistics |
-|------------|------------------|-----------|-------------|-------------|----------|-------------------|---------|--------------|------------|
-| <img src="./img/Entry%20List_dark.png" width="200" alt="Entry List"> |  | <img src="./img/New%20Entry_dark.PNG" width="200" alt="New Entry"> | <img src="./img/Onboarding1_dark.png" width="200" alt="Onboarding1"> | <img src="./img/Onboarding2_dark.png" width="200" alt="Onboarding2"> |  | <img src="./img/Show%3AChange%20Entry_dark.png" width="200" alt="Show:Change Entry"> | <img src="./img/Sign%20In_dark.png" width="200" alt="Sign In"> | <img src="./img/SplashScreen_dark.pn" width="200" alt="SplashScreen"> | <img src="./img/Statistics_dark.PNG" width="200" alt="Statistics"> |
-
 ### Light Mode
 
 | Entry List | Entry List Popup | New Entry | Onboarding1 | Onboarding2 | Settings | Show:Change Entry | Sign In | SplashScreen | Statistics |
 |------------|------------------|-----------|-------------|-------------|----------|-------------------|---------|--------------|------------|
-| <img src="./img/Entry%20List_light.PNG" width="200" alt="Entry List"> | <img src="./img/Entry%20List%20Popup_light.png" width="200" alt="Entry List Popup"> | <img src="./img/New%20Entry_light.png" width="200" alt="New Entry"> | <img src="./img/Onboarding1_light.png" width="200" alt="Onboarding1"> | <img src="./img/Onboarding2_light.png" width="200" alt="Onboarding2"> | <img src="./img/Settings_light.png" width="200" alt="Settings"> | <img src="./img/Show%3AChange%20Entry_light.png" width="200" alt="Show:Change Entry"> | <img src="./img/Sign%20In_light.png" width="200" alt="Sign In"> | <img src="./img/SplashScreen_light.png" width="200" alt="SplashScreen"> | <img src="./img/Statistics_light.png" width="200" alt="Statistics"> |
+| <img src="./img/Entry%20List_light.PNG" alt="Entry List" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Entry%20List%20Popup_light.png" alt="Entry List Popup" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/New%20Entry_light.png" alt="New Entry" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Onboarding1_light.png" alt="Onboarding1" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Onboarding2_light.png" alt="Onboarding2" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Settings_light.png" alt="Settings" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Show%3AChange%20Entry_light.png" alt="Show:Change Entry" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Sign%20In_light.png" alt="Sign In" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/SplashScreen_light.png" alt="SplashScreen" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Statistics_light.png" alt="Statistics" style="width:200px; height:200px; object-fit: contain;"> |
+
+### Dark Mode
+
+| Entry List | New Entry | Onboarding1 | Onboarding2 | Show:Change Entry | Sign In | SplashScreen | Statistics |
+|------------|-----------|-------------|-------------|-------------------|---------|--------------|------------|
+| <img src="./img/Entry%20List_dark.png" alt="Entry List" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/New%20Entry_dark.PNG" alt="New Entry" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Onboarding1_dark.png" alt="Onboarding1" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Onboarding2_dark.png" alt="Onboarding2" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Show%3AChange%20Entry_dark.png" alt="Show:Change Entry" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Sign%20In_dark.png" alt="Sign In" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/SplashScreen_dark.pn" alt="SplashScreen" style="width:200px; height:200px; object-fit: contain;"> | <img src="./img/Statistics_dark.PNG" alt="Statistics" style="width:200px; height:200px; object-fit: contain;"> |
 
 ## Features
 
