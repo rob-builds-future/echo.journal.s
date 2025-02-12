@@ -12,7 +12,27 @@ echo. journal & language practice ist eine App, die Menschen dabei unterstützt,
 Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalten und dabei spielerisch eine Fremdsprache lernen können. Was echo. besonders macht, ist die Kombination von intuitivem Tagebuchschreiben mit Echtzeit-Übersetzungen und einem KI-Assistenten, der als zukünftiges Ich personalisiert wird, um gezielt zu motivieren und zu unterstützen. So wird Lernen inspirierend, effizient und individuell.
 
 
-## Design | App Landing | Sign In | Onboarding | Home List | |-----------------------------|--------------------------|----------------------------|-----------------------| | ![App Landing Light](./img/App%20Landing_light.png) | ![Sign In Light](./img/Sign%20In_light.png) | ![Onboarding Light](./img/Onboarding_light.png) | ![Home List Light](./img/Home%20List_light.png) | | ![App Landing Dark](./img/App%20Landing_dark.png) | ![Sign In Dark](./img/Sign%20In_dark.png) | ![Onboarding Dark](./img/Onboarding_dark.png) | ![Home List Dark](./img/Home%20List_dark.png) | | New Entry | PopUp Change/Delete | Language Picker | Entry Translated | |-----------------------------|---------------------------|----------------------------|------------------------| | ![New Entry Light](./img/New%20Entry_light.png) | ![PopUp Change/Delete Light](./img/PopUp%20Change%20Delete_light.png) | ![Language Picker Light](./img/Language%20Picker_light.png) | ![Entry Translated Light](./img/Entry%20translated_light.png) | | ![New Entry Dark](./img/New%20Entry_dark.png) | ![PopUp Change/Delete Dark](./img/PopUp%20Change%20Delete_dark.png) | ![Language Picker Dark](./img/Language%20Picker_dark.png) | ![Entry Translated Dark](./img/Entry%20translated_dark.png) | | Record Audio | Entry from Audio | Entry Inspiration | PopUp Echo Message | |-----------------------------|---------------------------|-----------------------------|-------------------------| | ![Record Audio Light](./img/Record%20Audio_light.png) | ![Entry from Audio Light](./img/Entry%20from%20Audio_light.png) | ![Entry Inspiration Light](./img/Echo%20Entry%20Inspiration_light.png) | ![PopUp Echo Message Light](./img/PopUp%20Echo%20Message_light.png) | | ![Record Audio Dark](./img/Record%20Audio_dark.png) | ![Entry from Audio Dark](./img/Entry%20from%20Audio_dark.png) | ![Entry Inspiration Dark](./img/Echo%20Entry%20Inspiration_dark.png) | ![PopUp Echo Message Dark](./img/PopUp%20Echo%20Message_dark.png) | | Settings | Show:Change Entry | SplashScreen | Statistics | |-----------------------------|---------------------------|-----------------------------|------------------------| | ![Settings Light](./img/Settings_light.png) | ![Show Change Entry Light](./img/Show%20Change%20Entry_light.png) | ![SplashScreen Light](./img/SplashScreen_light.png) | ![Statistics Light](./img/Statistics_light.png) | | ![Settings Dark](./img/Settings_dark.png) | ![Show Change Entry Dark](./img/Show%20Change%20Entry_dark.png) | ![SplashScreen Dark](./img/SplashScreen_dark.png) | ![Statistics Dark](./img/Statistics_dark.png) |
+## Design
+### Dark Mode
+
+| Entry List                                      | New Entry                                    | Show:Change Entry                                      |
+|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
+| ![Entry List](./img/Entry%20List_dark.png)       | ![New Entry](./img/New%20Entry_dark.PNG)       | ![Show:Change Entry](./img/Show%3AChange%20Entry_dark.png) |
+
+| Sign In                                         | SplashScreen                                 | Statistics                                             |
+|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
+| ![Sign In](./img/Sign%20In_dark.png)             | ![SplashScreen](./img/SplashScreen_dark.png)   | ![Statistics](./img/Statistics_dark.PNG)              |
+
+### Light Mode
+
+| New Entry                                       | Settings                                     | Show:Change Entry                                      |
+|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
+| ![New Entry](./img/New%20Entry_light.png)        | ![Settings](./img/Settings_light.png)         | ![Show:Change Entry](./img/Show%3AChange%20Entry_light.png) |
+
+| Sign In                                         | SplashScreen                                 | Statistics                                             |
+|-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
+| ![Sign In](./img/Sign%20In_light.png)            | ![SplashScreen](./img/SplashScreen_light.png)  | ![Statistics](./img/Statistics_light.png)             |
+
 
 ## Features
 
