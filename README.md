@@ -29,9 +29,9 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 |-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
 | ![New Entry](./img/New%20Entry_light.png)        | ![Settings](./img/Settings_light.png)         | ![Show:Change Entry](./img/Show%3AChange%20Entry_light.png) |
 
-| Sign In                                         | SplashScreen                                 | Statistics                                             |
+| Sign In                                         | Entry List Popup                             | Statistics                                             |
 |-------------------------------------------------|----------------------------------------------|--------------------------------------------------------|
-| ![Sign In](./img/Sign%20In_light.png)            | ![SplashScreen](./img/SplashScreen_light.png)  | ![Statistics](./img/Statistics_light.png)             |
+| ![Sign In](./img/Sign%20In_light.png)            | ![Entry List Popup](./img/Entry%20List%20Popup_light.png)  | ![Statistics](./img/Statistics_light.png)             |
 
 
 ## Features
