@@ -26,23 +26,26 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 ## Features
 
 ### Höchste Priorität (MVP)
-- [ ] Tagebuch Einträge Übersicht
-- [ ] Tagebuch Einträge Favoritenliste
-- [ ] Tagebuch Schreiben und speichern
-- [ ] Sprachübersetzung und Wörterbuchfunktion in relevante Sprachen
-- [ ] echo's inspirierende Schreibanregungen
-- [ ] Zielsprache auswählen und wechseln
-- [ ] User Profil und generelle Settings
+- [x] Tagebuch Einträge Übersicht
+- [x] Tagebuch Einträge Favoritenliste
+- [x] Tagebuch Schreiben und speichern
+- [x] Sprachübersetzung und Wörterbuchfunktion in relevante Sprachen
+- [x] echo's inspirierende Schreibanregungen
+- [x] Zielsprache auswählen und wechseln
+- [x] User Profil und generelle Settings
 ### Mittlere Priorität
-- [ ] Echtzeit-Übersetzung
-- [ ] Text-zu-Sprache für gelernte Sprache
+- [x] Echtzeit-Übersetzung
+- [x] Text-zu-Sprache für gelernte Sprache
+- [x] Voice to Text
+- [x] Schreib-Statistik
+- [x] Schreib-Tracker
+- [x] TopWord-Identifikation und Übersetzung
+### Niedrige Priorität
 - [ ] Bilder aus Fotos einfügen
 - [ ] Orte aus Maps einfügen
-- [ ] Voice to Text
 - [ ] Audio Records to Text
 - [ ] Vokabel-Highlighting
-### Niedrige Priorität
-siehe unten -> Ausblick
++ siehe unten -> Ausblick
 
 
 ## Technischer Aufbau
