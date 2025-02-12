@@ -13,18 +13,18 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
 
 
 ## Design
+
 ### Dark Mode
 
-| Entry List                                    | Entry List Popup | New Entry                                      | Onboarding1                                    | Onboarding2                                    | Settings | Show:Change Entry                                  | Sign In                                      | SplashScreen                                   | Statistics                                      |
-|-----------------------------------------------|------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|----------|-----------------------------------------------------|----------------------------------------------|------------------------------------------------|------------------------------------------------|
-| ![Entry List](./img/Entry%20List_dark.png)     | N/A              | ![New Entry](./img/New%20Entry_dark.PNG)         | ![Onboarding1](./img/Onboarding1_dark.png)        | ![Onboarding2](./img/Onboarding2_dark.png)        | N/A      | ![Show:Change Entry](./img/Show:Change%20Entry_dark.png) | ![Sign In](./img/Sign%20In_dark.png)             | ![SplashScreen](./img/SplashScreen_dark.pn)     | ![Statistics](./img/Statistics_dark.PNG)          |
+| Entry List | Entry List Popup | New Entry | Onboarding1 | Onboarding2 | Settings | Show:Change Entry | Sign In | SplashScreen | Statistics |
+|------------|------------------|-----------|-------------|-------------|----------|-------------------|---------|--------------|------------|
+| <img src="./img/Entry%20List_dark.png" width="200" alt="Entry List"> |  | <img src="./img/New%20Entry_dark.PNG" width="200" alt="New Entry"> | <img src="./img/Onboarding1_dark.png" width="200" alt="Onboarding1"> | <img src="./img/Onboarding2_dark.png" width="200" alt="Onboarding2"> |  | <img src="./img/Show%3AChange%20Entry_dark.png" width="200" alt="Show:Change Entry"> | <img src="./img/Sign%20In_dark.png" width="200" alt="Sign In"> | <img src="./img/SplashScreen_dark.pn" width="200" alt="SplashScreen"> | <img src="./img/Statistics_dark.PNG" width="200" alt="Statistics"> |
 
 ### Light Mode
 
-| Entry List                                    | Entry List Popup                                   | New Entry                                      | Onboarding1                                    | Onboarding2                                    | Settings                                     | Show:Change Entry                                  | Sign In                                      | SplashScreen                                   | Statistics                                      |
-|-----------------------------------------------|----------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|----------------------------------------------|-----------------------------------------------------|----------------------------------------------|------------------------------------------------|------------------------------------------------|
-| ![Entry List](./img/Entry%20List_light.PNG)    | ![Entry List Popup](./img/Entry%20List%20Popup_light.png) | ![New Entry](./img/New%20Entry_light.png)         | ![Onboarding1](./img/Onboarding1_light.png)        | ![Onboarding2](./img/Onboarding2_light.png)        | ![Settings](./img/Settings_light.png)         | ![Show:Change Entry](./img/Show:Change%20Entry_light.png) | ![Sign In](./img/Sign%20In_light.png)            | ![SplashScreen](./img/SplashScreen_light.png)    | ![Statistics](./img/Statistics_light.png)         |
-
+| Entry List | Entry List Popup | New Entry | Onboarding1 | Onboarding2 | Settings | Show:Change Entry | Sign In | SplashScreen | Statistics |
+|------------|------------------|-----------|-------------|-------------|----------|-------------------|---------|--------------|------------|
+| <img src="./img/Entry%20List_light.PNG" width="200" alt="Entry List"> | <img src="./img/Entry%20List%20Popup_light.png" width="200" alt="Entry List Popup"> | <img src="./img/New%20Entry_light.png" width="200" alt="New Entry"> | <img src="./img/Onboarding1_light.png" width="200" alt="Onboarding1"> | <img src="./img/Onboarding2_light.png" width="200" alt="Onboarding2"> | <img src="./img/Settings_light.png" width="200" alt="Settings"> | <img src="./img/Show%3AChange%20Entry_light.png" width="200" alt="Show:Change Entry"> | <img src="./img/Sign%20In_light.png" width="200" alt="Sign In"> | <img src="./img/SplashScreen_light.png" width="200" alt="SplashScreen"> | <img src="./img/Statistics_light.png" width="200" alt="Statistics"> |
 
 ## Features
 
