@@ -82,7 +82,7 @@ Die App schafft eine motivierende Umgebung, in der Nutzer ihre Gedanken festhalt
      	├── Plist
     	└── Localizable
 
-	Der Datenfluss geht dabei typischerweise: View <-> ViewModel <-> Repository <-> Services <-> External APIs
+	Der Datenfluss geht dabei typischerweise: View <-> ViewModel <-> Repository <-> External Sources
 
 ##### 1. Models
 
