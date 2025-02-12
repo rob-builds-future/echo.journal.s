@@ -10,6 +10,9 @@ struct ContentView: View {
     // Farbverwaltung für das Design
     @StateObject private var colorManager = ColorManager()
     
+    // Path für sauberes Navigieren aus Onboarding
+    @State private var navigationPath: [String] = []
+    
     var body: some View {
         NavigationStack {
             if userViewModel.isLoading {

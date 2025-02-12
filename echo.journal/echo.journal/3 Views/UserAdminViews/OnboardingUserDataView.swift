@@ -10,15 +10,56 @@ struct OnboardingUserDataView: View {
     @State private var username: String = ""
     @State private var selectedLanguage: Language = .en
     @State private var selectedColorScheme: EchoColor = .lichtblau
+    @State private var showPopover = false
+    
     
     var body: some View {
         VStack(spacing: 16) {
-            // Sprechblase oben
-            SpeechBubbleView(
-                text: "Hallo!\nBevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle als erstes Deinen Nutzernamen, die Sprache, in die echo. deine Tagebucheinträge übersetzt, und die Farbe Deines echo.!",
-                backgroundColor: colorManager.currentColor.color
-            )
-            .padding(.horizontal)
+            //            // Sprechblase oben
+            //            SpeechBubbleView(
+            //                text: "Hallo!\nBevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle als erstes Deinen Nutzernamen, die Sprache, in die echo. deine Tagebucheinträge übersetzt, und die Farbe Deines echo.!",
+            //                backgroundColor: colorManager.currentColor.color
+            //            )
+            //            .padding(.horizontal)
+            HStack {
+                Spacer()
+                
+                Button(action: {
+                    showPopover = true
+                }) {
+                    ZStack {
+                        EchoSymbolBounceView(colorManager: colorManager)
+                            .scaleEffect(0.5)
+                            .frame(width: 160, height: 160)
+                        if showPopover == false {
+                            Image(systemName: "hand.tap.fill")
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                .foregroundStyle(colorScheme == .dark ? .white : .black)
+                        }
+                    }
+                }
+                .popover(isPresented: $showPopover, attachmentAnchor: .point(.center)) {
+                    ZStack {
+                        VStack (alignment: .leading) {
+                            Text("Hey!")
+                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                            Text("Bevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle Deinen Nutzernamen, die Sprache, in die echo deine Tagebucheinträge übersetzt, und die Farbe Deines echo!")
+                                .font(.system(size: 14, weight: .regular, design: .rounded))
+                                .foregroundStyle(.white)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Color.clear
+                            .scaleEffect(2)
+                    }
+                    .padding()
+                    .frame(width: 340, height: 140)
+                    .presentationCompactAdaptation(.popover)
+                    .background(colorManager.currentColor.color)
+                }
+            }
+            .padding(.bottom, 40)
+            Spacer()
             
             // Fixe Liste
             List {
@@ -60,7 +101,6 @@ struct OnboardingUserDataView: View {
                 }
             }
             .listStyle(.inset)
-            .frame(maxHeight: .infinity)
             
             // Fertig-Button bleibt fix unten
             Button("Fertig") {
@@ -69,9 +109,7 @@ struct OnboardingUserDataView: View {
                     await viewModel.updateProfile(username: username, preferredLanguage: selectedLanguage)
                     colorManager.updateColor(to: selectedColorScheme) // EchoColor wird direkt übergeben
                     viewModel.updateOnboardingStatus() // Onboarding als abgeschlossen markieren
-                    DispatchQueue.main.async {
-                        dismiss() // Schließe die View sicher
-                    }
+                    dismiss() // Schließe die View sicher
                 }
             }
             .font(.system(size: 16, weight: .bold, design: .rounded))
@@ -89,6 +127,3 @@ struct OnboardingUserDataView: View {
     }
 }
 
-#Preview {
-    OnboardingUserDataView(viewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()), colorManager: ColorManager())
-}

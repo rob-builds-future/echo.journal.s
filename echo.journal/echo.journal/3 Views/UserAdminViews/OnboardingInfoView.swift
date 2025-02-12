@@ -13,9 +13,9 @@ struct OnboardingInfoView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack() {
             Spacer()
-            // Erstes Drittel: Begrüßungstext, leading ausgerichtet
+            
             VStack(alignment: .leading) {
                 (
                     Text("Lerne ")
@@ -30,8 +30,8 @@ struct OnboardingInfoView: View {
                 .padding()
             }
             
+            Spacer()
             
-            // Zweites Drittel: Bild-Button mit Popover
             Button(action: {
                 showPopover = true
             }) {
@@ -59,7 +59,6 @@ struct OnboardingInfoView: View {
                 .presentationCompactAdaptation(.popover)
                 .background(colorManager.currentColor.color)
             }
-            .padding()
             
             Spacer()
             
@@ -83,10 +82,9 @@ struct OnboardingInfoView: View {
                     .frame(maxWidth: .infinity)
                     .background(colorScheme == .dark ? .white : .black)
                     .cornerRadius(8)
-                    .padding()
+                    .padding(.horizontal)
             }
         }
-        .padding(.horizontal)
         .navigationDestination(for: String.self) { value in
             if value == "OnboardingUserData" {
                 OnboardingUserDataView(viewModel: viewModel, colorManager: colorManager)

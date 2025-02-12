@@ -134,6 +134,9 @@
     "Betrachte es als die Stimme deines Zukunfts-Ich, das mit Dir deine Sprachziele erreicht." : {
 
     },
+    "Bevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle Deinen Nutzernamen, die Sprache, in die echo deine Tagebucheinträge übersetzt, und die Farbe Deines echo!" : {
+
+    },
     "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
 
     },
@@ -734,10 +737,60 @@
       }
     },
     "entryDeleteMessage" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This entry will be permanently deleted. Do you want to proceed?"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This entry will be permanently deleted. Do you want to proceed?"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta entrada será excluída permanentemente. Deseja continuar?"
+          }
+        }
+      }
     },
     "entryDeleteTitle" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eintrag löschen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete entry?"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete entry?"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluir entrada?"
+          }
+        }
+      }
     },
     "Erinnerungen" : {
 
@@ -851,6 +904,9 @@
       }
     },
     "Hey, ich bin echo!" : {
+
+    },
+    "Hey!" : {
 
     },
     "Hier kannst Du Erinnerungen (Push-Benachrichtigungen) einstellen. (Demnächst verfügbar)" : {

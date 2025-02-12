@@ -20,7 +20,7 @@ struct EntryRow: View {
                 .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2),
                         radius: 4, x: 0, y: 0)
             
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 0) {
                     // Entry-Inhalt
                     Text(entry.content)
