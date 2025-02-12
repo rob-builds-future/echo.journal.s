@@ -7,6 +7,9 @@
     " %@" : {
 
     },
+    " kennen – dein Begleiter in dieser App." : {
+
+    },
     "%@ (%lld)" : {
       "localizations" : {
         "en" : {
@@ -126,6 +129,9 @@
       }
     },
     "Benutzername: %@" : {
+
+    },
+    "Betrachte es als die Stimme deines Zukunfts-Ich, das mit Dir deine Sprachziele erreicht." : {
 
     },
     "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
@@ -506,6 +512,9 @@
     "e." : {
 
     },
+    "echo" : {
+
+    },
     "Echo Farbe: %@" : {
       "localizations" : {
         "de" : {
@@ -529,6 +538,7 @@
       }
     },
     "Echo Guide" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -840,10 +850,10 @@
         }
       }
     },
-    "Hier kannst Du Erinnerungen (Push-Benachrichtigungen) einstellen. (Demnächst verfügbar)" : {
+    "Hey, ich bin echo!" : {
 
     },
-    "Hier sind einige Informationen über die App und wie du sie nutzen kannst..." : {
+    "Hier kannst Du Erinnerungen (Push-Benachrichtigungen) einstellen. (Demnächst verfügbar)" : {
 
     },
     "journalTitle" : {
@@ -882,6 +892,9 @@
       "extractionState" : "manual"
     },
     "Konto löschen" : {
+
+    },
+    "Lerne " : {
 
     },
     "Löschen" : {
