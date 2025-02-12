@@ -4,8 +4,8 @@ import FirebaseAuth
 class EntryStoreRepository {
     let store = Firestore.firestore()
     
-    /// Erstellt einen neuen Tagebucheintrag für einen Benutzer und speichert ihn in Firestore.
-    /// Gibt den erstellten Eintrag mit der generierten Dokument-ID zurück.
+    // Erstellt einen neuen Tagebucheintrag für einen Benutzer und speichert ihn in Firestore.
+    // Gibt den erstellten Eintrag mit der generierten Dokument-ID zurück.
     func createEntry(userId: String, content: String, duration: Double, createdAt: Date) async throws -> JournalEntry {
         // 1. Erstelle den Eintrag ohne ID
         var entry = JournalEntry(
@@ -33,8 +33,8 @@ class EntryStoreRepository {
         return entry
     }
     
-    /// Holt alle Tagebucheinträge eines Benutzers aus Firestore.
-    /// Gibt eine Liste von `JournalEntry`-Objekten zurück.
+    // Holt alle Tagebucheinträge eines Benutzers aus Firestore.
+    // Gibt eine Liste von `JournalEntry`-Objekten zurück.
     func getEntries(userId: String) async throws -> [JournalEntry] {
         let snapshot = try await store.collection(DocumentPath.users.rawValue)
             .document(userId)
@@ -48,8 +48,8 @@ class EntryStoreRepository {
         }
     }
     
-    /// Aktualisiert den Inhalt eines bestehenden Tagebucheintrags.
-    /// Falls `createdAt` übergeben wird, wird auch das Erstellungsdatum aktualisiert.
+    // Aktualisiert den Inhalt eines bestehenden Tagebucheintrags.
+    // Falls `createdAt` übergeben wird, wird auch das Erstellungsdatum aktualisiert.
     func updateEntry(userId: String, entryId: String, content: String, createdAt: Date? = nil) async throws {
         var entryData: [String: Any] = [
             "content": content,
@@ -67,7 +67,7 @@ class EntryStoreRepository {
             .updateData(entryData)
     }
 
-    /// Setzt oder entfernt die Favoritenmarkierung (`isFavorite`) eines Eintrags.
+    // Setzt oder entfernt die Favoritenmarkierung (`isFavorite`) eines Eintrags.
     func toggleFavorite(userId: String, entryId: String) async throws {
         let documentRef = store.collection(DocumentPath.users.rawValue)
             .document(userId)
@@ -81,7 +81,7 @@ class EntryStoreRepository {
         try await documentRef.updateData(["isFavorite": newFavoriteStatus])
     }
     
-    /// Löscht einen Tagebucheintrag aus Firestore.
+    // Löscht einen Tagebucheintrag aus Firestore.
     func deleteEntry(userId: String, entryId: String) async throws {
         try await store.collection(DocumentPath.users.rawValue)
             .document(userId)

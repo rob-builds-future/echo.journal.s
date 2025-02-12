@@ -8,8 +8,8 @@ struct OnboardingUserDataView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @State private var username: String = ""
-    @State private var selectedLanguage: Language = .en // Standardwert
-    @State private var selectedColorScheme: EchoColor = .lichtblau // Standardfarbe
+    @State private var selectedLanguage: Language = .en
+    @State private var selectedColorScheme: EchoColor = .lichtblau
     
     var body: some View {
         VStack(spacing: 16) {
@@ -52,7 +52,7 @@ struct OnboardingUserDataView: View {
                 ) {
                     Picker("Wähle eine Farbe", selection: $selectedColorScheme) {
                         ForEach(EchoColor.allCases) { color in
-                            Text(color.displayName).tag(color) // Jeder Tag ist ein EchoColor
+                            Text(color.displayName).tag(color)
                         }
                     }
                     .pickerStyle(MenuPickerStyle())

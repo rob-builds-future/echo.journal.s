@@ -5,7 +5,7 @@ struct TopWordRowView: View {
     @ObservedObject var colorManager: ColorManager
     @Environment(\.colorScheme) var colorScheme
 
-    // Wir speichern nun ein strukturiertes Übersetzungsergebnis.
+    // Speichern eines strukturierten Übersetzungsergebnis.
     @State private var translationResult: TopWordTranslation = TopWordTranslation(main: "", alternatives: [])
     
     let rank: Int
@@ -13,18 +13,15 @@ struct TopWordRowView: View {
     let count: Int
     
     var body: some View {
-        let fgColor: Color = (colorScheme == .dark) ? .white : .black
-        let bgColor: Color = colorManager.currentColor.color
-        
         HStack {
             Text("\(rank).")
                 .font(.system(size: 14, weight: .bold, design: .rounded))
-                .foregroundColor(fgColor)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .frame(width: 30, alignment: .leading)
             
             Text("\(word.capitalized) (\(count))")
                 .font(.system(size: 14, weight: .regular, design: .rounded))
-                .foregroundColor(fgColor)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
             
             Spacer()
             
@@ -35,7 +32,7 @@ struct TopWordRowView: View {
                     .font(.system(size: 14, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .padding(4)
-                    .background(bgColor)
+                    .background(colorManager.currentColor.color)
                     .cornerRadius(4)
             } else {
                 (
@@ -45,7 +42,7 @@ struct TopWordRowView: View {
                 .font(.system(size: 14, weight: .regular, design: .rounded))
                 .foregroundColor(.white)
                 .padding(4)
-                .background(bgColor)
+                .background(colorManager.currentColor.color)
                 .cornerRadius(4)
             }
         }

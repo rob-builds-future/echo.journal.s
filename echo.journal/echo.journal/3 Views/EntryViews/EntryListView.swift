@@ -18,11 +18,6 @@ struct EntryListView: View {
     @State private var showFavoritesOnly: Bool = false
     @State private var showInspirationPopover: Bool = false
     
-    // Layout-Konstanten
-    let buttonWidth: CGFloat = UIScreen.main.bounds.width / 3
-    let capsuleWidth: CGFloat = 60
-    let capsuleHeight: CGFloat = 30
-    
     // Initialisierung – alle internen ViewModels werden hier erzeugt
     init(userViewModel: UserViewModel, colorManager: ColorManager) {
         self.userViewModel = userViewModel
@@ -69,7 +64,7 @@ struct EntryListView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .frame(height: 120)
+                .frame(height: 140)
                 .allowsHitTesting(false),
                 alignment: .bottom
             )
@@ -79,7 +74,8 @@ struct EntryListView: View {
             AddEntryView(
                 entryViewModel: entryViewModel,
                 colorManager: colorManager,
-                translationViewModel: translationViewModel
+                translationViewModel: translationViewModel,
+                inspirationViewModel: inspirationViewModel
             )
         }
         .toolbar {
@@ -100,7 +96,6 @@ struct EntryListView: View {
             // Mitte: Titel mit Benutzername
             ToolbarItem(placement: .principal) {
                 let username = userViewModel.currentUser?.username ?? ""
-                // Verwende String(format:) mit dem Lokalisierungsschlüssel
                 Text(String(format: NSLocalizedString("journalTitle", comment: "Titel des Tagebuchs eines Nutzers"), username))
                     .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -121,12 +116,12 @@ struct EntryListView: View {
                 }) {
                     Image(systemName: showFavoritesOnly ? "bookmark.slash.fill" : "bookmark.fill")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                        .frame(width: capsuleWidth, height: capsuleHeight)
-                        .background(Capsule().fill(Color(UIColor.systemGray4)))
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
+                        .frame(width: 60, height: 30)
+                        .background(Capsule().fill(Color(colorScheme == .dark ? .white : .black)))
                 }
                 .padding(.leading, 16)
-                .frame(width: buttonWidth, alignment: .leading)
+                .frame(width: UIScreen.main.bounds.width / 3, alignment: .leading)
             }
             // Mitte: Neuer Eintrag erstellen
             ToolbarItem(placement: .bottomBar) {
@@ -140,7 +135,7 @@ struct EntryListView: View {
                         .padding(.horizontal, 35)
                         .background(Capsule().fill(colorScheme == .dark ? .white : .black))
                 }
-                .frame(width: buttonWidth, alignment: .center)
+                .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
             }
             // Rechts: Inspiration anzeigen
             ToolbarItem(placement: .bottomBar) {
@@ -161,13 +156,14 @@ struct EntryListView: View {
                                 .foregroundStyle(.white)
                                 .fixedSize(horizontal: false, vertical: true)
                             Color.clear
-                                .scaleEffect(1.5)
+                                .scaleEffect(2)
                         }
+                        .padding()
+                        .frame(height: 120)
                         .presentationCompactAdaptation(.popover)
-                        .padding(20)
                         .background(colorManager.currentColor.color)
                     }
-                    .frame(width: buttonWidth, alignment: .center)
+                    .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                 }
             }
         }

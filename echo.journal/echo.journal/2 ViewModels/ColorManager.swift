@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Manager zur Verwaltung des ausgewählten Farbschemas
+// Manager zur Verwaltung des ausgewählten Farbschemas
 class ColorManager: ObservableObject {
     @Published var currentColor: EchoColor
     

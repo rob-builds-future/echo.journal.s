@@ -2,7 +2,7 @@ import Foundation
 
 class TranslationAPIRepository {
     // Basis-URL des Übersetzungsservers
-    private let baseURL = "http://localhost:5001/translate"
+    private let baseURL = "http://192.168.68.100:5001/translate" //  192.168.68.100
     
     // Eigene URLSession mit erhöhter Timeout-Konfiguration
     private let session: URLSession = {
@@ -13,7 +13,35 @@ class TranslationAPIRepository {
         return URLSession(configuration: config)
     }()
     
-    /// Führt eine Übersetzung für Top‑Words durch und gibt ein strukturiertes Ergebnis zurück.
+    // Translate Funktion
+    func translate(text: String, targetLanguage: String, sourceLanguage: String) async throws -> String {
+        guard let url = URL(string: baseURL) else { throw URLError(.badURL) }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = [
+            "q": text,
+            "source": sourceLanguage,
+            "target": targetLanguage,
+            "format": "text"
+        ]
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, _) = try await session.data(for: request)
+        
+        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+           let translatedText = json["translatedText"] as? String {
+            return translatedText
+        } else {
+            throw NSError(domain: "TranslationError", code: 1, userInfo: [
+                NSLocalizedDescriptionKey: "Missing 'translatedText' in response"
+            ])
+        }
+    }
+    // Führt eine Übersetzung für Top‑Words durch und gibt ein strukturiertes Ergebnis zurück.
         func translateForTopWord(text: String, targetLanguage: String, sourceLanguage: String, alternatives: Int) async throws -> TopWordTranslation {
             guard let url = URL(string: baseURL) else { throw URLError(.badURL) }
             
@@ -44,33 +72,4 @@ class TranslationAPIRepository {
                 ])
             }
         }
-    
-    // Bestehende Methode, falls du sie auch weiterhin benötigst:
-    func translate(text: String, targetLanguage: String, sourceLanguage: String) async throws -> String {
-        guard let url = URL(string: baseURL) else { throw URLError(.badURL) }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let body: [String: Any] = [
-            "q": text,
-            "source": sourceLanguage,
-            "target": targetLanguage,
-            "format": "text"
-        ]
-        
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
-        
-        let (data, _) = try await session.data(for: request)
-        
-        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-           let translatedText = json["translatedText"] as? String {
-            return translatedText
-        } else {
-            throw NSError(domain: "TranslationError", code: 1, userInfo: [
-                NSLocalizedDescriptionKey: "Missing 'translatedText' in response"
-            ])
-        }
-    }
 }

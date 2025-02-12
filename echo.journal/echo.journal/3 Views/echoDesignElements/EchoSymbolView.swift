@@ -17,13 +17,13 @@ struct EchoSymbolView: View {
 }
 
 struct CircleView: View {
-    @EnvironmentObject var colorManager: ColorManager // Zugriff auf die Theme-Farbe
+    @EnvironmentObject var colorManager: ColorManager
     let size: CGFloat
     
     var body: some View {
         Circle()
-            .stroke(colorManager.currentColor.color, lineWidth: 8) // Verwende die Farbe des aktuellen Themes
-            .frame(width: size, height: size) // Größe des Kreises
+            .stroke(colorManager.currentColor.color, lineWidth: 8)
+            .frame(width: size, height: size)
     }
 }
 

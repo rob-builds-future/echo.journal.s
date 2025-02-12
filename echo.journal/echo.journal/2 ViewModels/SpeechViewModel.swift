@@ -3,8 +3,9 @@ import SwiftUI
 
 @MainActor
 class SpeechViewModel: ObservableObject {
-    private let speechSynthesizer = AVSpeechSynthesizer()
     @Published var speechState: SpeechState = .idle
+    
+    private let speechSynthesizer = AVSpeechSynthesizer()
     private var speechDelegate = SpeechDelegate()
     
     init() {

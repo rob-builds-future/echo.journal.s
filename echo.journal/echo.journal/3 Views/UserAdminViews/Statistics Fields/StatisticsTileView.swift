@@ -8,7 +8,7 @@ struct StatisticsTileView: View {
     
     var body: some View {
         ZStack {
-            // Kachel-Hintergrund: Im Dark Mode schwarz, im Light Mode weiß
+            // Kachel-Hintergrund
             RoundedRectangle(cornerRadius: 12)
                 .fill(colorScheme == .dark ? Color.black : Color.white)
                 .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2),

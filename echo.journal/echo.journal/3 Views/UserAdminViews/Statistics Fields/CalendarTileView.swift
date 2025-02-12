@@ -20,7 +20,7 @@ struct CalendarTileView: View {
     
     var body: some View {
         ZStack {
-            // Hintergrund der Kachel: Im Dark Mode schwarz, im Light Mode weiß
+            // Hintergrund der Kachel
             RoundedRectangle(cornerRadius: 12)
                 .fill(colorScheme == .dark ? Color.black : Color.white)
                 .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2),
@@ -71,14 +71,14 @@ struct CalendarTileView: View {
 
                         ZStack {
                             if Calendar.current.isDate(date, equalTo: statisticsViewModel.displayedMonth, toGranularity: .month) {
-                                // Zeige den Eintrag-Kreis nur, wenn der Tag nicht vor dem Erstellungsdatum liegt.
+                                // Zeige den Eintrag-Kreis nur, wenn der Tag nicht vor dem Erstellungsdatum liegt
                                 if statisticsViewModel.hasEntry(on: date) && !isBeforeCreation {
                                     Circle()
                                         .fill(colorManager.currentColor.color)
                                         .frame(width: 25, height: 25)
                                 }
                                 
-                                // Bestimme die Textfarbe:
+                                // Textfarb grau wenn in future ider before createdAt des Users
                                 let textColor: Color = (isFuture || isBeforeCreation)
                                     ? Color.gray
                                     : (colorScheme == .dark ? Color.white : Color.black)

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct StatisticsHeaderView: View {
     let totalWords: Int
-    let totalTime: Double  // in Minuten
+    let totalTime: Double
 
     var body: some View {
         HStack(alignment: .center) {

@@ -46,7 +46,7 @@ struct EntryList: View {
         .listStyle(PlainListStyle())
         // Navigation für JournalEntry aktivieren
         .navigationDestination(for: JournalEntry.self) { entry in
-            EntryDetailView(entryViewModel: entryViewModel, colorManager: colorManager, translationViewModel: translationViewModel, entryId: entry.id)
+            EntryDetailView(entryViewModel: entryViewModel, colorManager: colorManager, entryId: entry.id)
         }
     }
 }

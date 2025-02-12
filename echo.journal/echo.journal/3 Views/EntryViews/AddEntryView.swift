@@ -4,7 +4,7 @@ struct AddEntryView: View {
     @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
     @ObservedObject var translationViewModel: TranslationViewModel
-    @StateObject private var inspirationViewModel = InspirationViewModel()
+    @ObservedObject var inspirationViewModel: InspirationViewModel
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) var colorScheme
@@ -17,12 +17,9 @@ struct AddEntryView: View {
     @State private var isTextEditorFocused: Bool = false
     @FocusState private var textEditorFocused: Bool // Steuerung des Fokus auf das Textfeld
 
-    let capsuleWidth: CGFloat = 60
-    let capsuleHeight: CGFloat = 30
-
-    /// Berechnet die Wortanzahl des Eintrags
+    // Berechnet die Wortanzahl des Eintrags
     var wordCount: Int {
-        content.split { $0.isWhitespace || $0.isNewline }.count
+        content.split { $0.isWhitespace || $0.isNewline }.count // Zerlegt text in einzelne Worte durch überprüfen der whitespaces und umbrüche und zählt diese dann
     }
 
     var body: some View {
@@ -36,7 +33,7 @@ struct AddEntryView: View {
                             .padding(4)
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color(UIColor.systemBackground)) // Hintergrundfarbe des Editors
+                                    .fill(Color(UIColor.systemBackground))
                             )
                             .autocorrectionDisabled(true)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
@@ -46,7 +43,7 @@ struct AddEntryView: View {
                             }
                             .onChange(of: content) { _, newValue in
                                 entryViewModel.startTimer(content: newValue) // Timer für die Schreibzeit
-                                translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3) // Übersetzungen auslösen
+                                translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3) // Übersetzungen auslösen nach 0.3 Sek ohne Change
                             }
 
                         // Platzhalter mit Inspirationstext, falls das Feld leer ist
@@ -78,8 +75,9 @@ struct AddEntryView: View {
                         }
                     }
                     
-                    Divider() // Trennt den TextEditor von der Wortanzahl
+                    Divider()
                     
+                    // Wort-Zähler
                     HStack {
                         Spacer()
                         Text("\(wordCount) Worte")
@@ -110,7 +108,7 @@ struct AddEntryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             .toolbar {
-                /// **Abbrechen-Button (links)**
+                // Abbrechen-Button (links)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showAlert = true }) {
                         Image(systemName: "xmark")
@@ -119,7 +117,7 @@ struct AddEntryView: View {
                     }
                 }
 
-                /// **Klickbares Datum (Mitte)**
+                // Klickbares Datum (Mitte)
                 ToolbarItem(placement: .principal) {
                     Button(action: { showDatePicker.toggle() }) {
                         Text(entryDate.formatted(date: .abbreviated, time: .omitted))
@@ -128,7 +126,7 @@ struct AddEntryView: View {
                     }
                 }
 
-                /// **Speichern-Button (rechts)**
+                // Speichern-Button (rechts)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         Task {
@@ -139,7 +137,7 @@ struct AddEntryView: View {
                         Image(systemName: "checkmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                            .frame(width: capsuleWidth, height: capsuleHeight)
+                            .frame(width: 60, height: 30)
                             .background(
                                 Capsule().fill(content.isEmpty ? Color(UIColor.systemGray4) : colorManager.currentColor.color)
                             )
@@ -149,13 +147,13 @@ struct AddEntryView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
 
-            // **Tipp auf den Bildschirm schließt die Tastatur**
+            // Tipp auf den Bildschirm schließt die Tastatur
             .contentShape(Rectangle())
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
 
-            // **Lädt die bevorzugte Sprache beim Öffnen**
+            // Lädt die bevorzugte Sprache beim Öffnen
             .task {
                 await translationViewModel.fetchUserPreferredLanguage()
             }
@@ -163,7 +161,7 @@ struct AddEntryView: View {
                 UITextView.appearance().tintColor = UIColor.gray // Setzt die Cursor-Farbe
             }
 
-            // **Datumsauswahl als Sheet**
+            // Datumsauswahl als Sheet
             .sheet(isPresented: $showDatePicker) {
                 VStack {
                     DatePicker("Datum wählen", selection: $entryDate, in: ...Date(), displayedComponents: .date)
@@ -178,7 +176,7 @@ struct AddEntryView: View {
                 .presentationDetents([.medium])
             }
 
-            // **Bestätigungsdialog für Abbrechen**
+            // Bestätigungsdialog für Abbrechen
             .alert("Änderungen verwerfen?", isPresented: $showAlert) {
                 Button("Abbrechen", role: .cancel) {}
                 Button("Verwerfen", role: .destructive) { dismiss() }

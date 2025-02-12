@@ -3,25 +3,24 @@ import SwiftUI
 struct EntryDetailView: View {
     @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
-    @ObservedObject var translationViewModel: TranslationViewModel
+    @StateObject private var translationViewModel = TranslationViewModel(translationRepository: TranslationAPIRepository(), userAuthRepository: UserAuthRepository())
     @StateObject private var speechViewModel = SpeechViewModel()
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) var colorScheme
     
-    let entryId: String // Speichert nur die ID, um immer die aktuelle Version des Eintrags zu verwenden
     @State private var showDatePicker = false // Steuert die Sichtbarkeit des DatePickers
 
-    let capsuleWidth: CGFloat = 60
-    let capsuleHeight: CGFloat = 30
+    let entryId: String // Speichert nur die ID, um immer die aktuelle Version des Eintrags zu verwenden
 
-    init(entryViewModel: EntryViewModel, colorManager: ColorManager, translationViewModel: TranslationViewModel, entryId: String) {
+
+    init(entryViewModel: EntryViewModel, colorManager: ColorManager, entryId: String) {
         self.entryViewModel = entryViewModel
         self.colorManager = colorManager
-        self.translationViewModel = translationViewModel
         self.entryId = entryId
     }
     
-    /// Holt den aktuellen Eintrag aus dem ViewModel anhand der ID
+    // Holt den aktuellen Eintrag aus dem ViewModel anhand der ID
     private var entry: JournalEntry? {
         entryViewModel.entries.first { $0.id == entryId }
     }
@@ -54,18 +53,28 @@ struct EntryDetailView: View {
             }
             // Overlay für Text-to-Speech Button
             .overlay(
-                SpeechButtonView(
-                    speechViewModel: speechViewModel,
-                    textToSpeak: translationViewModel.translatedText,
-                    color: colorManager.currentColor.color
-                ),
+                Button(action: {
+                    // Wechselt den Speech-Modus mit dem aktuell zu sprechenden Text
+                    speechViewModel.toggleSpeech(text: translationViewModel.translatedText)
+                }) {
+                    Image(systemName: speechViewModel.iconForSpeechState())
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .padding()
+                        // Kreisförmiger Hintergrund mit der aktuell ausgewählten Farbe
+                        .background(Circle().fill(colorManager.currentColor.color))
+                        .foregroundColor(.white)
+                }
+                // Padding rund um den Button
+                .padding(),
                 alignment: .bottomLeading
             )
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            /// **Linke Toolbar: Schließen oder Bearbeitung beenden**
+            // Linke Toolbar: Schließen oder Bearbeitung beenden
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     if entryViewModel.isEditing {
@@ -76,13 +85,11 @@ struct EntryDetailView: View {
                 }) {
                     Image(systemName: "xmark")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                        .frame(width: capsuleWidth, height: capsuleHeight)
-                        .background(Capsule().fill(Color(UIColor.systemGray2)))
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
             }
 
-            /// **Zentrale Toolbar: Anzeige oder Bearbeitung des Erstellungsdatums**
+            // Zentrale Toolbar: Anzeige oder Bearbeitung des Erstellungsdatums
             ToolbarItem(placement: .principal) {
                 if entryViewModel.isEditing {
                     // Klickbares Datum öffnet DatePicker im Bearbeitungsmodus
@@ -116,7 +123,7 @@ struct EntryDetailView: View {
                 }
             }
 
-            /// **Rechte Toolbar: Bearbeiten oder Speichern**
+            // Rechte Toolbar: Bearbeiten oder Speichern
             ToolbarItem(placement: .navigationBarTrailing) {
                 if entryViewModel.isEditing {
                     // Speichern-Button
@@ -124,7 +131,7 @@ struct EntryDetailView: View {
                         Image(systemName: "checkmark")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                            .frame(width: capsuleWidth, height: capsuleHeight)
+                            .frame(width: 60, height: 30)
                             .background(Capsule().fill(colorManager.currentColor.color))
                     }
                 } else {
@@ -133,7 +140,7 @@ struct EntryDetailView: View {
                         Image(systemName: "pencil")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                            .frame(width: capsuleWidth, height: capsuleHeight)
+                            .frame(width: 60, height: 30)
                             .background(Capsule().fill(colorManager.currentColor.color))
                     }
                 }

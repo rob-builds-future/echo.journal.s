@@ -20,21 +20,21 @@ struct EntryRow: View {
                 .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.2),
                         radius: 4, x: 0, y: 0)
             
-            HStack(spacing: 0) {
+            VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 0) {
                     // Entry-Inhalt
                     Text(entry.content)
                         .font(.system(size: 14, weight: .regular, design: .rounded))
-                        .lineLimit(5)
+                        .lineLimit(8)
                         .truncationMode(.tail)
-                        .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.9) : Color.black.opacity(0.9))
-                        .frame(minHeight: 70, alignment: .top)
+                        //.foregroundColor(colorScheme == .dark ? Color.white.opacity(0.9) : Color.black.opacity(0.9))
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
-                .padding()
+                .frame(height: 100, alignment: .top)
+                .padding([.top, .horizontal])
                 
-                Spacer()
-                // Menü-Button auf der rechten Seite
-                VStack(spacing: 0) {
+                // Menü-Button auf der rechten Seite unten
+                HStack(spacing: 0) {
                     Spacer()
                     Menu {
                         NavigationLink(value: entry) {
@@ -67,17 +67,19 @@ struct EntryRow: View {
                         }
                     } label: {
                         CustomCornerShape(topLeft: 12, topRight: 0, bottomLeft: 0, bottomRight: 12)
-                            .fill(colorManager.currentColor.color.opacity(0.5))
-                            .frame(width: 56, height: 56)
+                            //.fill(colorScheme == .dark ? .white : .black)
+                            .fill(colorScheme == .dark ? Color.white.opacity(0.9) : Color.black.opacity(0.9))
+                            .frame(width: 56, height: 28)
                             .overlay(
                                 Image(systemName: "ellipsis")
                                     .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                    //.foregroundColor(colorScheme == .dark ? .black : .white)
+                                    .foregroundColor(colorScheme == .dark ? Color.black.opacity(0.9) : Color.white.opacity(0.9))
                             )
                     }
                 }
             }
-            .padding(.top, 20)
+            .padding(.top, 24)
         }
         // Alle Elemente (Datum, Wortanzahl, Dauer) werden rechts positioniert
         .overlay(
@@ -85,12 +87,14 @@ struct EntryRow: View {
                 // Datumsbadge
                 Text(entry.createdAt.formatted(date: .abbreviated, time: .omitted))
                     .font(.system(size: 14, weight: .bold, design: .rounded))
-                    .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
+                    //.foregroundColor(colorScheme == .dark ? .black : .white)
+                    .foregroundColor(colorScheme == .dark ? Color.black.opacity(0.9) : Color.white.opacity(0.9))
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(
                         CustomCornerShape(topLeft: 12, topRight: 0, bottomLeft: 0, bottomRight: 12)
-                            .fill(colorScheme == .dark ? Color.white : Color.black)
+                            //.fill(colorScheme == .dark ? .white : .black)
+                            .fill(colorScheme == .dark ? Color.white.opacity(0.9) : Color.black.opacity(0.9))
                     )
                 Spacer()
                 
@@ -132,6 +136,7 @@ struct EntryRow: View {
         } message: {
             Text("entryDeleteMessage")
         }
+        .frame(maxHeight: 160)
         .padding(.vertical, 4)
     }
 }

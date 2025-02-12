@@ -8,7 +8,7 @@ struct TopWordsTileView: View {
 
     private let pageSize = 10
 
-    /// Unterteilt die Top-Words in Seiten zu je 10 Elementen.
+    // Unterteilt die Top-Words in Seiten zu je 10 Elementen.
     private var pages: [[(word: String, count: Int)]] {
         let topWords = statisticsViewModel.topWords
         var result: [[(word: String, count: Int)]] = []
@@ -68,7 +68,7 @@ struct TopWordsTileView: View {
     }
 }
 
-/// Ausgelagerte View für den TabView-Content
+// Ausgelagerte View für den TabView-Content
 private struct TopWordsPagesView: View {
     let pages: [[(word: String, count: Int)]]
     let translationViewModel: TranslationViewModel

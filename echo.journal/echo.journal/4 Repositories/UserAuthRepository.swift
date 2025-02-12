@@ -3,8 +3,8 @@ import FirebaseAuth
 class UserAuthRepository {
     let auth = Auth.auth()
 
-    /// Registriert einen neuen Benutzer mit E-Mail und Passwort.
-    /// Erstellt anschließend eine User-Instanz mit Standardwerten.
+    // Registriert einen neuen Benutzer mit E-Mail und Passwort.
+    // Erstellt anschließend eine User-Instanz mit Standardwerten.
     func signUp(email: String, password: String) async throws -> User {
         do {
             let authResult = try await auth.createUser(withEmail: email, password: password)
@@ -26,8 +26,8 @@ class UserAuthRepository {
         }
     }
 
-    /// Meldet einen Benutzer mit E-Mail und Passwort an.
-    /// Ruft nach erfolgreicher Authentifizierung die Benutzerdaten aus Firestore ab.
+    // Meldet einen Benutzer mit E-Mail und Passwort an.
+    // Ruft nach erfolgreicher Authentifizierung die Benutzerdaten aus Firestore ab.
     func signIn(email: String, password: String) async throws -> User {
         do {
             let authResult = try await auth.signIn(withEmail: email, password: password)
@@ -59,8 +59,8 @@ class UserAuthRepository {
         }
     }
 
-    /// Gibt den aktuell angemeldeten Benutzer zurück, falls vorhanden.
-    /// Holt die vollständigen Benutzerdaten aus Firestore.
+    // Gibt den aktuell angemeldeten Benutzer zurück, falls vorhanden.
+    // Holt die vollständigen Benutzerdaten aus Firestore.
     func getCurrentUser() async throws -> User? {
         guard let firebaseUser = auth.currentUser else { return nil }
         

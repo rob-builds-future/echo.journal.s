@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct StatisticsView: View {
-    // MARK: - Observed Objects
+    // Observed Objects
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var statisticsViewModel: StatisticsViewModel
     @ObservedObject var translationViewModel: TranslationViewModel
     @ObservedObject var colorManager: ColorManager
     
-    // MARK: - Environment Values
+    // Environment Values
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) var colorScheme
     
-    // MARK: - Initializer
+    // Initializer
     init(userViewModel: UserViewModel,
          statisticsViewModel: StatisticsViewModel,
          translationViewModel: TranslationViewModel,
@@ -49,7 +49,7 @@ struct StatisticsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            /// **Abbrechen-Button (links)**
+            // **Abbrechen-Button (links)**
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { dismiss() }) {
                     Image(systemName: "xmark")

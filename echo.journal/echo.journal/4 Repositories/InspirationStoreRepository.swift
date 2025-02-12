@@ -1,6 +1,6 @@
 import FirebaseFirestore
 
-/// Protokoll für das Abrufen von Inspirationen.
+// Protokoll für das Abrufen von Inspirationen.
 protocol InspirationRepositoryProtocol {
     func fetchInspirations(completion: @escaping (Result<[Inspiration], Error>) -> Void)
 }
@@ -8,8 +8,8 @@ protocol InspirationRepositoryProtocol {
 class InspirationStoreRepository: InspirationRepositoryProtocol {
     private let store = Firestore.firestore()
     
-    /// Ruft eine Liste von Inspirationen aus Firestore ab.
-    /// Gibt das Ergebnis über einen `completion`-Handler zurück.
+    // Ruft eine Liste von Inspirationen aus Firestore ab.
+    // Gibt das Ergebnis über einen `completion`-Handler zurück.
     func fetchInspirations(completion: @escaping (Result<[Inspiration], Error>) -> Void) {
         store.collection("inspirations").getDocuments { snapshot, error in
             if let error = error {

@@ -4,7 +4,7 @@ import FirebaseAuth
 class UserStoreRepository {
     let store = Firestore.firestore()
 
-    /// Erstellt einen neuen Benutzer in Firestore.
+    // Erstellt einen neuen Benutzer in Firestore.
     func createUser(_ user: User) async throws {
         try await store.collection(DocumentPath.users.rawValue)
             .document(user.id)
@@ -17,8 +17,8 @@ class UserStoreRepository {
             ])
     }
 
-    /// Holt einen Benutzer aus Firestore anhand der ID.
-    /// Gibt `nil` zurück, falls der Benutzer nicht existiert.
+    // Holt einen Benutzer aus Firestore anhand der ID.
+    // Gibt `nil` zurück, falls der Benutzer nicht existiert.
     func getUser(id: String) async throws -> User? {
         let document = try await store.collection(DocumentPath.users.rawValue)
             .document(id)
@@ -39,7 +39,7 @@ class UserStoreRepository {
         )
     }
 
-    /// Holt die bevorzugte Sprache eines Benutzers aus Firestore.
+    // Holt die bevorzugte Sprache eines Benutzers aus Firestore.
     func getPreferredLanguage(userId: String) async throws -> Language {
         print("Lade bevorzugte Sprache für User ID: \(userId)")
         let document = try await store.collection("users").document(userId).getDocument()
@@ -58,7 +58,7 @@ class UserStoreRepository {
         return preferredLanguage
     }
 
-    /// Aktualisiert den Benutzernamen und die bevorzugte Sprache in Firestore.
+    // Aktualisiert den Benutzernamen und die bevorzugte Sprache in Firestore.
     func updateUser(id: String, username: String, preferredLanguage: Language) async throws {
         try await store.collection(DocumentPath.users.rawValue)
             .document(id)
@@ -68,7 +68,7 @@ class UserStoreRepository {
             ])
     }
 
-    /// Löscht einen Benutzer aus Firestore und entfernt das zugehörige Auth-Konto.
+    // Löscht einen Benutzer aus Firestore und entfernt das zugehörige Auth-Konto.
     func deleteUser(id: String) async throws {
         // 1. Benutzer aus Firestore entfernen
         try await store.collection(DocumentPath.users.rawValue)
