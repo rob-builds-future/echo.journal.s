@@ -63,8 +63,6 @@ class TranslationViewModel: ObservableObject {
     }
     
     // Verzögert den Start der Übersetzung bei Texteingabe, um zu häufige Übersetzungsaufrufe zu vermeiden.
-    // - Parameter newValue: Der aktuelle Texteingabewert.
-    // - Parameter debounceTime: Zeitintervall für die Verzögerung.
     func handleTextChange(newValue: String, debounceTime: TimeInterval) {
         translationDebounceTimer?.invalidate() // Falls ein vorheriger Timer existiert, wird dieser gestoppt, um Mehrfachauslösungen zu vermeiden.
         translationDebounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false) { _ in   // Es wird ein neuer Timer erstellt, der nach 'debounceTime' Sekunden auslöst.
