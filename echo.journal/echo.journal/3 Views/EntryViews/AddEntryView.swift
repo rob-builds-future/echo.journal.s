@@ -164,7 +164,7 @@ struct AddEntryView: View {
             // Datumsauswahl als Sheet
             .sheet(isPresented: $showDatePicker) {
                 VStack {
-                    DatePicker("Datum wählen:", selection: $entryDate, in: ...Date(), displayedComponents: .date)
+                    DatePicker("selectDate", selection: $entryDate, in: ...Date(), displayedComponents: .date)
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .padding()
 

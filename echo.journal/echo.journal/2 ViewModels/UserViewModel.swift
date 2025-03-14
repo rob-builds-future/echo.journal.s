@@ -14,6 +14,7 @@ class UserViewModel: ObservableObject {
     let storeRepository: UserStoreRepository
     
     // MARK: - Lifecycle/Initializer
+    
     init(authRepository: UserAuthRepository, storeRepository: UserStoreRepository) {
         self.authRepository = authRepository
         self.storeRepository = storeRepository
@@ -44,7 +45,7 @@ class UserViewModel: ObservableObject {
             self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
             
         } catch {
-            self.errorMessage = "Registrierung fehlgeschlagen: \(error.localizedDescription)"
+            self.errorMessage = String(format: NSLocalizedString("signUpError", comment: ""), error.localizedDescription)
         }
         
         isLoading = false
@@ -72,6 +73,7 @@ class UserViewModel: ObservableObject {
             
         } catch {
             self.errorMessage = "Login fehlgeschlagen: \(error.localizedDescription)"
+            self.errorMessage = String(format: NSLocalizedString("signInError", comment: ""), error.localizedDescription)
         }
         
         isLoading = false
@@ -141,7 +143,7 @@ class UserViewModel: ObservableObject {
     
     func startVM() {
         Task {
-            let minimumLoadingTime: UInt64 = 3_000_000_000 // 1 Sekunde in Nanosekunden
+            let minimumLoadingTime: UInt64 = 3_000_000_000 // 3 Sekunden in Nanosekunden
             let startTime = DispatchTime.now() // Startzeit des Ladevorgangs
             
             do {
@@ -149,8 +151,7 @@ class UserViewModel: ObservableObject {
                 if let user = try await authRepository.getCurrentUser() {
                     currentUser = user
                     isLoggedIn = true
-//
-//                        // 2. Onboarding-Status des Benutzers laden
+                        // 2. Onboarding-Status des Benutzers laden
                         let userId = user.id
                         let onboardingKey = "hasCompletedOnboarding_\(userId)"
                         hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
@@ -167,13 +168,4 @@ class UserViewModel: ObservableObject {
             isLoading = false // Ladezustand beenden
         }
     }
-    
-    //func updateOnboardingStatus() {
-    //    hasCompletedOnboarding = true // Setze den Onboarding-Status auf abgeschlossen
-    //    UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
-    //}
-    
-    //private func loadOnboardingStatus() {
-    //    hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding") // Lade den Status
-    //}
 }

@@ -30,7 +30,7 @@ struct SignUpSignInView: View {
                     .scaleEffect(0.7)
                 
                 // App-Name
-                Text("echoDot")
+                Text("echo.")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                 
@@ -39,14 +39,14 @@ struct SignUpSignInView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     // Hauptüberschrift (Anmelden / Registrieren)
                     Text(isRegistering
-                         ? "register"
+                         ? "signUp"
                          : "signIn")
                         .font(.system(size: 25, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                     
                     // Untertitel
                     Text(isRegistering
-                         ? "registerInstructions"
+                         ? "signUpInstructions"
                          : "signInInstructions")
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundColor(.white)
@@ -79,7 +79,7 @@ struct SignUpSignInView: View {
                         }
                     } label: {
                         Text(isRegistering
-                             ? "register"
+                             ? "signUp"
                              : "signIn")
                             .font(.system(size: 16, weight: .bold, design: .rounded))
                             .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -112,8 +112,8 @@ struct SignUpSignInView: View {
                     
                     // Umschalter zwischen Anmeldung und Registrierung
                     Button(isRegistering
-                           ? "toLogin"
-                           : "toRegister") {
+                           ? "toSignIn"
+                           : "toSignUp") {
                         isRegistering.toggle()
                     }
                     .font(.system(size: 15, weight: .regular, design: .rounded))
@@ -136,8 +136,4 @@ struct SignUpSignInView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
-}
-
-#Preview {
-    SignUpSignInView(viewModel: UserViewModel(authRepository: UserAuthRepository(), storeRepository: UserStoreRepository()), colorManager: ColorManager())
 }

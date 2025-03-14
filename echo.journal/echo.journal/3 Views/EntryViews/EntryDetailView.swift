@@ -101,7 +101,7 @@ struct EntryDetailView: View {
                     .sheet(isPresented: $showDatePicker) {
                         VStack {
                             // DatePicker für das Erstellungsdatum (keine zukünftigen Daten erlaubt)
-                            DatePicker("Datum auswählen", selection: Binding(
+                            DatePicker("selectDate", selection: Binding(
                                 get: { entryViewModel.selectedDate ?? Date() },
                                 set: { entryViewModel.selectedDate = $0 }
                             ), in: ...Date(), displayedComponents: .date)
