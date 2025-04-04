@@ -4,30 +4,34 @@ struct EntrySectionView: View {
     @Binding var content: String
     var wordCount: Int
     @FocusState.Binding var textEditorFocused: Bool
+    @State private var isTextViewFocused: Bool = false
+    
     
     @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var translationViewModel: TranslationViewModel
     @ObservedObject var inspirationViewModel: InspirationViewModel
     @ObservedObject var colorManager: ColorManager
     
+    
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
-                TextEditor(text: $content)
-                    .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
-                    .padding(4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color(UIColor.systemBackground))
-                    )
-                    .autocorrectionDisabled(true)
-                    .font(.system(size: 16, weight: .regular, design: .rounded))
-                    .focused($textEditorFocused)
-                    .onAppear { textEditorFocused = true }
-                    .onChange(of: content) { _, newValue in
-                        entryViewModel.startTimer(content: newValue)
-                        translationViewModel.handleTextChange(newValue: newValue, debounceTime: 0.3)
-                    }
+                TextViewWithCustomSpacing(
+                    text: $content,
+                    wordCount: wordCount,
+                    onTextChange: { newText in
+                        entryViewModel.startTimer(content: newText)
+                        translationViewModel.handleTextChange(newValue: newText, debounceTime: 0.3)
+                    },
+                    isFocused: $textEditorFocused
+                )
+                .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
+                .padding(4)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(UIColor.systemBackground))
+                )
+                
                 
                 if content.isEmpty, let currentInsp = inspirationViewModel.currentInspiration {
                     HStack(alignment: .top) {
