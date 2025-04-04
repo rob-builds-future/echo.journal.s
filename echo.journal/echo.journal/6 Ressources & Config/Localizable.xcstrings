@@ -1,6 +1,52 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    " %@" : {
+
+    },
+    " kennen – dein Begleiter in dieser App." : {
+
+    },
+    "%@ (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$lld)"
+          }
+        }
+      }
+    },
+    "%@ min" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld " : {
+
+    },
+    "%lld Worte" : {
+
+    },
+    "%lld." : {
+
+    },
+    "Abbrechen" : {
+
+    },
+    "Abmelden" : {
+
+    },
+    "Aktualisiert: %@" : {
+
+    },
+    "Änderungen verwerfen?" : {
+
+    },
     "averageTime" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -59,6 +105,18 @@
         }
       }
     },
+    "Benutzername: %@" : {
+
+    },
+    "Betrachte es als die Stimme deines Zukunfts-Ich, das mit Dir deine Sprachziele erreicht." : {
+
+    },
+    "Bevor es mit dem Schreiben und Lernen los geht, lass uns Dein Tagebuch auf Dich anpassen.\nBitte wähle Deinen Nutzernamen, die Sprache, in die echo deine Tagebucheinträge übersetzt, und die Farbe Deines echo!" : {
+
+    },
+    "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden." : {
+
+    },
     "cancel" : {
       "localizations" : {
         "de" : {
@@ -114,6 +172,12 @@
           }
         }
       }
+    },
+    "Dein Nutzername" : {
+
+    },
+    "Deine Einstellungen" : {
+
     },
     "delete" : {
       "localizations" : {
@@ -172,6 +236,12 @@
         }
       }
     },
+    "e." : {
+
+    },
+    "echo" : {
+
+    },
     "Echo Farbe: %@" : {
       "localizations" : {
         "de" : {
@@ -193,6 +263,9 @@
           }
         }
       }
+    },
+    "echo." : {
+
     },
     "emailAddress" : {
       "comment" : "Email address placeholder",
@@ -308,12 +381,18 @@
         }
       }
     },
+    "Erinnerungen" : {
+
+    },
+    "Farbe" : {
+
+    },
     "Farbe Deines echo." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Farbe Deines echo."
+            "state" : "translated",
+            "value" : "Echo Farbe."
           }
         },
         "en" : {
@@ -328,7 +407,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Favorisieren"
           }
         },
@@ -351,6 +430,18 @@
           }
         }
       }
+    },
+    "Fertig" : {
+
+    },
+    "Hey, ich bin echo!" : {
+
+    },
+    "Hey!" : {
+
+    },
+    "Hier kannst Du Erinnerungen (Push-Benachrichtigungen) einstellen. (Demnächst verfügbar)" : {
+
     },
     "journalTitle" : {
       "extractionState" : "manual",
@@ -381,6 +472,18 @@
         }
       }
     },
+    "Konto löschen" : {
+
+    },
+    "Lerne " : {
+
+    },
+    "Löschen" : {
+
+    },
+    "Mehr Optionen" : {
+
+    },
     "minutesFormat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -409,6 +512,18 @@
           }
         }
       }
+    },
+    "Mitglied seit: %@" : {
+
+    },
+    "Möchtest du die Änderungen wirklich verwerfen?" : {
+
+    },
+    "Neuer Benutzername" : {
+
+    },
+    "Nutzername" : {
+
     },
     "or" : {
       "localizations" : {
@@ -467,11 +582,14 @@
         }
       }
     },
+    "Profil‑Einstellungen" : {
+
+    },
     "selectDate" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Datum wählen:"
           }
         },
@@ -688,6 +806,9 @@
           }
         }
       }
+    },
+    "Speichern" : {
+
     },
     "Sprache Deines echo." : {
       "localizations" : {
@@ -962,6 +1083,24 @@
         }
       }
     },
+    "Verwerfen" : {
+
+    },
+    "Vorlagen" : {
+
+    },
+    "Wähle eine Farbe" : {
+
+    },
+    "Wähle eine Sprache" : {
+
+    },
+    "Wähle Vorlagen für Deine Tagebucheinträge aus. (Demnächst verfügbar)" : {
+
+    },
+    "Weiter" : {
+
+    },
     "writingAchievements" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1019,6 +1158,12 @@
           }
         }
       }
+    },
+    "Zielsprache" : {
+
+    },
+    "Zielsprache: %@" : {
+
     }
   },
   "version" : "1.0"

@@ -2,7 +2,7 @@ import Foundation
 
 class TranslationAPIRepository {
     // Basis-URL des Übersetzungsservers
-    private let baseURL = "http://192.168.68.100:5001/translate" //  192.168.68.100
+    private let baseURL = "https://libre4echo.de/translate"
     
     // Eigene URLSession mit erhöhter Timeout-Konfiguration
     private let session: URLSession = {
@@ -30,8 +30,14 @@ class TranslationAPIRepository {
         
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
         
+        // Daten vom Server abrufen
         let (data, _) = try await session.data(for: request)
         
+        // Debug-Print: Den rohen Response-Body als String ausgeben
+        let rawResponse = String(data: data, encoding: .utf8)
+        print("Response: \(rawResponse ?? "kein Inhalt")")
+        
+        // JSON parsen
         if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
            let translatedText = json["translatedText"] as? String {
             return translatedText
@@ -41,6 +47,7 @@ class TranslationAPIRepository {
             ])
         }
     }
+
     // Führt eine Übersetzung für Top‑Words durch und gibt ein strukturiertes Ergebnis zurück.
         func translateForTopWord(text: String, targetLanguage: String, sourceLanguage: String, alternatives: Int) async throws -> TopWordTranslation {
             guard let url = URL(string: baseURL) else { throw URLError(.badURL) }

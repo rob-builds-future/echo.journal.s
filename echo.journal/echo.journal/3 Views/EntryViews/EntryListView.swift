@@ -4,7 +4,7 @@ struct EntryListView: View {
     // Externe Abhängigkeiten
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var colorManager: ColorManager
-    
+
     // Intern erzeugte ViewModels – einheitlich im init instanziiert
     @StateObject private var entryViewModel: EntryViewModel
     @StateObject private var statisticsViewModel: StatisticsViewModel
@@ -39,8 +39,8 @@ struct EntryListView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                // Statistik-Header – scrollt mit der Liste mit
                 StatisticsHeaderView(
+                    colorManager: colorManager,
                     totalWords: statisticsViewModel.totalWords,
                     totalTime: statisticsViewModel.totalDuration
                 )
