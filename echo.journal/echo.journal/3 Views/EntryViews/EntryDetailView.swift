@@ -5,15 +5,18 @@ struct EntryDetailView: View {
     @ObservedObject var colorManager: ColorManager
     @StateObject private var translationViewModel = TranslationViewModel(translationRepository: TranslationAPIRepository(), userAuthRepository: UserAuthRepository())
     @StateObject private var speechViewModel = SpeechViewModel()
-
+    @StateObject private var ttsViewModel = TtsViewModel()
+    
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) var colorScheme
     
+    @State private var isPlaying = false
+    
     @State private var showDatePicker = false // Steuert die Sichtbarkeit des DatePickers
-
+    
     let entryId: String // Speichert nur die ID, um immer die aktuelle Version des Eintrags zu verwenden
-
-
+    
+    
     init(entryViewModel: EntryViewModel, colorManager: ColorManager, entryId: String) {
         self.entryViewModel = entryViewModel
         self.colorManager = colorManager
@@ -24,7 +27,7 @@ struct EntryDetailView: View {
     private var entry: JournalEntry? {
         entryViewModel.entries.first { $0.id == entryId }
     }
-
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -54,20 +57,30 @@ struct EntryDetailView: View {
             // Overlay für Text-to-Speech Button
             .overlay(
                 Button(action: {
-                    // Wechselt den Speech-Modus mit dem aktuell zu sprechenden Text
-                    speechViewModel.toggleSpeech(text: translationViewModel.translatedText)
+                    if isPlaying {
+                        ttsViewModel.audioPlayer?.pause()
+                        isPlaying = false
+                    } else {
+                        if let player = ttsViewModel.audioPlayer {
+                            player.play()
+                        } else {
+                            Task {
+                                await ttsViewModel.play(text: translationViewModel.translatedText)
+                            }
+                        }
+                        isPlaying = true
+                    }
                 }) {
-                    Image(systemName: speechViewModel.iconForSpeechState())
+                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
                         .padding()
-                        // Kreisförmiger Hintergrund mit der aktuell ausgewählten Farbe
                         .background(Circle().fill(colorManager.currentColor.color))
                         .foregroundColor(.white)
                 }
                 // Padding rund um den Button
-                .padding(),
+                    .padding(),
                 alignment: .bottomLeading
             )
         }
@@ -88,7 +101,7 @@ struct EntryDetailView: View {
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
             }
-
+            
             // Zentrale Toolbar: Anzeige oder Bearbeitung des Erstellungsdatums
             ToolbarItem(placement: .principal) {
                 if entryViewModel.isEditing {
@@ -122,7 +135,7 @@ struct EntryDetailView: View {
                         .foregroundColor(.gray)
                 }
             }
-
+            
             // Rechte Toolbar: Bearbeiten oder Speichern
             ToolbarItem(placement: .navigationBarTrailing) {
                 if entryViewModel.isEditing {

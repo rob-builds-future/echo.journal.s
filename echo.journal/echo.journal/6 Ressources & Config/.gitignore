@@ -1,2 +1,2 @@
-Videos
-*.mp4
+# .gitignore
+Secrets.xcconfig

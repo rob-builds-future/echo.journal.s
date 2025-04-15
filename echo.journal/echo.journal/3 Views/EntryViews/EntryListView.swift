@@ -10,6 +10,8 @@ struct EntryListView: View {
     @StateObject private var statisticsViewModel: StatisticsViewModel
     @StateObject private var inspirationViewModel: InspirationViewModel
     @StateObject private var translationViewModel: TranslationViewModel
+    @StateObject private var ttsViewModel = TtsViewModel()
+
     
     @Environment(\.colorScheme) var colorScheme
     
