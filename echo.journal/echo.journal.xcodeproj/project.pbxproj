@@ -11,11 +11,13 @@
 		03668C062D35288E004752E5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C052D35288E004752E5 /* FirebaseAuth */; };
 		03668C082D35288E004752E5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C072D35288E004752E5 /* FirebaseCore */; };
 		03668C0A2D35288E004752E5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C092D35288E004752E5 /* FirebaseFirestore */; };
+		03D59FE72E26F53C005BADFB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 03D59FE62E26F52F005BADFB /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0359D3DA2D2FBF38002E2F29 /* echo.journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = echo.journal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0360FB452DA9927D0072D6CA /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		03D59FE62E26F52F005BADFB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +46,7 @@
 		0359D3D12D2FBF38002E2F29 = {
 			isa = PBXGroup;
 			children = (
+				03D59FE62E26F52F005BADFB /* .gitignore */,
 				0360FB452DA9927D0072D6CA /* Secrets.xcconfig */,
 				0359D3DC2D2FBF38002E2F29 /* echo.journal */,
 				03668C0B2D352AB3004752E5 /* Frameworks */,
@@ -141,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D59FE72E26F53C005BADFB /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
