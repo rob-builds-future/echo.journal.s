@@ -11,13 +11,16 @@
 		03668C062D35288E004752E5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C052D35288E004752E5 /* FirebaseAuth */; };
 		03668C082D35288E004752E5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C072D35288E004752E5 /* FirebaseCore */; };
 		03668C0A2D35288E004752E5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 03668C092D35288E004752E5 /* FirebaseFirestore */; };
-		03D59FE72E26F53C005BADFB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 03D59FE62E26F52F005BADFB /* .gitignore */; };
+		03D5A5962E2701B0005BADFB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 03D59FE62E26F52F005BADFB /* .gitignore */; };
+		03D5A5972E270295005BADFB /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0360FB452DA9927D0072D6CA /* Secrets.xcconfig */; };
+		03D5A5992E2703AD005BADFB /* echo-journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D5A5982E270393005BADFB /* echo-journal-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0359D3DA2D2FBF38002E2F29 /* echo.journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = echo.journal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0360FB452DA9927D0072D6CA /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		03D59FE62E26F52F005BADFB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		03D5A5982E270393005BADFB /* echo-journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "echo-journal-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,6 +49,7 @@
 		0359D3D12D2FBF38002E2F29 = {
 			isa = PBXGroup;
 			children = (
+				03D5A5982E270393005BADFB /* echo-journal-Info.plist */,
 				03D59FE62E26F52F005BADFB /* .gitignore */,
 				0360FB452DA9927D0072D6CA /* Secrets.xcconfig */,
 				0359D3DC2D2FBF38002E2F29 /* echo.journal */,
@@ -144,7 +148,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D59FE72E26F53C005BADFB /* .gitignore in Resources */,
+				03D5A5972E270295005BADFB /* Secrets.xcconfig in Resources */,
+				03D5A5992E2703AD005BADFB /* echo-journal-Info.plist in Resources */,
+				03D5A5962E2701B0005BADFB /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "echo.journal/Info.plist\n";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "\"Diese App verwendet Face ID zur Authentifizierung.\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
@@ -276,6 +283,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = echo.journal/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "\"Diese App verwendet Face ID zur Authentifizierung.\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
