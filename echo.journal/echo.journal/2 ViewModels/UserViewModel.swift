@@ -151,10 +151,10 @@ class UserViewModel: ObservableObject {
                 if let user = try await authRepository.getCurrentUser() {
                     currentUser = user
                     isLoggedIn = true
-                        // 2. Onboarding-Status des Benutzers laden
-                        let userId = user.id
-                        let onboardingKey = "hasCompletedOnboarding_\(userId)"
-                        hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
+                    // 2. Onboarding-Status des Benutzers laden
+                    let userId = user.id
+                    let onboardingKey = "hasCompletedOnboarding_\(userId)"
+                    hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
                 }
             } catch {
                 errorMessage = "Fehler beim Abrufen des aktuellen Benutzers: \(error.localizedDescription)"
@@ -167,5 +167,38 @@ class UserViewModel: ObservableObject {
             
             isLoading = false // Ladezustand beenden
         }
+    }
+    
+    @Published var showAlert = false
+    @Published var alertTitle = ""
+    @Published var alertMessage = ""
+    
+    /// Send password reset email
+    func resetPassword(email: String) async {
+        guard !email.isEmpty else {
+            showAlert(title: NSLocalizedString("errorTitle", comment: "Error"), message: NSLocalizedString("enterEmailError", comment: "Bitte E-Mail eingeben"))
+            return
+        }
+        isLoading = true
+        
+        do {
+            try await authRepository.resetPassword(email: email)
+            showAlert(title: NSLocalizedString("successTitle", comment: "Success"), message: NSLocalizedString("passwordResetSent", comment: "Reset-Link gesendet"))
+        } catch {
+            showAlert(title: NSLocalizedString("errorTitle", comment: "Error"), message: String(format: NSLocalizedString("passwordResetError", comment: "Fehler beim Zurücksetzen"), error.localizedDescription))
+        }
+        isLoading = false
+    }
+    
+    private func showAlert(title: String, message: String) {
+        alertTitle = title
+        alertMessage = message
+        showAlert = true
+    }
+    
+    func clearAlert() {
+        showAlert = false
+        alertTitle = ""
+        alertMessage = ""
     }
 }

@@ -35,5 +35,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(ColorManager()) // Stellt sicher, dass ColorManager in der Vorschau verfügbar ist
+        .environmentObject(ColorManager())
 }

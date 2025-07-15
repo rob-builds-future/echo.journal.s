@@ -32,7 +32,9 @@ struct EntryList: View {
                     }
                 )
                 .background(
-                    NavigationLink("", value: entry) // Unsichtbarer NavigationLink im Hintergrund
+                    NavigationLink(value: entry) {
+                        Text(verbatim: "")    // hier wird nichts in den Catalog extrahiert
+                    } // Unsichtbarer NavigationLink im Hintergrund
                         .opacity(0) // Komplett unsichtbar
                 )
                 .contentShape(RoundedRectangle(cornerRadius: 12)) // Klickbereich exakt auf RoundedRectangle begrenzen

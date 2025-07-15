@@ -41,15 +41,15 @@ struct SignUpSignInView: View {
                     Text(isRegistering
                          ? "signUp"
                          : "signIn")
-                        .font(.system(size: 25, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                    .font(.system(size: 25, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
                     
                     // Untertitel
                     Text(isRegistering
                          ? "signUpInstructions"
                          : "signInInstructions")
-                        .font(.system(size: 15, weight: .regular, design: .rounded))
-                        .foregroundColor(.white)
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundColor(.white)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -63,6 +63,23 @@ struct SignUpSignInView: View {
                 // Eingabefeld für Passwort
                 SecureField("password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                // Forgot Password Button
+                if !isRegistering {
+                    HStack {
+                        Spacer()
+                        Button {
+                            Task {
+                                await viewModel.resetPassword(email: email)
+                            }
+                        } label: {
+                            Text("forgotPassword")
+                                .font(.system(size: 14, weight: .regular, design: .rounded))
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.bottom, 8)
+                }
                 
                 if viewModel.isLoading {
                     // Ladeindikator während der Authentifizierung
@@ -81,12 +98,12 @@ struct SignUpSignInView: View {
                         Text(isRegistering
                              ? "signUp"
                              : "signIn")
-                            .font(.system(size: 16, weight: .bold, design: .rounded))
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .padding(.vertical, 12)
-                            .frame(maxWidth: .infinity)
-                            .background(colorScheme == .dark ? .black : .white)
-                            .cornerRadius(8)
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding(.vertical, 12)
+                        .frame(maxWidth: .infinity)
+                        .background(colorScheme == .dark ? .black : .white)
+                        .cornerRadius(8)
                     }
                     
                     // Visueller Divider mit "ODER" in der Mitte
@@ -116,8 +133,8 @@ struct SignUpSignInView: View {
                            : "toSignUp") {
                         isRegistering.toggle()
                     }
-                    .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .foregroundColor(.white)
+                           .font(.system(size: 15, weight: .regular, design: .rounded))
+                           .foregroundColor(.white)
                 }
                 
                 // Fehlermeldung, falls vorhanden
@@ -129,6 +146,15 @@ struct SignUpSignInView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 20)
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(
+                    title: Text(viewModel.alertTitle),
+                    message: Text(viewModel.alertMessage),
+                    dismissButton: .default(Text("OK")) {
+                        viewModel.clearAlert()
+                    }
+                )
+            }
         }
         .contentShape(Rectangle()) // Macht den gesamten Bereich tappable
         .onTapGesture {

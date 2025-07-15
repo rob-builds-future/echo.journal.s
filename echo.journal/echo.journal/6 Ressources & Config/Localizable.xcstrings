@@ -1,12 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
-    " %@" : {
-
-    },
     " kennen – dein Begleiter in dieser App." : {
 
     },
@@ -35,9 +29,6 @@
     "%lld." : {
 
     },
-    "Abbrechen" : {
-
-    },
     "Abmelden" : {
 
     },
@@ -48,62 +39,10 @@
 
     },
     "averageTime" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ø Zeit"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avg. time"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avg. time"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Méd. tempo"
-          }
-        }
-      }
+
     },
     "averageWords" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ø Worte"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avg. words"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Avg. words"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Méd. palavras"
-          }
-        }
-      }
+
     },
     "Benutzername: %@" : {
 
@@ -121,57 +60,20 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Abbrechen"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancelar"
           }
         }
       }
     },
     "days" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tage"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "days"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "days"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "dias"
-          }
-        }
-      }
+
     },
     "Dein Nutzername" : {
 
@@ -180,61 +82,10 @@
 
     },
     "delete" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Excluir"
-          }
-        }
-      }
+
     },
     "durationFormat" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d Stunden %d Minuten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d hours %d minutes"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d hours %d minutes"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d horas %d minutos"
-          }
-        }
-      }
+      "comment" : "Format für Dauer in Stunden und Minuten"
     },
     "e." : {
 
@@ -243,26 +94,7 @@
 
     },
     "Echo Farbe: %@" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Echo Farbe: %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Echo color: %@"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Echo Color: %@"
-          }
-        }
-      }
+
     },
     "echo." : {
 
@@ -282,13 +114,7 @@
             "value" : "Email address"
           }
         },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Email address"
-          }
-        },
-        "pt" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Endereço de e-mail"
@@ -296,143 +122,98 @@
         }
       }
     },
-    "entryCount" : {
-      "extractionState" : "manual",
+    "enterEmailError" : {
+      "comment" : "Bitte E-Mail eingeben",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Einträge"
+            "state" : "new",
+            "value" : "Bitte E-Mail eingeben."
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "entries"
+            "state" : "new",
+            "value" : "Please enter your email."
           }
         },
-        "en-GB" : {
+        "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "entries"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "entradas"
+            "state" : "new",
+            "value" : "Por favor, insira seu e-mail."
           }
         }
       }
+    },
+    "entryCount" : {
+
     },
     "entryDeleteMessage" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dieser Eintrag wird dauerhaft gelöscht. Möchtest du fortfahren?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This entry will be permanently deleted. Do you want to proceed?"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This entry will be permanently deleted. Do you want to proceed?"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Esta entrada será excluída permanentemente. Deseja continuar?"
-          }
-        }
-      }
+
     },
     "entryDeleteTitle" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eintrag löschen?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete entry?"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete entry?"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Excluir entrada?"
-          }
-        }
-      }
+
     },
     "Erinnerungen" : {
 
+    },
+    "errorTitle" : {
+      "comment" : "Error",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fehler"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Erro"
+          }
+        }
+      }
     },
     "Farbe" : {
 
     },
     "Farbe Deines echo." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Echo Farbe."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Echo color."
-          }
-        }
-      }
+
     },
     "favorite" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favorisieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favorise"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favorise"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favoritar"
-          }
-        }
-      }
+
     },
     "Fertig" : {
 
+    },
+    "forgotPassword" : {
+      "comment" : "Forgot password link",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Passwort vergessen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Forgot password?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Esqueceu a senha?"
+          }
+        }
+      }
     },
     "Hey, ich bin echo!" : {
 
@@ -444,33 +225,7 @@
 
     },
     "journalTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@'s Tagebuch"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@'s Journal"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@'s Journal"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O diário de %@"
-          }
-        }
-      }
+      "comment" : "Titel des Tagebuchs eines Nutzers"
     },
     "Konto löschen" : {
 
@@ -485,33 +240,7 @@
 
     },
     "minutesFormat" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d Minuten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d minutes"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d minutes"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d minutos"
-          }
-        }
-      }
+      "comment" : "Durchschnittliche Dauer in Minuten"
     },
     "Mitglied seit: %@" : {
 
@@ -525,33 +254,11 @@
     "Nutzername" : {
 
     },
+    "OK" : {
+
+    },
     "or" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ODER"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OR"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OR"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OU"
-          }
-        }
-      }
+
     },
     "password" : {
       "comment" : "Password placeholder",
@@ -568,16 +275,56 @@
             "value" : "Password"
           }
         },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password"
-          }
-        },
-        "pt" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Senha"
+          }
+        }
+      }
+    },
+    "passwordResetError" : {
+      "comment" : "Fehler beim Zurücksetzen",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Zurücksetzen fehlgeschlagen: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not send reset link: %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Falha ao enviar link: %@"
+          }
+        }
+      }
+    },
+    "passwordResetSent" : {
+      "comment" : "Reset-Link gesendet",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ein Link zum Zurücksetzen wurde gesendet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A reset link has been sent to your email."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Link de redefinição enviado para seu e-mail."
           }
         }
       }
@@ -586,60 +333,10 @@
 
     },
     "selectDate" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Datum wählen:"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select date:"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Select date:"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selecionar data:"
-          }
-        }
-      }
+
     },
     "showEntry" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eintrag anzeigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show entry"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Show entry"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mostrar entrada"
-          }
-        }
-      }
+
     },
     "signIn" : {
       "comment" : "Sign in button title",
@@ -656,21 +353,16 @@
             "value" : "Sign In"
           }
         },
-        "en-GB" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sign In"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Login"
+            "value" : "Entrar"
           }
         }
       }
     },
     "signInError" : {
+      "comment" : "Error: sign in failed",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -684,22 +376,16 @@
             "value" : "Sign In failed: %@"
           }
         },
-        "en-GB" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sign In failed: %@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Login falhou: %@"
+            "value" : "Falha ao entrar: %@"
           }
         }
       }
     },
     "signInInstructions" : {
-      "comment" : "Sign in instructions",
+      "comment" : "Subtitle: sign in",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -713,22 +399,16 @@
             "value" : "Sign in with email address and password."
           }
         },
-        "en-GB" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sign in with email address and password."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Entre com seu endereço de e-mail e senha."
+            "value" : "Entre com seu e-mail e senha."
           }
         }
       }
     },
     "signUp" : {
-      "extractionState" : "manual",
+      "comment" : "Sign up button title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -742,13 +422,7 @@
             "value" : "Sign Up"
           }
         },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign Up"
-          }
-        },
-        "pt" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Registrar"
@@ -757,11 +431,11 @@
       }
     },
     "signUpError" : {
-      "extractionState" : "manual",
+      "comment" : "Error: sign up failed",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Registrierung fehlgeschlagen: %@"
           }
         },
@@ -771,21 +445,16 @@
             "value" : "Sign Up failed: %@"
           }
         },
-        "en-GB" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sign Up failed: %@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "needs_review",
             "value" : "Falha no registro: %@"
           }
         }
       }
     },
     "signUpInstructions" : {
+      "comment" : "Subtitle: sign up",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -799,10 +468,10 @@
             "value" : "Sign Up with email address and password."
           }
         },
-        "pt" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Registre-se com endereço de e-mail e senha."
+            "value" : "Registre-se com e-mail e senha."
           }
         }
       }
@@ -811,138 +480,45 @@
 
     },
     "Sprache Deines echo." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sprache Deines echo."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Language of your echo."
-          }
-        }
-      }
+
     },
     "statistics" : {
-      "comment" : "Title for the statistics screen",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deine Statistik"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your statistics"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your statistics"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suas estatísticas"
-          }
-        }
-      }
+
     },
     "statisticsHeaderTime" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Minuten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "minutes"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "minutes"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "minutos"
-          }
-        }
-      }
+
     },
     "statisticsHeaderWords" : {
+
+    },
+    "successTitle" : {
+      "comment" : "Success",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Worte"
+            "state" : "new",
+            "value" : "Erfolg"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "words"
+            "state" : "new",
+            "value" : "Success"
           }
         },
-        "en-GB" : {
+        "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "words"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "palavras"
+            "state" : "new",
+            "value" : "Sucesso"
           }
         }
       }
     },
     "topWords" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Deine Top-Worte"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your top words"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your top words"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Suas principais palavras"
-          }
-        }
-      }
+
     },
     "toSignIn" : {
-      "extractionState" : "manual",
+      "comment" : "Link: to sign in",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -956,13 +532,7 @@
             "value" : "To Sign In"
           }
         },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To Sign In"
-          }
-        },
-        "pt" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Para fazer login"
@@ -971,11 +541,11 @@
       }
     },
     "toSignUp" : {
-      "extractionState" : "manual",
+      "comment" : "Link: to sign up",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Zur Registrierung"
           }
         },
@@ -985,13 +555,7 @@
             "value" : "To Sign Up"
           }
         },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To Sign Up"
-          }
-        },
-        "pt" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Para se registrar"
@@ -1000,88 +564,13 @@
       }
     },
     "totalTime" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Gesamt Zeit"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total time"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Total time"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tempo total"
-          }
-        }
-      }
+
     },
     "totalWords" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Gesamt Worte"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total words"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Total words"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total de palavras"
-          }
-        }
-      }
+
     },
     "unfavorite" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Entfavorisieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unfavorise"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Unfavorise"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Não favorito"
-          }
-        }
-      }
+
     },
     "Verwerfen" : {
 
@@ -1102,62 +591,10 @@
 
     },
     "writingAchievements" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deine Schreib-Erfolge"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your writing achievements"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your writing achievements"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suas conquistas de escrita"
-          }
-        }
-      }
+
     },
     "writingTracker" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dein Schreib-Tracker"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your writing tracker"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your writing tracker"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu rastreador de escrita"
-          }
-        }
-      }
+
     },
     "Zielsprache" : {
 

@@ -4,8 +4,8 @@ struct EntryDetailView: View {
     @ObservedObject var entryViewModel: EntryViewModel
     @ObservedObject var colorManager: ColorManager
     @StateObject private var translationViewModel = TranslationViewModel(translationRepository: TranslationAPIRepository(), userAuthRepository: UserAuthRepository())
-    @StateObject private var speechViewModel = SpeechViewModel()
     @StateObject private var ttsViewModel = TtsViewModel()
+    @StateObject private var speechViewModel = SpeechViewModel()
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) var colorScheme
@@ -55,23 +55,39 @@ struct EntryDetailView: View {
                 .padding()
             }
             // Overlay für Text-to-Speech Button
+//            .overlay(
+//                Button(action: {
+//                    if isPlaying {
+//                        ttsViewModel.audioPlayer?.pause()
+//                        isPlaying = false
+//                    } else {
+//                        if let player = ttsViewModel.audioPlayer {
+//                            player.play()
+//                        } else {
+//                            Task {
+//                                await ttsViewModel.play(text: translationViewModel.translatedText)
+//                            }
+//                        }
+//                        isPlaying = true
+//                    }
+//                }) {
+//                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 40, height: 40)
+//                        .padding()
+//                        .background(Circle().fill(colorManager.currentColor.color))
+//                        .foregroundColor(.white)
+//                }
+//                // Padding rund um den Button
+//                    .padding(),
+//                alignment: .bottomLeading
+//            )
             .overlay(
                 Button(action: {
-                    if isPlaying {
-                        ttsViewModel.audioPlayer?.pause()
-                        isPlaying = false
-                    } else {
-                        if let player = ttsViewModel.audioPlayer {
-                            player.play()
-                        } else {
-                            Task {
-                                await ttsViewModel.play(text: translationViewModel.translatedText)
-                            }
-                        }
-                        isPlaying = true
-                    }
+                    speechViewModel.toggleSpeech(text: translationViewModel.translatedText)
                 }) {
-                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                    Image(systemName: speechViewModel.iconForSpeechState())
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
@@ -79,8 +95,7 @@ struct EntryDetailView: View {
                         .background(Circle().fill(colorManager.currentColor.color))
                         .foregroundColor(.white)
                 }
-                // Padding rund um den Button
-                    .padding(),
+                .padding(),
                 alignment: .bottomLeading
             )
         }

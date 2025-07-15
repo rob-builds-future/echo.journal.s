@@ -256,7 +256,7 @@ struct SettingsView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 },
-                secondaryButton: .cancel(Text("Abbrechen"))
+                secondaryButton: .cancel(Text("cancel"))
             )
         }
     }

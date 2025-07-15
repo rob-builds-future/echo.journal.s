@@ -2,7 +2,7 @@ import FirebaseAuth
 
 class UserAuthRepository {
     let auth = Auth.auth()
-
+    
     // Registriert einen neuen Benutzer mit E-Mail und Passwort.
     // Erstellt anschließend eine User-Instanz mit Standardwerten.
     func signUp(email: String, password: String) async throws -> User {
@@ -25,7 +25,7 @@ class UserAuthRepository {
             throw error
         }
     }
-
+    
     // Meldet einen Benutzer mit E-Mail und Passwort an.
     // Ruft nach erfolgreicher Authentifizierung die Benutzerdaten aus Firestore ab.
     func signIn(email: String, password: String) async throws -> User {
@@ -48,7 +48,7 @@ class UserAuthRepository {
             throw error
         }
     }
-
+    
     /// Meldet den aktuellen Benutzer ab.
     func signOut() throws {
         do {
@@ -58,7 +58,7 @@ class UserAuthRepository {
             throw error
         }
     }
-
+    
     // Gibt den aktuell angemeldeten Benutzer zurück, falls vorhanden.
     // Holt die vollständigen Benutzerdaten aus Firestore.
     func getCurrentUser() async throws -> User? {
@@ -66,5 +66,18 @@ class UserAuthRepository {
         
         let userStoreRepository = UserStoreRepository()
         return try await userStoreRepository.getUser(id: firebaseUser.uid)
+    }
+    
+    /// Send password reset email via Firebase
+    func resetPassword(email: String) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            auth.sendPasswordReset(withEmail: email) { error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: ())
+                }
+            }
+        }
     }
 }

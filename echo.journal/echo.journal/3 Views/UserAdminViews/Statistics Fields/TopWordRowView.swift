@@ -37,7 +37,7 @@ struct TopWordRowView: View {
             } else {
                 (
                     Text(translationResult.main).bold() +
-                    (translationResult.alternatives.isEmpty ? Text("") : Text(" (" + translationResult.alternatives.joined(separator: ", ") + ")"))
+                    (translationResult.alternatives.isEmpty ? Text(verbatim: "") : Text(" (" + translationResult.alternatives.joined(separator: ", ") + ")"))
                 )
                 .font(.system(size: 14, weight: .regular, design: .rounded))
                 .foregroundColor(.white)

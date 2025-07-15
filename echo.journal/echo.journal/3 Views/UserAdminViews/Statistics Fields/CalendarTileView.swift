@@ -94,7 +94,7 @@ struct CalendarTileView: View {
                                         .frame(width: 30, height: 30)
                                 }
                             } else {
-                                Text("")
+                                Text(verbatim: "")
                             }
                         }
                         .frame(height: 30)

@@ -35,7 +35,7 @@ struct EntrySectionView: View {
                 
                 if content.isEmpty, let currentInsp = inspirationViewModel.currentInspiration {
                     HStack(alignment: .top) {
-                        Text(" \(currentInsp.text)")
+                        Text(verbatim:" \(currentInsp.text)")
                             .font(.system(size: 16, weight: .regular, design: .rounded))
                             .foregroundColor(colorManager.currentColor.color.opacity(0.5))
                             .padding(8)

@@ -120,7 +120,7 @@ struct AddEntryView: View {
                 .presentationDetents([.medium])
             }
             .alert("Änderungen verwerfen?", isPresented: $showAlert) {
-                Button("Abbrechen", role: .cancel) {}
+                Button("cancel", role: .cancel) {}
                 Button("Verwerfen", role: .destructive) { dismiss() }
             } message: {
                 Text("Möchtest du die Änderungen wirklich verwerfen?")

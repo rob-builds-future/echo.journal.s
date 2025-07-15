@@ -18,22 +18,9 @@
 		0360FB452DA9927D0072D6CA /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		036002282DAF06F20072D6CA /* Exceptions for "echo.journal" folder in "echo.journal" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"echo-journal-Info.plist",
-			);
-			target = 0359D3D92D2FBF38002E2F29 /* echo.journal */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0359D3DC2D2FBF38002E2F29 /* echo.journal */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				036002282DAF06F20072D6CA /* Exceptions for "echo.journal" folder in "echo.journal" target */,
-			);
 			path = echo.journal;
 			sourceTree = "<group>";
 		};
@@ -131,12 +118,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				de,
-				"en-GB",
-				fr,
-				es,
-				it,
+				"pt-BR",
 			);
 			mainGroup = 0359D3D12D2FBF38002E2F29;
 			minimizedProjectReferenceProxies = 1;
